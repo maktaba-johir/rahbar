@@ -118,8 +118,8 @@
         <div class="curve-path"><i class="fas fa-sun" id="sun"></i></div>
         <div class="tracker-info">
             <div class="labels-top">
-                <span id="label-running">ওয়াক্ত লোড হচ্ছে...</span>
-                <span id="label-next">পরবর্তী ওয়াক্ত</span>
+                <span id="label-running">ওয়াক্ত লোড হচ্ছে...</span>
+                <span id="label-next">পরবর্তী ওয়াক্ত</span>
             </div>
             <div class="progress-container">
                 <div class="progress-fill" id="progress-fill"></div>
@@ -160,7 +160,7 @@
         <a href="#" class="grid-item"><i class="fas fa-question-circle seba"></i><span>দ্বীনি জিজ্ঞাসা</span></a>
         <a href="#" class="grid-item"><i class="fas fa-shopping-bag seba"></i><span>কেনাকাটা</span></a>
         <a href="#" class="grid-item"><i class="fas fa-bookmark seba"></i><span>বুকমার্ক</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-mosque seba"></i><span>আমার মসজিদ</span></a>
+        <a href="madrasha.html" class="grid-item"><i class="fas fa-school seba"></i><span>আমার মাদরাসা</span></a>
         <a href="https://maktaba-johir.github.io/Questions-of-madrasha/" class="grid-item"><i class="fas fa-file-signature seba"></i><span>বোর্ডপ্রশ্ন</span></a>
         <a href="#" class="grid-item"><i class="fas fa-plus-circle seba"></i><span>আরো দেখুন</span></a>
     </div>
@@ -240,7 +240,7 @@
             document.getElementById('date-text').innerText = now.toLocaleDateString('bn-BD', options);
             
             const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
-            document.getElementById('live-clock').innerText = `সময়: ${h%12||12}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')} ${h>=12?'PM':'AM'}`;
+            document.getElementById('live-clock').innerText = `সময়: ${h%12||12}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')} ${h>=12?'PM':'AM'}`;
 
             const timeStr = h.toString().padStart(2,'0') + ":" + m.toString().padStart(2,'0');
             let current = prayerTimes.find(t => timeStr >= t.start && timeStr <= t.end) || prayerTimes[3];
@@ -253,7 +253,7 @@
             if(diff > 0) {
                 document.getElementById('time-left').innerText = `${Math.floor(diff/60)} মি. ${diff%60} সে. বাকি`;
             } else {
-                document.getElementById('time-left').innerText = "ওয়াক্ত শেষ";
+                document.getElementById('time-left').innerText = "ওয়াক্ত শেষ";
             }
         }
         setInterval(updateLive, 1000); updateLive();
