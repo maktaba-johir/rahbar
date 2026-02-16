@@ -14,12 +14,11 @@
             --text-main: #2f3640;
             --text-red: #c23616;
             --today-bg: #e8f5e9;
+            --target-bg: #fff9c4; /* গুরুত্বপূর্ণ দিন থেকে আসলে এই রঙ দেখাবে */
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); color: var(--text-main); line-height: 1.6; }
 
-        /* Top Navigation */
         .top-nav {
             background: var(--header-green);
             padding: 10px;
@@ -28,83 +27,26 @@
             position: sticky; top: 0; z-index: 1000;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
-        .select-wrapper {
-            flex: 1;
-            background: white;
-            border-radius: 6px;
-            padding: 5px 8px;
-            display: flex;
-            align-items: center;
-        }
-        .select-wrapper select {
-            width: 100%;
-            border: none;
-            outline: none;
-            font-family: inherit;
-            font-weight: 700;
-            font-size: 0.85rem;
-            background: transparent;
-            cursor: pointer;
-        }
+        .select-wrapper { flex: 1; background: white; border-radius: 6px; padding: 5px 8px; display: flex; align-items: center; }
+        .select-wrapper select { width: 100%; border: none; outline: none; font-family: inherit; font-weight: 700; font-size: 0.85rem; background: transparent; cursor: pointer; }
 
-        /* Calendar Card Container */
         #calendar-body { padding-bottom: 30px; }
+        .card { background: white; margin: 15px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; transition: 0.3s; }
+        .card.current-day { border: 2px solid var(--header-green); box-shadow: 0 4px 12px rgba(45, 106, 79, 0.2); background: var(--today-bg); }
+        .card.target-day { border: 2px solid #f1c40f; background: var(--target-bg); }
 
-        .card {
-            background: white;
-            margin: 15px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: 0.3s;
-        }
-
-        /* আজ দিনের বিশেষ ডিজাইন */
-        .card.current-day {
-            border: 2px solid var(--header-green);
-            box-shadow: 0 4px 12px rgba(45, 106, 79, 0.2);
-            background: var(--today-bg);
-        }
-
-        .card-header {
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid var(--border);
-        }
+        .card-header { padding: 15px; text-align: center; border-bottom: 1px solid var(--border); }
         .date-text { font-size: 1.2rem; font-weight: 700; color: var(--header-green); }
         .sub-date { font-size: 0.9rem; color: #666; margin-top: 5px; }
 
-        /* Prayer Grid */
-        .prayer-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        }
-        .grid-item {
-            padding: 12px;
-            text-align: center;
-            border: 0.5px solid #eee;
-        }
+        .prayer-grid { display: grid; grid-template-columns: 1fr 1fr; }
+        .grid-item { padding: 12px; text-align: center; border: 0.5px solid #eee; }
         .label { font-size: 0.75rem; color: #888; display: block; }
         .time { font-weight: 700; font-size: 1rem; color: #333; margin-top: 3px; }
 
-        /* Sections */
-        .section-title {
-            padding: 10px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 0.95rem;
-            background: rgba(0,0,0,0.03);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .triple-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-        }
-
+        .section-title { padding: 10px; text-align: center; font-weight: 700; font-size: 0.95rem; background: rgba(0,0,0,0.03); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .triple-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; }
         .forbidden-text { color: var(--text-red); }
-
         footer { text-align: center; padding: 25px; font-size: 0.8rem; background: white; border-top: 1px solid var(--border); margin-top: 20px; }
     </style>
 </head>
@@ -119,7 +61,7 @@
                 <option value="7">রাজশাহী (+৭)</option>
                 <option value="5">খুলনা (+৫)</option>
                 <option value="-2">চট্টগ্রাম (-২)</option>
-                <option value="1">ময়মনসিংহ (+১)</option>
+                <option value="1">ময়মনসিংহ (+১)</option>
                 <option value="10">রংপুর (+১০)</option>
             </select>
         </div>
@@ -149,26 +91,27 @@
     </div>
 
     <div id="calendar-body"></div>
-
     <footer>সর্বস্বত্ব সংরক্ষিত &copy; ২০২৬-২০২৭ | রাহবার টিম</footer>
 
     <script>
         const bnDays = ["রবিবার", "সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার", "শুক্রবার", "শনিবার"];
         const bnMonths = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
 
-        function toBnNum(num) {
-            return num.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
-        }
+        function toBnNum(num) { return num.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]); }
 
-        // পেজ লোড হলে অটো রান হবে
         window.onload = function() {
-            const now = new Date();
+            const urlParams = new URLSearchParams(window.location.search);
+            const dateParam = urlParams.get('date'); // URL থেকে তারিখ চেক করা
+            
+            const now = dateParam ? new Date(dateParam) : new Date();
+            
             document.getElementById('month').value = now.getMonth();
             document.getElementById('year').value = now.getFullYear();
-            renderCalendar(true); 
+            
+            renderCalendar(true, dateParam); 
         };
 
-        function renderCalendar(autoScroll = false) {
+        function renderCalendar(autoScroll = false, targetDate = null) {
             const month = parseInt(document.getElementById('month').value);
             const year = parseInt(document.getElementById('year').value);
             const offset = parseInt(document.getElementById('district').value);
@@ -183,19 +126,25 @@
                 const dayName = bnDays[dateObj.getDay()];
                 const dateStr = toBnNum(d) + " " + bnMonths[month] + ", " + toBnNum(year);
                 
-                // আজকের দিন শনাক্তকরণ
                 const isToday = (d === today.getDate() && month === today.getMonth() && year === today.getFullYear());
-                const cardId = isToday ? 'today-active' : '';
-                const cardClass = isToday ? 'card current-day' : 'card';
-                const todayTag = isToday ? '<span style="color:var(--text-red)"> (আজ)</span>' : '';
+                
+                // গুরুত্বপূর্ণ দিন থেকে আসা তারিখ কি না চেক
+                let isTarget = false;
+                if(targetDate) {
+                    const t = new Date(targetDate);
+                    isTarget = (d === t.getDate() && month === t.getMonth() && year === t.getFullYear());
+                }
+
+                const cardId = isTarget ? 'target-active' : (isToday ? 'today-active' : '');
+                const cardClass = isTarget ? 'card target-day' : (isToday ? 'card current-day' : 'card');
+                const tag = isTarget ? '<span style="color:#f39c12"> (নির্বাচিত দিবস)</span>' : (isToday ? '<span style="color:var(--text-red)"> (আজ)</span>' : '');
 
                 const cardHtml = `
                 <div class="${cardClass}" id="${cardId}">
                     <div class="card-header">
-                        <div class="date-text">${dayName} ${dateStr}${todayTag}</div>
-                        <div class="sub-date"><i class="fas fa-clock"></i> স্থানীয় সময়সূচী প্রদর্শিত হচ্ছে</div>
+                        <div class="date-text">${dayName} ${dateStr}${tag}</div>
+                        <div class="sub-date"><i class="fas fa-clock"></i> স্থানীয় সময়সূচী প্রদর্শিত হচ্ছে</div>
                     </div>
-
                     <div class="prayer-grid">
                         <div class="grid-item"><span class="label">ফজর</span><span class="time">০৫:${toBnNum(15+offset)} - ০৬:${toBnNum(30+offset)}</span></div>
                         <div class="grid-item"><span class="label">যুহর</span><span class="time">১২:${toBnNum(13+offset)} - ০৪:${toBnNum(16+offset)}</span></div>
@@ -204,14 +153,12 @@
                         <div class="grid-item"><span class="label">মাগরিব</span><span class="time">০৫:${toBnNum(57+offset)} - ০৭:${toBnNum(09+offset)}</span></div>
                         <div class="grid-item"><span class="label">এশা</span><span class="time">০৭:${toBnNum(10+offset)} - ০৫:${toBnNum(10+offset)}</span></div>
                     </div>
-
-                    <div class="section-title forbidden-text">নামাযের নিষিদ্ধ সময়</div>
+                    <div class="section-title forbidden-text">নামাযের নিষিদ্ধ সময়</div>
                     <div class="triple-grid">
                         <div class="grid-item"><span class="label">সূর্যোদয়</span><span class="time">০৬:${toBnNum(31+offset)}</span></div>
                         <div class="grid-item"><span class="label">দুপুর</span><span class="time">১২:${toBnNum(07+offset)}</span></div>
                         <div class="grid-item"><span class="label">সূর্যাস্ত</span><span class="time">০৫:${toBnNum(39+offset)}</span></div>
                     </div>
-
                     <div class="section-title">নফল নামায সমূহ</div>
                     <div class="triple-grid">
                         <div class="grid-item"><span class="label">তাহাজ্জুদ শেষ</span><span class="time">০৫:${toBnNum(10+offset)}</span></div>
@@ -222,14 +169,13 @@
                 body.innerHTML += cardHtml;
             }
 
-            // আজকের দিনের কার্ডে অটো স্ক্রল
             if (autoScroll) {
                 setTimeout(() => {
-                    const activeCard = document.getElementById('today-active');
+                    const activeCard = document.getElementById('target-active') || document.getElementById('today-active');
                     if (activeCard) {
                         activeCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
-                }, 100);
+                }, 300);
             }
         }
     </script>
