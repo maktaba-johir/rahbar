@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>রাহবার - ডিজিটাল ড্যাশবোর্ড</title>
+    
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --primary: #1a472a;
@@ -13,213 +20,243 @@
             --bg: #f4f7f6;
             --card: #ffffff;
             --text: #1a1a1a;
+            --header-grad: linear-gradient(180deg, #2d6a4f, #1a472a);
+            --progress-blue: #3498db;
         }
 
-        [data-theme="dark"] {
-            --bg: #121212;
-            --card: #1e1e1e;
-            --text: #e0e0e0;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); color: var(--text); padding-bottom: 120px; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); color: var(--text); padding-bottom: 30px; }
-
-        /* Header */
         .app-header {
-            background: var(--primary);
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 700;
+            background: var(--primary); color: white; padding: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .brand-area { display: flex; flex-direction: column; }
+        .brand-name { font-size: 1.4rem; font-weight: 700; }
+        .brand-slogan { font-size: 0.62rem; opacity: 0.9; margin-top: -2px; }
+        
+        .loc-box select { 
+            background: rgba(255,255,255,0.2); color: white; border: none; 
+            padding: 5px 10px; border-radius: 20px; outline: none; font-size: 0.8rem;
         }
 
-        /* Sun Tracker */
         .sun-tracker-container {
-            background: linear-gradient(180deg, #2d6a4f, var(--primary));
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            border-bottom-left-radius: 35px;
-            border-bottom-right-radius: 35px;
-            position: relative;
+            background: var(--header-grad); color: white; padding: 20px 15px;
+            text-align: center; border-bottom-left-radius: 35px; border-bottom-right-radius: 35px;
+            margin-bottom: 20px;
+        }
+        
+        .date-display {
+            font-size: 0.85rem; font-weight: 500; margin-bottom: 15px;
+            background: rgba(255,255,255,0.15); display: inline-block;
+            padding: 4px 15px; border-radius: 20px; cursor: pointer; color: white; text-decoration: none;
         }
 
         .curve-path {
-            width: 85%;
-            height: 100px;
-            border: 2px dashed rgba(255,255,255,0.3);
-            border-bottom: none;
-            border-radius: 150px 150px 0 0;
-            margin: 0 auto;
-            position: relative;
+            width: 80%; height: 50px; border: 2px dashed rgba(255,255,255,0.2);
+            border-bottom: none; border-radius: 120px 120px 0 0; margin: 0 auto; position: relative;
         }
+        #sun { position: absolute; font-size: 1.5rem; color: #ffda00; text-shadow: 0 0 10px #f1c40f; transform: translate(-50%, -50%); left: 0%; top: 50px; }
 
-        #sun {
-            position: absolute;
-            font-size: 1.6rem;
-            color: #ffda00;
-            text-shadow: 0 0 15px #f1c40f;
-            transition: all 1s linear;
-            transform: translate(-50%, -50%);
-        }
+        .tracker-info { margin-top: 15px; width: 90%; margin: 15px auto 0; }
+        .labels-top { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
+        .progress-container { width: 100%; height: 8px; background: rgba(255,255,255,0.25); border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--progress-blue); width: 0%; transition: width 1.5s ease-out; }
+        .labels-bottom { display: flex; justify-content: space-between; font-size: 0.85rem; margin-top: 10px; font-weight: 500; }
+        .status-badge { background: #fff; color: var(--primary); padding: 2px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 700; text-decoration: none; }
 
-        .prayer-details { margin-top: 15px; }
-        .current-prayer { font-size: 1.1rem; font-weight: 600; }
+        .category-label { display: flex; align-items: center; gap: 10px; padding: 0 20px; margin: 25px 0 12px; font-size: 1.1rem; font-weight: 700; scroll-margin-top: 80px; }
+        .label-bar { width: 5px; height: 20px; border-radius: 10px; }
         
-        .progress-bar-bg {
-            width: 80%;
-            height: 8px;
-            background: rgba(255,255,255,0.2);
-            margin: 10px auto;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            background: #3498db;
-            width: 65%;
-        }
-        .time-info { font-size: 0.85rem; opacity: 0.9; }
-
-        /* App Grid - Mobile Optimized */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            padding: 20px;
-        }
-
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 15px; }
         .grid-item {
-            background: var(--card);
-            padding: 15px 5px;
-            border-radius: 18px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            text-decoration: none;
-            color: var(--text);
-            transition: 0.2s;
+            background: var(--card); padding: 12px 2px; border-radius: 15px;
+            text-align: center; text-decoration: none; color: var(--text);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
+        .grid-item i { font-size: 1.3rem; margin-bottom: 6px; display: block; }
+        .grid-item span { font-size: 0.65rem; font-weight: 600; display: block; line-height: 1.2; }
 
-        .grid-item i { font-size: 1.7rem; margin-bottom: 6px; display: block; }
-        .grid-item span { font-size: 0.8rem; font-weight: 600; display: block; }
+        /* Colors for different categories */
+        .ilm { color: #27ae60; } .ilm-bar { background: #27ae60; }
+        .amal { color: #2980b9; } .amal-bar { background: #2980b9; }
+        .seba { color: #e67e22; } .seba-bar { background: #e67e22; }
+        .bibidh { color: #8e44ad; } .bibidh-bar { background: #8e44ad; }
 
-        /* Author Card */
-        .author-card {
-            background: var(--card);
-            margin: 20px;
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: white; display: flex; justify-content: space-around;
+            padding: 12px 0; border-top: 1px solid #ddd; z-index: 2000;
         }
+        .nav-item { text-align: center; text-decoration: none; color: #555; font-size: 0.75rem; font-weight: 600; }
+        .nav-item i { font-size: 1.2rem; display: block; margin-bottom: 2px; }
 
-        .author-name { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
-        .author-title { font-size: 0.85rem; margin: 5px 0 15px; opacity: 0.8; }
+        .author-card { background: var(--card); margin: 30px 15px 15px; padding: 20px; border-radius: 20px; text-align: center; }
+        .social-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 15px; }
+        .social-btn { padding: 10px; border-radius: 10px; color: white; text-decoration: none; font-size: 0.7rem; display: flex; flex-direction: column; align-items: center; gap: 4px; }
 
-        .social-links {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        .social-btn {
-            padding: 8px;
-            border-radius: 10px;
-            text-decoration: none;
-            color: white;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        .phone-btn { background: #34495e; }
-        .whatsapp-btn { background: #25d366; }
-        .telegram-btn { background: #0088cc; }
-        .imo-btn { background: #1e90ff; }
-        .facebook-btn { background: #1877f2; }
-        .github-btn { background: #333; }
-
-        footer { text-align: center; padding: 25px; font-size: 0.9rem; font-weight: 600; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 20px; }
+        footer { text-align: center; padding: 15px 15px 130px; font-size: 0.8rem; font-weight: 600; opacity: 0.5; }
     </style>
 </head>
-<body>
+<body onload="animateSun()">
 
-    <div class="app-header">রাহবার</div>
-
-    <div class="sun-tracker-container">
-        <div class="curve-path">
-            <i class="fas fa-sun" id="sun"></i>
+    <div class="app-header">
+        <div class="brand-area">
+            <span class="brand-name">রাহবার</span>
+            <span class="brand-slogan">যা আপনাকে দ্বীন ও দুনিয়াবী পথপ্রদর্শন করবে</span>
         </div>
-        <div class="prayer-details">
-            <div class="current-prayer" id="prayer-name">এখন এশার ওয়াক্ত চলছে</div>
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="progress-fill"></div>
-            </div>
-            <div class="time-info" id="time-left">সময় পার হয়েছে ৬৫% | বাকি ১ ঘণ্টা ২০ মিনিট</div>
+        <div class="loc-box">
+            <select id="district">
+                <option selected>গাজীপুর</option><option>ঢাকা</option><option>চট্টগ্রাম</option><option>সিলেট</option>
+            </select>
         </div>
     </div>
 
+    <div class="sun-tracker-container">
+        <a href="calendar.html" class="date-display" id="date-text">লোড হচ্ছে...</a>
+        <div class="curve-path"><i class="fas fa-sun" id="sun"></i></div>
+        <div class="tracker-info">
+            <div class="labels-top">
+                <span id="label-running">ওয়াক্ত লোড হচ্ছে...</span>
+                <span id="label-next">পরবর্তী ওয়াক্ত</span>
+            </div>
+            <div class="progress-container">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="labels-bottom">
+                <span id="live-clock">০০:০০ PM</span>
+                <a href="prayer_times.html" class="status-badge" id="time-left">-- মি. -- সে. বাকি</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="ilm-sec" class="category-label ilm"><div class="label-bar ilm-bar"></div> ইলম</div>
     <div class="grid">
-        <a href="#" class="grid-item"><i class="fas fa-quran" style="color:#2c3e50"></i><span>কুরআন</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-book-open" style="color:#d35400"></i><span>হাদীস</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-university" style="color:#2980b9"></i><span>শিক্ষাকেন্দ্র</span></a>
-        
-        <a href="#" class="grid-item"><i class="fas fa-info-circle" style="color:#16a085"></i><span>পরিচিতি</span></a>
-        <a href="https://maktaba-johir.github.io/muhasaba/" class="grid-item"><i class="fas fa-edit" style="color:#27ae60"></i><span>মুহাসাবা</span></a>
-        <a href="https://maktaba-johir.github.io/Calculator-Converter/" class="grid-item"><i class="fas fa-calculator" style="color:#8e44ad"></i><span>ক্যালকুলেটর</span></a>
-        
-        <a href="https://maktaba-johir.github.io/Questions-of-madrasha/" class="grid-item"><i class="fas fa-file-alt" style="color:#c0392b"></i><span>প্রশ্ন ব্যাংক</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-mosque" style="color:#2d6a4f"></i><span>নামাযের সময়</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-calendar-check" style="color:#d35400"></i><span>ক্যালেন্ডার</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-book-quran ilm"></i><span>কুরআন</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-book-open ilm"></i><span>হাদীস</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-university ilm"></i><span>শিক্ষাকেন্দ্র</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-info-circle ilm"></i><span>পরিচিতি</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-microphone ilm"></i><span>বয়ান</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-file-alt ilm"></i><span>প্রবন্ধ</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-graduation-cap ilm"></i><span>কোর্স</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-plus-circle ilm"></i><span>আরো দেখুন</span></a>
+    </div>
 
-        <a href="#" class="grid-item"><i class="fas fa-fingerprint" style="color:#7f8c8d"></i><span>তাসবীহ</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-compass" style="color:#e67e22"></i><span>কম্পাস</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-cloud-sun" style="color:#3498db"></i><span>আবহাওয়া</span></a>
+    <div id="amal-sec" class="category-label amal"><div class="label-bar amal-bar"></div> আমল</div>
+    <div class="grid">
+        <a href="#" class="grid-item"><i class="fas fa-book-open-reader amal"></i><span>তিলাওয়া</span></a>
+        <a href="prayer_times.html" class="grid-item"><i class="fas fa-clock amal"></i><span>নামাযের সময়</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-fingerprint amal"></i><span>তাসবীহ</span></a>
+        <a href="https://maktaba-johir.github.io/muhasaba/" class="grid-item"><i class="fas fa-edit amal"></i><span>মুহাসাবা</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-kaaba amal"></i><span>হজ্ব ও ইমরা</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-plus-circle amal"></i><span>আরো দেখুন</span></a>
+    </div>
 
-        <a href="#" class="grid-item"><i class="fas fa-location-arrow" style="color:#2c3e50"></i><span>কিবলা</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-heart" style="color:#e74c3c"></i><span>যাকাত</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-pray" style="color:#f39c12"></i><span>দোয়া</span></a>
+    <div id="seba-sec" class="category-label seba"><div class="label-bar seba-bar"></div> সেবা</div>
+    <div class="grid">
+        <a href="#" class="grid-item"><i class="fas fa-hand-holding-heart seba"></i><span>যাকাত</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-chart-line seba"></i><span>বিনিয়োগ</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-question-circle seba"></i><span>দ্বীনি জিজ্ঞাসা</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-shopping-bag seba"></i><span>কেনাকাটা</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-bookmark seba"></i><span>বুকমার্ক</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-mosque seba"></i><span>আমার মসজিদ</span></a>
+        <a href="https://maktaba-johir.github.io/Questions-of-madrasha/" class="grid-item"><i class="fas fa-file-signature seba"></i><span>বোর্ডপ্রশ্ন</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-plus-circle seba"></i><span>আরো দেখুন</span></a>
+    </div>
+
+    <div id="bibidh-sec" class="category-label bibidh"><div class="label-bar bibidh-bar"></div> বিবিধ</div>
+    <div class="grid">
+        <a href="#" class="grid-item"><i class="fas fa-compass bibidh"></i><span>কিবলা</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-map-marker-alt bibidh"></i><span>মসজিদ খুজি</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-broadcast-tower bibidh"></i><span>লাইভ</span></a>
+        <a href="https://maktaba-johir.github.io/Calculator-Converter/" class="grid-item"><i class="fas fa-calculator bibidh"></i><span>ক্যালকুলেটর</span></a>
+        <a href="calendar.html" class="grid-item"><i class="fas fa-calendar-alt bibidh"></i><span>ক্যালেন্ডার</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-star bibidh"></i><span>গুরুত্বপূর্ণ দিন</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-dharmachakra bibidh"></i><span>আসমাউল হুসনা</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-gear bibidh"></i><span>আরো দেখুন</span></a>
     </div>
 
     <div class="author-card">
-        <div class="author-name">মুফতী জহিরুল ইসলাম</div>
-        <div class="author-title">মুহাদ্দিস ও কম্পিউটার অপারেটর<br>জামি‘আতুল অলিজা ইসলামিয়া মাদরাসা, গাজীপুর।</div>
-        
+        <div style="font-size: 1.15rem; font-weight: 700; color: var(--primary);">মুফতী জহিরুল ইসলাম</div>
+        <div style="font-size: 0.8rem; margin: 6px 0;">জামি‘আতুল অলিজা ইসলামিয়া মাদরাসা, ধীরাশ্রম, গাজীপুর।</div>
         <div class="social-links">
-            <a href="tel:8801742812210" class="social-btn phone-btn"><i class="fas fa-phone"></i> Phone</a>
-            <a href="https://wa.me/8801742812210" class="social-btn whatsapp-btn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-            <a href="https://t.me/johirarif" class="social-btn telegram-btn"><i class="fab fa-telegram"></i> Telegram</a>
-            <a href="https://fimo.onelink.me/?QQl/sm" class="social-btn imo-btn"><i class="fas fa-video"></i> IMO</a>
-            <a href="https://www.facebook.com/786johir" class="social-btn facebook-btn"><i class="fab fa-facebook"></i> Facebook</a>
-            <a href="https://github.com/maktaba-johir" class="social-btn github-btn"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://wa.me/8801742812210" class="social-btn" style="background:#25d366"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="https://www.facebook.com/786johir" class="social-btn" style="background:#1877f2"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="https://t.me/johirarif" class="social-btn" style="background:#0088cc"><i class="fab fa-telegram"></i> Telegram</a>
+            <a href="tel:8801742812210" class="social-btn" style="background:#34495e"><i class="fas fa-phone"></i> Call</a>
+            <a href="https://github.com/maktaba-johir" class="social-btn" style="background:#333"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://fimo.onelink.me/?QQl/sm" class="social-btn" style="background:#1e90ff"><i class="fas fa-video"></i> IMO</a>
         </div>
     </div>
 
-    <footer>
-        সর্বস্বত্ব সংরক্ষিত &copy; ২০২৬ | রাহবার টিম
-    </footer>
+    <footer>সর্বস্বত্ব সংরক্ষিত &copy; ২০২৬ | রাহবার</footer>
+
+    <div class="bottom-nav">
+        <a href="#ilm-sec" class="nav-item"><i class="fas fa-book"></i><span>ইলম</span></a>
+        <a href="#amal-sec" class="nav-item"><i class="fas fa-pray"></i><span>আমল</span></a>
+        <a href="#seba-sec" class="nav-item"><i class="fas fa-hands-helping"></i><span>সেবা</span></a>
+        <a href="#bibidh-sec" class="nav-item"><i class="fas fa-th-large"></i><span>বিবিধ</span></a>
+        <a href="prayer_times.html" class="nav-item"><i class="fas fa-clock"></i><span>নামাজ</span></a>
+    </div>
 
     <script>
-        function updateSunPosition() {
+        const prayerTimes = [
+            { name: "ফজর", start: "05:15", end: "06:30" },
+            { name: "ইশরাক", start: "06:46", end: "09:25" },
+            { name: "চাশত", start: "09:26", end: "12:06" },
+            { name: "যোহর", start: "12:13", end: "16:16" },
+            { name: "আসর", start: "16:17", end: "17:54" },
+            { name: "মাগরিব", start: "17:57", end: "19:09" },
+            { name: "ইশা", start: "19:10", end: "23:59" }
+        ];
+
+        function animateSun() {
             const now = new Date();
-            const totalMinutes = (now.getHours() * 60) + now.getMinutes();
-            const totalDayMinutes = 24 * 60;
-            const percentage = totalMinutes / totalDayMinutes;
-            const angle = percentage * Math.PI;
+            const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
+            const timeStr = h.toString().padStart(2,'0') + ":" + m.toString().padStart(2,'0');
+            let current = prayerTimes.find(t => timeStr >= t.start && timeStr <= t.end) || prayerTimes[3];
+            
+            const startP = current.start.split(':'), endP = current.end.split(':');
+            const startS = (parseInt(startP[0])*3600) + (parseInt(startP[1])*60);
+            const endS = (parseInt(endP[0])*3600) + (parseInt(endP[1])*60);
+            const totalS = (h*3600) + (m*60) + s;
 
-            const x = 50 + 50 * Math.cos(Math.PI - angle);
-            const y = 100 - 100 * Math.sin(angle);
+            let progress = ((totalS - startS) / (endS - startS)) * 100;
+            progress = Math.min(Math.max(progress, 0), 100);
 
-            const sun = document.getElementById('sun');
-            sun.style.left = x + '%';
-            sun.style.top = y + 'px';
+            setTimeout(() => {
+                document.getElementById('progress-fill').style.width = progress + "%";
+                const angle = (progress / 100) * Math.PI;
+                document.getElementById('sun').style.left = (50 + 40 * Math.cos(Math.PI - angle)) + "%";
+                document.getElementById('sun').style.top = (50 - 50 * Math.sin(angle)) + "px";
+                document.getElementById('sun').style.transition = "all 2s ease-out";
+            }, 300);
         }
-        setInterval(updateSunPosition, 1000);
-        updateSunPosition();
-    </script>
 
+        function updateLive() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('date-text').innerText = now.toLocaleDateString('bn-BD', options);
+            
+            const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
+            document.getElementById('live-clock').innerText = `সময়: ${h%12||12}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')} ${h>=12?'PM':'AM'}`;
+
+            const timeStr = h.toString().padStart(2,'0') + ":" + m.toString().padStart(2,'0');
+            let current = prayerTimes.find(t => timeStr >= t.start && timeStr <= t.end) || prayerTimes[3];
+            document.getElementById('label-running').innerText = `${current.name} চলমান`;
+            
+            const endP = current.end.split(':');
+            const endSec = (parseInt(endP[0])*3600) + (parseInt(endP[1])*60);
+            let diff = endSec - ((h*3600) + (m*60) + s);
+            
+            if(diff > 0) {
+                document.getElementById('time-left').innerText = `${Math.floor(diff/60)} মি. ${diff%60} সে. বাকি`;
+            } else {
+                document.getElementById('time-left').innerText = "ওয়াক্ত শেষ";
+            }
+        }
+        setInterval(updateLive, 1000); updateLive();
+    </script>
 </body>
 </html>
