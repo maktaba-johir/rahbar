@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>প্রফেশনাল তাসবীহ কাউন্টার - রাহবার</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1a472a; --bg: #f4f7f6; --accent: #c5d3e2; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); margin: 0; display: flex; flex-direction: column; align-items: center; user-select: none; overflow-x: hidden; }
+        
+        /* সিলেকশন বার */
+        .selection-bar { width: 95%; background: var(--accent); padding: 12px; border-radius: 50px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .arrow-btn { background: none; border: none; font-size: 1.8rem; color: #555; cursor: pointer; transition: 0.2s; }
+        .arrow-btn:active { transform: scale(0.8); }
+        #current-tasbih-ar { font-size: 1.2rem; font-weight: bold; color: var(--primary); text-align: center; flex: 1; direction: rtl; }
+
+        .meaning-text { padding: 10px 15px; text-align: center; font-size: 0.95rem; color: #444; min-height: 50px; max-width: 90%; margin-bottom: 5px; }
+
+        /* টুল বাটনসমূহ */
+        .tools { display: flex; gap: 20px; margin-bottom: 20px; }
+        .tool-btn { background: white; border: 2px solid #a3b899; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #e67e22; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.2s; }
+        .tool-btn:active { transform: scale(0.9); }
+
+        /* মেইন কাউন্টার এরিয়া */
+        .main-counter-container { position: relative; width: 260px; height: 260px; display: flex; align-items: center; justify-content: center; margin-top: 5px; }
+        .circle-svg { position: absolute; transform: rotate(-90deg); }
+        .circle-bg { fill: none; stroke: #dbe4ed; stroke-width: 12; }
+        .circle-progress { fill: none; stroke: #1a472a; stroke-width: 12; stroke-linecap: round; stroke-dasharray: 690; stroke-dashoffset: 690; transition: 0.3s ease-out; }
+        .count-num { font-size: 5.5rem; font-weight: bold; color: #000; z-index: 10; cursor: pointer; }
+
+        /* রাউন্ড ও টোটাল ডিসপ্লে */
+        .round-box { position: absolute; bottom: 0px; right: 10px; background: white; border: 2px solid var(--accent); padding: 8px 18px; border-radius: 50px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .total-box { margin-top: 35px; background: #e9ecef; padding: 6px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: bold; color: #555; }
+
+        /* সেটিংস মোডাল */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 20px; border-radius: 20px; width: 92%; max-width: 450px; max-height: 85vh; overflow-y: auto; text-align: center; position: relative; }
+        
+        .tab-buttons { display: flex; gap: 8px; margin-bottom: 20px; }
+        .tab-btn { flex: 1; padding: 10px; border: 1px solid var(--primary); border-radius: 8px; background: none; cursor: pointer; font-weight: bold; font-family: 'Hind Siliguri'; font-size: 0.85rem; }
+        .tab-btn.active { background: var(--primary); color: white; }
+
+        /* সেটিংস টেবিল */
+        .vib-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
+        .vib-table th { background: #f8f9fa; padding: 10px; color: #666; }
+        .vib-table td { border-bottom: 1px solid #eee; padding: 12px 5px; text-align: center; }
+        .vib-ar { color: #1a472a; font-weight: bold; text-align: right !important; padding-right: 5px; }
+
+        .target-input { width: 45px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 4px; font-weight: bold; }
+
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; }
+        .input-group input, .input-group textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-family: 'Hind Siliguri'; }
+
+        .btn-action { width: 100%; padding: 12px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 10px; font-family: 'Hind Siliguri'; }
+        .btn-save { background: var(--primary); color: white; }
+        .btn-cancel { background: #f1f3f5; color: #444; }
+    </style>
+</head>
+<body>
+
+    <div class="selection-bar">
+        <button class="arrow-btn" onclick="prevTasbih()"><i class="fas fa-caret-left"></i></button>
+        <div id="current-tasbih-ar">লোডিং...</div>
+        <button class="arrow-btn" onclick="nextTasbih()"><i class="fas fa-caret-right"></i></button>
+    </div>
+
+    <div class="meaning-text" id="current-tasbih-bn">...</div>
+
+    <div class="tools">
+        <div class="tool-btn" onclick="openModal()" title="সেটিংস"><i class="fas fa-cog"></i></div>
+        <div class="tool-btn" onclick="resetCurrent()" title="রিসেট"><i class="fas fa-sync-alt"></i></div>
+        <div class="tool-btn" id="soundBtn" onclick="toggleSound()"><i class="fas fa-volume-up"></i></div>
+    </div>
+
+    <div class="main-counter-container" onclick="handleTap()">
+        <svg class="circle-svg" width="240" height="240">
+            <circle class="circle-bg" cx="120" cy="120" r="110"></circle>
+            <circle id="progress-bar" class="circle-progress" cx="120" cy="120" r="110"></circle>
+        </svg>
+        <div class="count-num" id="main-num">০</div>
+        <div class="round-box" id="round-num">০</div>
+    </div>
+
+    <div class="total-box">সর্বমোট তাসবীহ: <span id="total-num">০</span></div>
+
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="tab-buttons">
+                <button id="tab1" class="tab-btn active" onclick="switchTab(1)">নতুন তাসবীহ</button>
+                <button id="tab2" class="tab-btn" onclick="switchTab(2)">ভাইব্রেশন ও সংখ্যা</button>
+            </div>
+
+            <div id="content1">
+                <div class="input-group">
+                    <label>আরবী তাসবীহ (শিরোনাম):</label>
+                    <input type="text" id="newAr" placeholder="যেমন: سُبْحَانَ اللهِ">
+                </div>
+                <div class="input-group">
+                    <label>বাংলা অর্থ:</label>
+                    <textarea id="newBn" rows="2" placeholder="অর্থ এখানে লিখুন"></textarea>
+                </div>
+                <div class="input-group">
+                    <label>টার্গেট সংখ্যা (কতবার পড়বেন):</label>
+                    <input type="number" id="newTarget" value="33">
+                </div>
+                <button class="btn-action btn-save" onclick="saveNewTasbih()">তালিকায় যোগ করুন</button>
+            </div>
+
+            <div id="content2" style="display:none;">
+                <h4 style="margin:0 0 10px 0; color:#e67e22; font-size: 0.9rem;">দু'আর জন্য ভাইব্রেশন ও সংখ্যা সেট করুন</h4>
+                <table class="vib-table">
+                    <thead>
+                        <tr>
+                            <th style="text-align:right">দুয়া</th>
+                            <th>গননা</th>
+                            <th>ভাইব</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vib-chart-body">
+                        </tbody>
+                </table>
+            </div>
+
+            <button class="btn-action btn-cancel" style="margin-top:20px" onclick="closeModal()">বন্ধ করুন</button>
+        </div>
+    </div>
+
+    <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
+
+    <script>
+        // ডাটাবেস: আগের সেভ করা ডাটা থাকলে নিবে, না থাকলে ডিফল্ট লিস্ট
+        let tasbihList = JSON.parse(localStorage.getItem('tasbihList')) || [
+            { ar: "لَا إِلٰهَ إِلَّا اللهُ مُحَمَّدٌ رَّسُولُ اللهِ", bn: "আল্লাহ ব্যতীত ইবাদত বন্দেগির উপযুক্ত আর কেহই নাই। মুহাম্মদ সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম আল্লাহর রাসূল।", target: 100, vib: true },
+            { ar: "سُبْحَانَ اللهِ", bn: "আল্লাহ অতি পবিত্র।", target: 33, vib: true },
+            { ar: "اَلْحَمْدُ لِلّٰهِ", bn: "সমস্ত প্রশংসা আল্লাহর জন্য।", target: 33, vib: true },
+            { ar: "اَللّٰهُ اَكْبَرُ", bn: "আল্লাহ সর্বশ্রেষ্ঠ।", target: 34, vib: true }
+        ];
+
+        let currentIndex = 0;
+        let mainCount = 0;
+        let roundCount = 0;
+        let totalCount = parseInt(localStorage.getItem('totalTasbih')) || 0;
+        let isSound = true;
+
+        // UI আপডেট ফাংশন
+        function updateUI() {
+            const item = tasbihList[currentIndex];
+            document.getElementById('current-tasbih-ar').innerText = item.ar;
+            document.getElementById('current-tasbih-bn').innerText = item.bn;
+            document.getElementById('main-num').innerText = convertToBangla(mainCount);
+            document.getElementById('round-num').innerText = convertToBangla(roundCount);
+            document.getElementById('total-num').innerText = convertToBangla(totalCount);
+            
+            // প্রগ্রেস সার্কেল আপডেট
+            let progress = (mainCount / item.target) * 690;
+            document.getElementById('progress-bar').style.strokeDashoffset = 690 - progress;
+            
+            renderVibChart(); // সেটিংস চার্ট রিফ্রেশ
+        }
+
+        // স্ক্রিনে টাচ করলে গণনা শুরু
+        function handleTap() {
+            const item = tasbihList[currentIndex];
+            mainCount++;
+            totalCount++;
+            
+            if (isSound) document.getElementById('clickSound').play();
+            
+            // প্রতিটি টাচ ভাইব্রেশন
+            if (item.vib && navigator.vibrate) navigator.vibrate(40);
+
+            // টার্গেট পূর্ণ হলে
+            if (mainCount >= item.target) {
+                mainCount = 0;
+                roundCount++;
+                if (item.vib && navigator.vibrate) navigator.vibrate([100, 50, 100]);
+            }
+
+            localStorage.setItem('totalTasbih', totalCount);
+            updateUI();
+        }
+
+        // সেটিংস ট্যাব পরিবর্তন
+        function switchTab(n) {
+            document.getElementById('content1').style.display = n === 1 ? 'block' : 'none';
+            document.getElementById('content2').style.display = n === 2 ? 'block' : 'none';
+            document.getElementById('tab1').className = n === 1 ? 'tab-btn active' : 'tab-btn';
+            document.getElementById('tab2').className = n === 2 ? 'tab-btn active' : 'tab-btn';
+        }
+
+        // ভাইব্রেশন ও সংখ্যা পরিবর্তনের চার্ট তৈরি
+        function renderVibChart() {
+            let html = "";
+            tasbihList.forEach((t, index) => {
+                html += `<tr>
+                    <td class="vib-ar">${t.ar.substring(0,18)}...</td>
+                    <td>
+                        <input type="number" class="target-input" value="${t.target}" 
+                        onchange="updateTarget(${index}, this.value)">
+                    </td>
+                    <td><input type="checkbox" ${t.vib ? 'checked' : ''} onchange="toggleVib(${index})"></td>
+                </tr>`;
+            });
+            document.getElementById('vib-chart-body').innerHTML = html;
+        }
+
+        // সরাসরি চার্ট থেকে সংখ্যা পরিবর্তন
+        function updateTarget(index, newVal) {
+            let val = parseInt(newVal);
+            if(val > 0) {
+                tasbihList[index].target = val;
+                saveToStorage();
+                updateUI();
+            }
+        }
+
+        // ভাইব্রেশন অন/অফ
+        function toggleVib(index) {
+            tasbihList[index].vib = !tasbihList[index].vib;
+            saveToStorage();
+        }
+
+        // নতুন তাসবীহ সেভ করা
+        function saveNewTasbih() {
+            let ar = document.getElementById('newAr').value;
+            let bn = document.getElementById('newBn').value;
+            let target = parseInt(document.getElementById('newTarget').value);
+            if(ar && bn && target) {
+                tasbihList.push({ar, bn, target, vib: true});
+                saveToStorage();
+                alert("সাফল্যের সাথে যুক্ত হয়েছে!");
+                document.getElementById('newAr').value = '';
+                document.getElementById('newBn').value = '';
+                closeModal();
+                updateUI();
+            }
+        }
+
+        // লোকাল মেমোরিতে সেভ
+        function saveToStorage() {
+            localStorage.setItem('tasbihList', JSON.stringify(tasbihList));
+        }
+
+        function nextTasbih() { currentIndex = (currentIndex + 1) % tasbihList.length; resetInternal(); }
+        function prevTasbih() { currentIndex = (currentIndex - 1 + tasbihList.length) % tasbihList.length; resetInternal(); }
+        function resetInternal() { mainCount = 0; roundCount = 0; updateUI(); }
+        function resetCurrent() { if(confirm("বর্তমান গণনাটি কি মুছতে চান?")) resetInternal(); }
+        function openModal() { document.getElementById('settingsModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('settingsModal').style.display = 'none'; }
+        function convertToBangla(n) { return n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]); }
+        function toggleSound() {
+            isSound = !isSound;
+            document.getElementById('soundBtn').innerHTML = isSound ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
+        }
+
+        // অ্যাপ শুরু
+        updateUI();
+    </script>
+</body>
+</html>
