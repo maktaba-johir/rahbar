@@ -34,7 +34,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); color: var(--text); padding-bottom: 120px; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: #eaeff2; color: var(--text); padding-bottom: 120px; }
 
         .app-header {
             background: var(--primary); color: white; padding: 15px;
@@ -75,16 +75,86 @@
         .labels-bottom { display: flex; justify-content: space-between; font-size: 0.85rem; margin-top: 10px; font-weight: 500; }
         .status-badge { background: #fff; color: var(--primary); padding: 2px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 700; }
 
+        /* --- গ্রিড ও লম্বা বাটন ডিজাইন --- */
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 15px; }
+        
         .grid-item {
-            position: relative; background: var(--card); padding: 12px 2px; border-radius: 15px;
-            text-align: center; text-decoration: none; color: var(--text);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: relative; 
+            background: #ffffff; 
+            padding: 15px 4px; 
+            border-radius: 15px; 
+            text-align: center; 
+            text-decoration: none; 
+            color: #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            height: 120px; /* আপনার চাহিদা অনুযায়ী লম্বা রাখা হয়েছে */
+            transition: all 0.2s ease;
         }
+        
+        .grid-item:active { transform: scale(0.95); background: #f9f9f9; }
+
+        .grid-item i { 
+            font-size: 1.8rem; 
+            margin-bottom: 12px; 
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+        }
+        
+        .grid-item span { 
+            font-size: 0.7rem; 
+            font-weight: 700; 
+            display: block; 
+            line-height: 1.2; 
+        }
+
         .verified-badge {
             position: absolute; top: 6px; right: 6px; background: var(--verified);
-            color: white; border-radius: 50%; font-size: 0.5rem; width: 12px; height: 12px;
+            color: white; border-radius: 50%; font-size: 0.5rem; width: 14px; height: 14px;
             display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
         }
+
+        .category-label { 
+            display: flex; align-items: center; gap: 10px; padding: 0 18px; 
+            margin: 25px 0 15px; font-size: 1.2rem; font-weight: 800; color: #2c3e50;
+        }
+        
+        .label-bar { width: 6px; height: 22px; border-radius: 10px; }
+
+        /* --- বিভিন্ন রঙ (রঙিন আইকন) --- */
+        /* ইলম বিভাগ */
+        .ic-quran { color: #2ecc71; }
+        .ic-hadith { color: #e67e22; }
+        .ic-edu { color: #3498db; }
+        .ic-info { color: #9b59b6; }
+        .ic-mic { color: #e74c3c; }
+        .ic-article { color: #1abc9c; }
+        .ic-course { color: #f1c40f; }
+        .ic-more { color: #7f8c8d; }
+
+        /* আমল বিভাগ */
+        .ic-read { color: #27ae60; }
+        .ic-clock { color: #2980b9; }
+        .ic-tasbih { color: #8e44ad; }
+        .ic-dua { color: #d35400; }
+        .ic-muhasaba { color: #c0392b; }
+        .ic-moon { color: #f39c12; }
+        .ic-kaaba { color: #2c3e50; }
+
+        /* সেবা বিভাগ */
+        .ic-zakat { color: #27ae60; }
+        .ic-invest { color: #16a085; }
+        .ic-ask { color: #2980b9; }
+        .ic-shop { color: #e67e22; }
+        .ic-school { color: #d35400; }
+        .ic-board { color: #8e44ad; }
+
+        .ilm-bar { background: #27ae60; }
+        .amal-bar { background: #2980b9; }
+        .seba-bar { background: #e67e22; }
+        .bibidh-bar { background: #8e44ad; }
 
         .credit-notice { 
             background: #fff; color: #1a472a; padding: 12px; margin: 10px 15px; 
@@ -92,18 +162,6 @@
             font-weight: 600; border: 1px dashed var(--verified);
             display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-
-        .category-label { display: flex; align-items: center; gap: 10px; padding: 0 20px; margin: 25px 0 12px; font-size: 1.1rem; font-weight: 700; scroll-margin-top: 80px; }
-        .label-bar { width: 5px; height: 20px; border-radius: 10px; }
-        
-        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 15px; }
-        .grid-item i { font-size: 1.3rem; margin-bottom: 4px; }
-        .grid-item span { font-size: 0.65rem; font-weight: 600; display: block; line-height: 1.2; }
-
-        .ilm { color: #27ae60; } .ilm-bar { background: #27ae60; }
-        .amal { color: #2980b9; } .amal-bar { background: #2980b9; }
-        .seba { color: #e67e22; } .seba-bar { background: #e67e22; }
-        .bibidh { color: #8e44ad; } .bibidh-bar { background: #8e44ad; }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #ddd; z-index: 2000; }
         .nav-item { text-align: center; text-decoration: none; color: #555; font-size: 0.75rem; font-weight: 600; }
@@ -131,7 +189,7 @@
                 <option value="7">রংপুর</option>
                 <option value="4">খুলনা</option>
                 <option value="1">বরিশাল</option>
-                <option value="2">ময়মনসিংহ</option>
+                <option value="2">ময়মনসিংহ</option>
             </select>
         </div>
     </div>
@@ -159,51 +217,52 @@
         <span>নীল ব্যাজ চিহ্নিত বাটনগুলো আমাদের অ্যাপের বিশেষ মৌলিক কাজ।</span>
     </div>
 
-    <div id="ilm-sec" class="category-label ilm"><div class="label-bar ilm-bar"></div> ইলম</div>
+    <div id="ilm-sec" class="category-label"><div class="label-bar ilm-bar"></div> ইলম</div>
     <div class="grid">
-        <a href="quran.html" class="grid-item"><i class="fas fa-book-quran ilm"></i><span>কুরআন</span></a>
-        <a href="hadith.html" class="grid-item"><i class="fas fa-book-open ilm"></i><span>হাদীস</span></a>
-        <a href="https://maktaba-johir.github.io/sikhkha_kandro/" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-university ilm"></i><span>শিক্ষাকেন্দ্র</span></a>
-        <a href="porichiti/porichiti_main.html" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-info-circle ilm"></i><span>পরিচিতি</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-microphone ilm"></i><span>বয়ান</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-file-alt ilm"></i><span>প্রবন্ধ</span></a>
-        <a href="#" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-graduation-cap ilm"></i><span>কোর্স</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-plus-circle ilm"></i><span>আরো দেখুন</span></a>
+        <a href="quran.html" class="grid-item"><i class="fas fa-book-quran ic-quran"></i><span>কুরআন</span></a>
+        <a href="hadith.html" class="grid-item"><i class="fas fa-book-open ic-hadith"></i><span>হাদীস</span></a>
+        <a href="https://maktaba-johir.github.io/sikhkha_kandro/" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-university ic-edu"></i><span>শিক্ষাকেন্দ্র</span></a>
+        <a href="porichiti/porichiti_main.html" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-info-circle ic-info"></i><span>পরিচিতি</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-microphone ic-mic"></i><span>বয়ান</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-file-alt ic-article"></i><span>প্রবন্ধ</span></a>
+        <a href="#" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-graduation-cap ic-course"></i><span>কোর্স</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-plus-circle ic-more"></i><span>আরো দেখুন</span></a>
     </div>
 
-    <div id="amal-sec" class="category-label amal"><div class="label-bar amal-bar"></div> আমল</div>
+    <div id="amal-sec" class="category-label"><div class="label-bar amal-bar"></div> আমল</div>
     <div class="grid">
-        <a href="http://tanzil.net" target="_blank" class="grid-item"><i class="fas fa-book-open-reader amal"></i><span>তিলাওয়া</span></a>
-        <a href="prayer_times.html" class="grid-item"><i class="fas fa-clock amal"></i><span>নামাযের সময়</span></a>
-        <a href="tasbih.html" class="grid-item"><i class="fas fa-fingerprint amal"></i><span>তাসবীহ</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-hands amal"></i><span>দুআ</span></a>
-        <a href="https://maktaba-johir.github.io/muhasaba/" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-edit amal"></i><span>মুহাসাবা</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-moon amal"></i><span>রমযান</span></a> <a href="#" class="grid-item"><i class="fas fa-kaaba amal"></i><span>হজ্ব ও ইমরা</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-plus-circle amal"></i><span>আরো দেখুন</span></a>
+        <a href="http://tanzil.net" target="_blank" class="grid-item"><i class="fas fa-book-open-reader ic-read"></i><span>তিলাওয়া</span></a>
+        <a href="prayer_times.html" class="grid-item"><i class="fas fa-clock ic-clock"></i><span>নামাযের সময়</span></a>
+        <a href="tasbih.html" class="grid-item"><i class="fas fa-fingerprint ic-tasbih"></i><span>তাসবীহ</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-hands ic-dua"></i><span>দুআ</span></a>
+        <a href="https://maktaba-johir.github.io/muhasaba/" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-edit ic-muhasaba"></i><span>মুহাসাবা</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-moon ic-moon"></i><span>রমযান</span></a> 
+        <a href="#" class="grid-item"><i class="fas fa-kaaba ic-kaaba"></i><span>হজ্ব ও ইমরা</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-plus-circle ic-more"></i><span>আরো দেখুন</span></a>
     </div>
 
-    <div id="seba-sec" class="category-label seba"><div class="label-bar seba-bar"></div> সেবা</div>
+    <div id="seba-sec" class="category-label"><div class="label-bar seba-bar"></div> সেবা</div>
     <div class="grid">
-        <a href="#" class="grid-item"><i class="fas fa-hand-holding-heart seba"></i><span>যাকাত</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-chart-line seba"></i><span>বিনিয়োগ</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-question-circle seba"></i><span>দ্বীনি জিজ্ঞাসা</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-shopping-bag seba"></i><span>কেনাকাটা</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-bookmark seba"></i><span>বুকমার্ক</span></a>
-        <a href="madrasha.html" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-school seba"></i><span>মাদরাসা</span></a>
-        <a href="https://maktaba-johir.github.io/Questions-of-madrasha/" class="grid-item"><i class="fas fa-file-signature seba"></i><span>বোর্ডপ্রশ্ন</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-plus-circle seba"></i><span>আরো দেখুন</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-hand-holding-heart ic-zakat"></i><span>যাকাত</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-chart-line ic-invest"></i><span>বিনিয়োগ</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-question-circle ic-ask"></i><span>দ্বীনি জিজ্ঞাসা</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-shopping-bag ic-shop"></i><span>কেনাকাটা</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-bookmark ic-edu"></i><span>বুকমার্ক</span></a>
+        <a href="madrasha.html" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-school ic-school"></i><span>মাদরাসা</span></a>
+        <a href="https://maktaba-johir.github.io/Questions-of-madrasha/" class="grid-item"><i class="fas fa-file-signature ic-board"></i><span>বোর্ডপ্রশ্ন</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-plus-circle ic-more"></i><span>আরো দেখুন</span></a>
     </div>
 
-    <div id="bibidh-sec" class="category-label bibidh"><div class="label-bar bibidh-bar"></div> বিবিধ</div>
+    <div id="bibidh-sec" class="category-label"><div class="label-bar bibidh-bar"></div> বিবিধ</div>
     <div class="grid">
-        <a href="https://qiblafinder.withgoogle.com/" target="_blank" class="grid-item"><i class="fas fa-compass bibidh"></i><span>কিবলা</span></a>
-        <a href="https://www.google.com/maps/search/Mosque+near+me" target="_blank" class="grid-item"><i class="fas fa-map-marker-alt bibidh"></i><span>মসজিদ খুজি</span></a>
-        <a href="live.html" class="grid-item"><i class="fas fa-broadcast-tower bibidh"></i><span>লাইভ</span></a>
-        <a href="https://maktaba-johir.github.io/Calculator-Converter/" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-calculator bibidh"></i><span>ক্যালকুলেটর</span></a>
-        <a href="calendar.html" class="grid-item"><i class="fas fa-calendar-alt bibidh"></i><span>ক্যালেন্ডার</span></a>
-        <a href="important_days.html" class="grid-item"><i class="fas fa-star bibidh"></i><span>গুরুত্বপূর্ণ দিন</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-dharmachakra bibidh"></i><span>আসমাউল হুসনা</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-gear bibidh"></i><span>আরো দেখুন</span></a>
+        <a href="https://qiblafinder.withgoogle.com/" target="_blank" class="grid-item"><i class="fas fa-compass ic-info"></i><span>কিবলা</span></a>
+        <a href="https://www.google.com/maps/search/Mosque+near+me" target="_blank" class="grid-item"><i class="fas fa-map-marker-alt ic-muhasaba"></i><span>মসজিদ খুজি</span></a>
+        <a href="live.html" class="grid-item"><i class="fas fa-broadcast-tower ic-mic"></i><span>লাইভ</span></a>
+        <a href="https://maktaba-johir.github.io/Calculator-Converter/" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-calculator ic-article"></i><span>ক্যালকুলেটর</span></a>
+        <a href="calendar.html" class="grid-item"><i class="fas fa-calendar-alt ic-read"></i><span>ক্যালেন্ডার</span></a>
+        <a href="important_days.html" class="grid-item"><i class="fas fa-star ic-course"></i><span>গুরুত্বপূর্ণ দিন</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-dharmachakra ic-hadith"></i><span>আসমাউল হুসনা</span></a>
+        <a href="#" class="grid-item"><i class="fas fa-gear ic-more"></i><span>আরো দেখুন</span></a>
     </div>
 
     <div class="author-card">
@@ -296,4 +355,3 @@
     </script>
 </body>
 </html>
-
