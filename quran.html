@@ -3,122 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>কুরআন মাজীদ - রাহবার</title>
+    <title>কুরআন রিসার্চ ল্যাব - রাহবার</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #1a472a; --accent: #27ae60; --bg: #f4f7f6; }
-        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); margin: 0; padding-bottom: 30px; }
+        :root { --primary: #1a472a; --accent: #27ae60; --research: #2980b9; --tafsir: #8e44ad; --bg: #f4f7f6; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); margin: 0; padding-bottom: 50px; }
         
         .header { background: linear-gradient(180deg, #2d6a4f, #1a472a); color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; }
         .back-btn { color: white; text-decoration: none; font-size: 1.2rem; margin-right: 15px; }
         .header h1 { margin: 0; font-size: 1.2rem; flex-grow: 1; }
 
-        .container { padding: 15px; max-width: 600px; margin: 0 auto; }
+        .container { padding: 15px; max-width: 900px; margin: 0 auto; }
+        .section-title { font-size: 1.2rem; color: #222; margin: 35px 0 15px; font-weight: 700; border-bottom: 3px solid var(--accent); display: inline-block; padding-bottom: 5px; }
 
-        .info-card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--accent); }
-        .info-card h2 { color: var(--primary); font-size: 1.1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .info-card p { font-size: 0.9rem; color: #555; line-height: 1.6; margin: 0; }
+        /* বইয়ের মতো গ্রিড সিস্টেম */
+        .button-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (min-width: 600px) { .button-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 900px) { .button-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        .link-card { background: white; border-radius: 15px; overflow: hidden; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #eee; }
-        .link-card:active { transform: scale(0.98); }
-        .link-content { display: flex; align-items: center; padding: 15px; text-decoration: none; color: #333; }
-        .link-icon { width: 50px; height: 50px; background: #e8f5e9; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent); margin-right: 15px; }
-        .link-text { flex-grow: 1; }
-        .link-text h3 { margin: 0; font-size: 1rem; color: var(--primary); }
-        .link-text p { margin: 3px 0 0; font-size: 0.75rem; color: #777; }
-        .go-icon { color: #ccc; }
+        /* বই ডিজাইন (Vertical Book Style) */
+        .book-card { 
+            background: white; 
+            border-radius: 5px 15px 15px 5px; 
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1); 
+            border-left: 10px solid var(--primary); /* বইয়ের স্পাইন বা বাঁধাই */
+            display: flex; 
+            flex-direction: column; 
+            transition: 0.3s; 
+            position: relative;
+            height: 220px; /* বইয়ের উচ্চতা */
+        }
+        .book-card:hover { transform: rotateY(-10deg) translateX(5px); box-shadow: 10px 10px 20px rgba(0,0,0,0.15); }
 
-        .feature-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .feature-item { font-size: 0.75rem; color: #444; background: #f9f9f9; padding: 5px 10px; border-radius: 5px; display: flex; align-items: center; gap: 5px; }
+        .card-top { padding: 20px 10px; text-align: center; cursor: pointer; flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .icon-box { font-size: 2rem; margin-bottom: 15px; opacity: 0.8; }
+        
+        /* ক্যাটাগরি অনুযায়ী রঙ */
+        .cat-learn { border-left-color: #e67e22; color: #e67e22; }
+        .cat-read { border-left-color: var(--primary); color: var(--primary); }
+        .cat-research { border-left-color: var(--research); color: var(--research); }
+        .cat-tafsir { border-left-color: var(--tafsir); color: var(--tafsir); }
+
+        .card-top h3 { margin: 0; font-size: 0.9rem; color: #333; line-height: 1.4; font-weight: 700; }
+        
+        /* অ্যাকশন বাটন */
+        .card-actions { display: grid; grid-template-columns: 1fr 1fr; background: #f8f9fa; border-radius: 0 0 15px 0; border-top: 1px solid #eee; }
+        .btn-opt { padding: 10px 5px; border: none; background: transparent; font-family: 'Hind Siliguri'; font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: 0.2s; text-decoration: none; text-align: center; }
+        .btn-info { color: #555; border-right: 1px solid #eee; }
+        .btn-open { color: var(--accent); }
+
+        /* ইনফো প্যানেল (বইয়ের ভেতর থেকে তথ্য বের হওয়া) */
+        .info-panel { display: none; padding: 12px; background: #fffbe6; font-size: 0.8rem; color: #444; border-top: 1px solid #ffe58f; text-align: left; line-height: 1.5; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; border-radius: 5px 15px 15px 5px; box-sizing: border-box; overflow-y: auto; }
+        .close-info { float: right; cursor: pointer; color: #cc0000; font-size: 1rem; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
-        <h1>কুরআন মাজীদ</h1>
+        <h1>কুরআন রিসার্চ ল্যাব</h1>
         <div style="width: 20px;"></div>
     </div>
 
     <div class="container">
-        <div class="info-card">
-            <h2><i class="fas fa-lightbulb"></i> কেন এই বিভাগ?</h2>
-            <p>সহজেই কুরআন তিলাওয়াত, অর্থ অনুধাবন এবং গবেষণার জন্য আমরা সেরা অনলাইন প্ল্যাটফর্মগুলো এখানে যুক্ত করেছি। আপনি আপনার সুবিধামতো যেকোনো একটি বেছে নিতে পারেন।</p>
-        </div>
-
-        <div class="link-card">
-            <a href="https://muslimbangla.com/quran" target="_blank" class="link-content">
-                <div class="link-icon"><i class="fas fa-mosque"></i></div>
-                <div class="link-text">
+        
+        <div class="section-title"><i class="fas fa-book-reader"></i> কুরআন পঠন ও শিক্ষা</div>
+        <div class="button-grid">
+            
+            <div class="book-card cat-read">
+                <div class="card-top" onclick="showInfo('i-mb')">
+                    <div class="icon-box"><i class="fas fa-quran"></i></div>
                     <h3>মুসলিম বাংলা কুরআন</h3>
-                    <p>পরিচ্ছন্ন বাংলা ইন্টারফেস ও সহজ নেভিগেশন</p>
                 </div>
-                <div class="go-icon"><i class="fas fa-chevron-right"></i></div>
-            </a>
-            <div style="padding: 0 15px 15px;">
-                <div class="feature-list">
-                    <div class="feature-item"><i class="fas fa-check-circle"></i> সহজ বাংলা অনুবাদ</div>
-                    <div class="feature-item"><i class="fas fa-check-circle"></i> সূরার তালিকা</div>
-                    <div class="feature-item"><i class="fas fa-check-circle"></i> বিষয়ভিত্তিক আয়াত</div>
-                    <div class="feature-item"><i class="fas fa-check-circle"></i> মোবাইল ফ্রেন্ডলি</div>
+                <div class="card-actions">
+                    <button class="btn-opt btn-info" onclick="showInfo('i-mb')">জানুন</button>
+                    <a href="https://muslimbangla.com/quran" target="_blank" class="btn-opt btn-open">খুলুন</a>
                 </div>
+                <div id="i-mb" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> খুবই পরিচ্ছন্ন বাংলা ইন্টারফেস। সূরা ও বিষয়ভিত্তিক আয়াতের জন্য এটি সেরা।</div>
+            </div>
+
+            <div class="book-card cat-learn">
+                <div class="card-top" onclick="showInfo('i1')">
+                    <div class="icon-box"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3>কুরআন টিচার</h3>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-opt btn-info" onclick="showInfo('i1')">জানুন</button>
+                    <a href="https://www.searchtruth.com/quran_teacher/quran.php" target="_blank" class="btn-opt btn-open">খুলুন</a>
+                </div>
+                <div id="i1" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> শুরু থেকে কুরআন শিখতে এটি ব্যবহার করুন। প্রতিটি হরফ ও শব্দের সহীহ উচ্চারণ শুনতে পারবেন।</div>
+            </div>
+
+            <div class="book-card cat-read">
+                <div class="card-top" onclick="showInfo('i2')">
+                    <div class="icon-box"><i class="fas fa-file-invoice"></i></div>
+                    <h3>মুসহাফ স্টাইল</h3>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-opt btn-info" onclick="showInfo('i2')">জানুন</button>
+                    <a href="https://www.searchtruth.com/mushaf/quran.php" target="_blank" class="btn-opt btn-open">খুলুন</a>
+                </div>
+                <div id="i2" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> ছাপানো হাফেজী কুরআনের মতো পৃষ্ঠা উল্টে পড়তে এটি ব্যবহার করুন।</div>
+            </div>
+
+            <div class="book-card cat-read">
+                <div class="card-top" onclick="showInfo('i3')">
+                    <div class="icon-box"><i class="fas fa-headphones-alt"></i></div>
+                    <h3>অডিও তেলাওয়াত</h3>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-opt btn-info" onclick="showInfo('i3')">জানুন</button>
+                    <a href="https://www.searchtruth.com/quran/recitation.php" target="_blank" class="btn-opt btn-open">খুলুন</a>
+                </div>
+                <div id="i3" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> প্রিয় ক্বারীদের তিলাওয়াত শোনার জন্য এখানে সূরা নির্বাচন করে প্লে করুন।</div>
             </div>
         </div>
 
-        <div class="link-card">
-            <a href="https://quran.com/bn" target="_blank" class="link-content">
-                <div class="link-icon"><i class="fas fa-book-open"></i></div>
-                <div class="link-text">
-                    <h3>Quran.com (বাংলা)</h3>
-                    <p>বিশ্বখ্যাত ও আধুনিক কুরআন রিসোর্স</p>
+        <div class="section-title"><i class="fas fa-microchip"></i> গবেষণা ও ব্যাকরণ</div>
+        <div class="button-grid">
+            
+            <div class="book-card cat-research">
+                <div class="card-top" onclick="showInfo('i-ww')">
+                    <div class="icon-box"><i class="fas fa-spell-check"></i></div>
+                    <h3>শব্দে শব্দে বিশ্লেষণ</h3>
                 </div>
-                <div class="go-icon"><i class="fas fa-chevron-right"></i></div>
-            </a>
-            <div style="padding: 0 15px 15px;">
-                <div class="feature-list">
-                    <div class="feature-item"><i class="fas fa-check-circle"></i> একাধিক ক্বারীর অডিও</div>
-                    <div class="feature-item"><i class="fas fa-check-circle"></i> তাফসীর ইবনে কাসীর</div>
-                    <div class="feature-item"><i class="fas fa-check-circle"></i> শব্দে শব্দে অর্থ</div>
-                    <div class="feature-item"><i class="fas fa-check-circle"></i> উন্নত সার্চ অপশন</div>
+                <div class="card-actions">
+                    <button class="btn-opt btn-info" onclick="showInfo('i-ww')">জানুন</button>
+                    <a href="https://corpus.quran.com/wordbyword.jsp" target="_blank" class="btn-opt btn-open">খুলুন</a>
                 </div>
+                <div id="i-ww" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> আয়াতের প্রতিটি শব্দের ব্যাকরণগত পরিচয় এবং শব্দার্থ দেখার জন্য এটি সেরা টুল।</div>
+            </div>
+
+            <div class="book-card cat-research">
+                <div class="card-top" onclick="showInfo('i-tb')">
+                    <div class="icon-box"><i class="fas fa-sitemap"></i></div>
+                    <h3>তারকীবী বিশ্লেষণ</h3>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-opt btn-info" onclick="showInfo('i-tb')">জানুন</button>
+                    <a href="https://corpus.quran.com/treebank.jsp" target="_blank" class="btn-opt btn-open">খুলুন</a>
+                </div>
+                <div id="i-tb" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> আল-তাফসীর সাইট কাজ না করলে এখান থেকে আয়াতের তারকীব বা গ্রামাটিক্যাল গ্রাফ দেখতে পারেন।</div>
+            </div>
+
+            <div class="book-card cat-research">
+                <div class="card-top" onclick="showInfo('i-dic')">
+                    <div class="icon-box"><i class="fas fa-language"></i></div>
+                    <h3>কুরআনিক অভিধান</h3>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-opt btn-info" onclick="showInfo('i-dic')">জানুন</button>
+                    <a href="https://corpus.quran.com/qurandictionary.jsp" target="_blank" class="btn-opt btn-open">খুলুন</a>
+                </div>
+                <div id="i-dic" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> আরবী শব্দের মূল ধাতু (Root Word) এবং সেই রুট থেকে আর কতটি আয়াত আছে তা জানতে পারবেন।</div>
+            </div>
+
+            <div class="book-card cat-research">
+                <div class="card-top" onclick="showInfo('i-srch')">
+                    <div class="icon-box"><i class="fas fa-search"></i></div>
+                    <h3>অ্যাডভান্স সার্চ</h3>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-opt btn-info" onclick="showInfo('i-srch')">জানুন</button>
+                    <a href="https://www.searchtruth.com/search.php" target="_blank" class="btn-opt btn-open">খুলুন</a>
+                </div>
+                <div id="i-srch" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> আরবী কি-ওয়ার্ড বা নির্দিষ্ট শব্দ লিখে কুরআনের আয়াত খুঁজে বের করার জন্য এটি ব্যবহার করুন।</div>
             </div>
         </div>
 
-        <div class="link-card">
-            <a href="https://tanzil.net/#2:1" target="_blank" class="link-content">
-                <div class="link-icon"><i class="fas fa-quran"></i></div>
-                <div class="link-text">
-                    <h3>Tanzil.net</h3>
-                    <p>তিলাওয়াত ও নির্ভুল টেক্সটের জন্য সেরা</p>
+        <div class="section-title"><i class="fas fa-monument"></i> তাফসীর ও উলূমুল কুরআন</div>
+        <div class="button-grid">
+            
+            <div class="book-card cat-tafsir">
+                <div class="card-top" onclick="showInfo('i-taf')">
+                    <div class="icon-box"><i class="fas fa-atlas"></i></div>
+                    <h3>তাফসীর সংগ্রহ</h3>
                 </div>
-                <div class="go-icon"><i class="fas fa-chevron-right"></i></div>
-            </a>
-            <div style="padding: 0 15px 15px;">
-                <div class="feature-list">
-                    <div class="feature-item"><i class="fas fa-check-circle"></i> অটো স্ক্রল অডিও</div>
-                    <div class="feature-item"><i class="fas fa-check-circle"></i> বিভিন্ন ফন্ট স্টাইল</div>
-                    <div class="feature-item"><i class="fas fa-check-circle"></i> বহুভাষিক অনুবাদ</div>
-                    <div class="feature-item"><i class="fas fa-check-circle"></i> দ্রুত লোডিং</div>
+                <div class="card-actions">
+                    <button class="btn-opt btn-info" onclick="showInfo('i-taf')">জানুন</button>
+                    <a href="https://www.altafsir.com/Tafasir.asp" target="_blank" class="btn-opt btn-open">খুলুন</a>
                 </div>
+                <div id="i-taf" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> ১০০টিরও বেশি ক্লাসিক্যাল আরবী তাফসীর পড়ার জন্য এটি পৃথিবীর শ্রেষ্ঠ আর্কাইভ।</div>
             </div>
-        </div>
 
-        <div class="link-card">
-            <a href="https://alquran.cloud" target="_blank" class="link-content">
-                <div class="link-icon"><i class="fas fa-microchip"></i></div>
-                <div class="link-text">
-                    <h3>কুরআন ক্লাউড (রিসার্চ)</h3>
-                    <p>গবেষণা ও আয়াত সার্চ করার জন্য</p>
+            <div class="book-card cat-tafsir">
+                <div class="card-top" onclick="showInfo('i-sn')">
+                    <div class="icon-box"><i class="fas fa-history"></i></div>
+                    <h3>শানে নুজুল</h3>
                 </div>
-                <div class="go-icon"><i class="fas fa-chevron-right"></i></div>
-            </a>
+                <div class="card-actions">
+                    <button class="btn-opt btn-info" onclick="showInfo('i-sn')">জানুন</button>
+                    <a href="https://www.altafsir.com/AsbabAlnuzol.asp" target="_blank" class="btn-opt btn-open">খুলুন</a>
+                </div>
+                <div id="i-sn" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> আয়াত নাযিলের ঐতিহাসিক পটভূমি ও কারণ জানতে এখানে সার্চ করুন।</div>
+            </div>
+
+            <div class="book-card cat-tafsir">
+                <div class="card-top" onclick="showInfo('i-ah')">
+                    <div class="icon-box"><i class="fas fa-gavel"></i></div>
+                    <h3>আহকামুল কুরআন</h3>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-opt btn-info" onclick="showInfo('i-ah')">জানুন</button>
+                    <a href="https://www.altafsir.com/Ahkam_Alquran.asp" target="_blank" class="btn-opt btn-open">খুলুন</a>
+                </div>
+                <div id="i-ah" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> কুরআন থেকে ফিকহী মাসআলা ও বিধান বের করার কিতাবসমূহ এখানে পাওয়া যাবে।</div>
+            </div>
+
+            <div class="book-card cat-tafsir">
+                <div class="card-top" onclick="showInfo('i-fz')">
+                    <div class="icon-box"><i class="fas fa-star"></i></div>
+                    <h3>কুরআনের ফযীলত</h3>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-opt btn-info" onclick="showInfo('i-fz')">জানুন</button>
+                    <a href="https://www.altafsir.com/FadaelAlQuran.asp" target="_blank" class="btn-opt btn-open">খুলুন</a>
+                </div>
+                <div id="i-fz" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> বিভিন্ন সূরা ও আয়াতের গুরুত্ব ও বরকত সম্পর্কে জানতে এখানে পড়ুন।</div>
+            </div>
+
         </div>
 
-        <p style="text-align:center; font-size:0.8rem; color:#888; margin-top:20px;">
-            "তোমাদের মধ্যে সেই ব্যক্তি সর্বোত্তম, যে কুরআন শেখে এবং অন্যকে শেখায়।" (বুখারী)
-        </p>
     </div>
 
+    <script>
+        function showInfo(id) {
+            const target = document.getElementById(id);
+            hideAll();
+            target.style.display = 'block';
+        }
+
+        function hideAll() {
+            document.querySelectorAll('.info-panel').forEach(p => p.style.display = 'none');
+        }
+        
+        // বাইরের কোথাও ক্লিক করলে ইনফো বন্ধ হবে
+        window.onclick = function(event) {
+            if (!event.target.closest('.book-card')) {
+                hideAll();
+            }
+        }
+    </script>
 </body>
 </html>
