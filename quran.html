@@ -3,313 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>রাহবার - ডিজিটাল ড্যাশবোর্ড</title>
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCYJP0HV80"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-KCYJP0HV80');
-    </script>
-    
-    <link rel="icon" type="image/png" href="icon.png">
-    <link rel="apple-touch-icon" href="icon.png">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
+    <title>কুরআন রিসার্চ ল্যাব - রাহবার</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --primary: #1a472a;
-            --accent: #27ae60;
-            --bg: #f0f3f5;
-            --card: #ffffff;
-            --text: #1a1a1a;
-            --header-grad: linear-gradient(180deg, #2d6a4f, #1a472a);
-            --progress-blue: #3498db;
-            --verified: #1DA1F2; 
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); color: var(--text); padding-bottom: 120px; }
-
-        .app-header {
-            background: var(--primary); color: white; padding: 15px;
-            display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 1000;
-        }
-        .brand-area { display: flex; flex-direction: column; }
-        .brand-name { font-size: 1.4rem; font-weight: 700; }
-        .brand-slogan { font-size: 0.62rem; opacity: 0.9; margin-top: -2px; }
+        :root { --primary: #1a472a; --accent: #27ae60; --research: #2980b9; --tafsir: #8e44ad; --bg: #f8f9fa; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); margin: 0; padding-bottom: 30px; }
         
-        .loc-box select { 
-            background: rgba(255,255,255,0.2); color: white; border: none; 
-            padding: 5px 10px; border-radius: 20px; outline: none; font-size: 0.8rem;
+        .header { background: linear-gradient(135deg, #2d6a4f, #1a472a); color: white; padding: 12px; text-align: center; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; }
+        .back-btn { color: white; text-decoration: none; font-size: 1rem; margin-right: 10px; }
+        .header h1 { margin: 0; font-size: 1rem; flex-grow: 1; }
+
+        .container { padding: 8px; max-width: 1000px; margin: 0 auto; }
+        .section-title { font-size: 0.9rem; color: #333; margin: 20px 0 10px; font-weight: 700; border-left: 3px solid var(--accent); padding-left: 8px; }
+
+        /* মোবাইল ও ডেক্সটপ সবখানে ৪টি করে বাটন */
+        .button-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 8px; 
         }
 
-        .sun-tracker-container {
-            background: var(--header-grad); color: white; padding: 20px 15px;
-            text-align: center; border-bottom-left-radius: 35px; border-bottom-right-radius: 35px;
-            margin-bottom: 15px;
-        }
-        
-        .date-display {
-            font-size: 0.85rem; font-weight: 500; margin-bottom: 15px;
-            background: rgba(255,255,255,0.15); display: inline-block;
-            padding: 4px 15px; border-radius: 20px; color: white; text-decoration: none;
-        }
-
-        .curve-path {
-            width: 80%; height: 50px; border: 2px dashed rgba(255,255,255,0.2);
-            border-bottom: none; border-radius: 120px 120px 0 0; margin: 0 auto; position: relative;
-        }
-        #sun { position: absolute; font-size: 1.5rem; color: #ffda00; text-shadow: 0 0 10px #f1c40f; transform: translate(-50%, -50%); left: 0%; top: 50px; transition: all 1s ease-in-out; }
-
-        .tracker-info { margin-top: 15px; width: 90%; margin: 15px auto 0; }
-        .labels-top { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
-        .progress-container { width: 100%; height: 8px; background: rgba(255,255,255,0.25); border-radius: 10px; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--progress-blue); width: 0%; transition: width 1s ease-out; }
-        .labels-bottom { display: flex; justify-content: space-between; font-size: 0.85rem; margin-top: 10px; font-weight: 500; }
-        .status-badge { background: #fff; color: var(--primary); padding: 2px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 700; }
-
-        .credit-notice { 
-            background: #fff; color: #1a472a; padding: 12px; margin: 10px 15px; 
-            border-radius: 12px; font-size: 0.75rem; text-align: center; 
-            font-weight: 600; border: 1px dashed var(--verified);
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-
-        .category-label { display: flex; align-items: center; gap: 10px; padding: 0 20px; margin: 25px 0 12px; font-size: 1.1rem; font-weight: 700; scroll-margin-top: 80px; }
-        .label-bar { width: 5px; height: 20px; border-radius: 10px; }
-        
-        /* --- লম্বা বাটন ডিজাইন (মুসলিম বাংলা স্টাইল) --- */
-        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 15px; }
-        
-        .grid-item {
-            position: relative; 
-            background: #ffffff; 
-            padding: 18px 4px; /* প্যাডিং বাড়িয়ে আরও লম্বা করা হয়েছে */
-            border-radius: 12px;
-            text-align: center; 
-            text-decoration: none; 
-            color: #333;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.06); 
+        /* পকেট বুক ডিজাইন */
+        .book-card { 
+            background: white; 
+            border-radius: 2px 6px 6px 2px; 
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1); 
+            border-left: 4px solid var(--primary); /* বইয়ের স্পাইন */
             display: flex; 
             flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            height: 125px; /* উচ্চতা ১২৫ পিক্সেল করা হয়েছে আরও লম্বার জন্য */
-            transition: all 0.2s ease;
+            transition: 0.2s; 
+            position: relative;
+            height: 110px; /* উচ্চতা অনেক কমানো হয়েছে */
+            cursor: pointer;
+            overflow: hidden;
+            border-right: 1px solid #eee;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
         }
-        .grid-item:active { transform: scale(0.96); background: #f9f9f9; }
+        .book-card:hover { transform: translateY(-2px); box-shadow: 3px 4px 8px rgba(0,0,0,0.15); }
 
-        .grid-item i { font-size: 1.6rem; margin-bottom: 12px; }
-        .grid-item span { font-size: 0.72rem; font-weight: 700; display: block; line-height: 1.3; }
+        .card-top { padding: 8px 4px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .icon-box { font-size: 1.1rem; margin-bottom: 5px; }
+        
+        .cat-learn { border-left-color: #e67e22; color: #e67e22; }
+        .cat-read { border-left-color: var(--primary); color: var(--primary); }
+        .cat-research { border-left-color: var(--research); color: var(--research); }
+        .cat-tafsir { border-left-color: var(--tafsir); color: var(--tafsir); }
 
-        .verified-badge {
-            position: absolute; top: 8px; right: 8px; background: var(--verified);
-            color: white; border-radius: 50%; font-size: 0.5rem; width: 14px; height: 14px;
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+        /* ছোট টেক্সট ম্যানেজমেন্ট */
+        .card-top h3 { 
+            margin: 0; 
+            font-size: 0.65rem; /* মোবাইলের জন্য ছোট ফন্ট */
+            color: #2c3e50; 
+            line-height: 1.2; 
+            font-weight: 700;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* ছোট ওপেন বাটন */
+        .card-actions { background: #fdfdfd; border-top: 1px solid #eee; text-align: center; }
+        .btn-open { 
+            display: block;
+            padding: 4px 0;
+            color: var(--accent); 
+            text-decoration: none; 
+            font-size: 0.6rem; 
+            font-weight: 800;
+            text-transform: uppercase;
         }
 
-        /* আইকন কালারস */
-        .ilm { color: #1a472a; } .ilm-bar { background: #1a472a; }
-        .amal { color: #2980b9; } .amal-bar { background: #2980b9; }
-        .seba { color: #e67e22; } .seba-bar { background: #e67e22; }
-        .bibidh { color: #8e44ad; } .bibidh-bar { background: #8e44ad; }
-
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #ddd; z-index: 2000; }
-        .nav-item { text-align: center; text-decoration: none; color: #555; font-size: 0.75rem; font-weight: 600; }
-        .nav-item i { font-size: 1.2rem; display: block; margin-bottom: 2px; }
-
-        .author-card { background: var(--card); margin: 30px 15px 15px; padding: 20px; border-radius: 20px; text-align: center; }
-        .social-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 15px; }
-        .social-btn { padding: 10px; border-radius: 10px; color: white; text-decoration: none; font-size: 0.7rem; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-        footer { text-align: center; padding: 15px 15px 130px; font-size: 0.8rem; font-weight: 600; opacity: 0.5; }
+        /* ইনফো প্যানেল - ছোট সাইজের জন্য */
+        .info-panel { 
+            display: none; 
+            padding: 8px; 
+            background: #fffde7; 
+            font-size: 0.65rem; 
+            color: #333; 
+            position: absolute; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: 5; 
+            box-sizing: border-box; 
+            overflow-y: auto; 
+        }
+        .close-info { float: right; cursor: pointer; color: #e74c3c; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-    <div class="app-header">
-        <div class="brand-area">
-            <span class="brand-name">রাহবার</span>
-            <span class="brand-slogan">যা আপনাকে দ্বীন ও দুনিয়াবী পথপ্রদর্শন করবে</span>
-        </div>
-        <div class="loc-box">
-            <select id="district" onchange="updateLive()">
-                <option value="0" selected>ঢাকা/গাজীপুর</option>
-                <option value="-4">সিলেট</option>
-                <option value="-5">চট্টগ্রাম</option>
-                <option value="6">রাজশাহী</option>
-                <option value="7">রংপুর</option>
-                <option value="4">খুলনা</option>
-                <option value="1">বরিশাল</option>
-                <option value="2">ময়মনসিংহ</option>
-            </select>
-        </div>
+    <div class="header">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+        <h1>কুরআন রিসার্চ ল্যাব</h1>
     </div>
 
-    <div class="sun-tracker-container">
-        <div class="date-display" id="date-text">লোড হচ্ছে...</div>
-        <div class="curve-path"><i class="fas fa-sun" id="sun"></i></div>
-        <div class="tracker-info">
-            <div class="labels-top">
-                <span id="label-running">লোড হচ্ছে...</span>
-                <span id="label-next">পরবর্তী ওয়াক্ত</span>
+    <div class="container">
+        
+        <div class="section-title">পঠন ও শিক্ষা</div>
+        <div class="button-grid">
+            <div class="book-card cat-read" onclick="showInfo('i-mb')">
+                <div class="card-top">
+                    <div class="icon-box"><i class="fas fa-quran"></i></div>
+                    <h3>মুসলিম বাংলা</h3>
+                </div>
+                <div class="card-actions"><a href="https://muslimbangla.com/quran" target="_blank" class="btn-open">খুলুন</a></div>
+                <div id="i-mb" class="info-panel"><i class="fas fa-times close-info"></i><br>বাংলা অর্থসহ কুরআন পড়ার সেরা সাইট।</div>
             </div>
-            <div class="progress-container">
-                <div class="progress-fill" id="progress-fill"></div>
+
+            <div class="book-card cat-learn" onclick="showInfo('i-vid')">
+                <div class="card-top">
+                    <div class="icon-box"><i class="fas fa-play-circle"></i></div>
+                    <h3>যমযম ভিডিও</h3>
+                </div>
+                <div class="card-actions"><a href="https://www.alim.org/quran-videos/zamzam/" target="_blank" class="btn-open">খুলুন</a></div>
+                <div id="i-vid" class="info-panel"><i class="fas fa-times close-info"></i><br>ভিডিওর মাধ্যমে কুরআন শিক্ষা।</div>
             </div>
-            <div class="labels-bottom">
-                <span id="live-clock">০০:০০:০০ PM</span>
-                <div class="status-badge" id="time-left">-- মিনিট বাকি</div>
+
+            <div class="book-card cat-learn" onclick="showInfo('i1')">
+                <div class="card-top">
+                    <div class="icon-box"><i class="fas fa-user-graduate"></i></div>
+                    <h3>কুরআন টিচার</h3>
+                </div>
+                <div class="card-actions"><a href="https://www.searchtruth.com/quran_teacher/quran.php" target="_blank" class="btn-open">খুলুন</a></div>
+                <div id="i1" class="info-panel"><i class="fas fa-times close-info"></i><br>অডিওসহ কুরআন শিখুন।</div>
+            </div>
+
+            <div class="book-card cat-read" onclick="showInfo('i2')">
+                <div class="card-top">
+                    <div class="icon-box"><i class="fas fa-book-open"></i></div>
+                    <h3>মুসহাফ স্টাইল</h3>
+                </div>
+                <div class="card-actions"><a href="https://www.searchtruth.com/mushaf/quran.php" target="_blank" class="btn-open">খুলুন</a></div>
+                <div id="i2" class="info-panel"><i class="fas fa-times close-info"></i><br>হাফেজী কুরআন স্টাইল।</div>
             </div>
         </div>
-    </div>
 
-    <div class="credit-notice">
-        <i class="fas fa-certificate" style="color:var(--verified)"></i> 
-        <span>নীল ব্যাজ চিহ্নিত বাটনগুলো আমাদের অ্যাপের বিশেষ মৌলিক কাজ।</span>
-    </div>
+        <div class="section-title">গবেষণা ও ব্যাকরণ</div>
+        <div class="button-grid">
+            <div class="book-card cat-research" onclick="showInfo('i-ww')">
+                <div class="card-top">
+                    <div class="icon-box"><i class="fas fa-microscope"></i></div>
+                    <h3>শব্দ বিশ্লেষণ</h3>
+                </div>
+                <div class="card-actions"><a href="https://corpus.quran.com/wordbyword.jsp" target="_blank" class="btn-open">খুলুন</a></div>
+                <div id="i-ww" class="info-panel"><i class="fas fa-times close-info"></i><br>শব্দের গ্রামার বিশ্লেষণ।</div>
+            </div>
 
-    <div id="ilm-sec" class="category-label ilm"><div class="label-bar ilm-bar"></div> ইলম</div>
-    <div class="grid">
-        <a href="quran.html" class="grid-item"><i class="fas fa-book-quran ilm"></i><span>কুরআন</span></a>
-        <a href="hadith.html" class="grid-item"><i class="fas fa-book-open ilm"></i><span>হাদীস</span></a>
-        <a href="https://maktaba-johir.github.io/sikhkha_kandro/" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-university ilm"></i><span>শিক্ষাকেন্দ্র</span></a>
-        <a href="porichiti/porichiti_main.html" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-info-circle ilm"></i><span>পরিচিতি</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-microphone ilm"></i><span>বয়ান</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-file-alt ilm"></i><span>প্রবন্ধ</span></a>
-        <a href="#" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-graduation-cap ilm"></i><span>কোর্স</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-plus-circle ilm"></i><span>আরো দেখুন</span></a>
-    </div>
+            <div class="book-card cat-research" onclick="showInfo('i-tb')">
+                <div class="card-top">
+                    <div class="icon-box"><i class="fas fa-project-diagram"></i></div>
+                    <h3>তারকীবী গ্রাফ</h3>
+                </div>
+                <div class="card-actions"><a href="https://corpus.quran.com/treebank.jsp" target="_blank" class="btn-open">খুলুন</a></div>
+                <div id="i-tb" class="info-panel"><i class="fas fa-times close-info"></i><br>বাক্যের গঠন ম্যাপ।</div>
+            </div>
 
-    <div id="amal-sec" class="category-label amal"><div class="label-bar amal-bar"></div> আমল</div>
-    <div class="grid">
-        <a href="http://tanzil.net" target="_blank" class="grid-item"><i class="fas fa-book-open-reader amal"></i><span>তিলাওয়া</span></a>
-        <a href="prayer_times.html" class="grid-item"><i class="fas fa-clock amal"></i><span>নামাযের সময়</span></a>
-        <a href="tasbih.html" class="grid-item"><i class="fas fa-fingerprint amal"></i><span>তাসবীহ</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-hands amal"></i><span>দুআ</span></a>
-        <a href="https://maktaba-johir.github.io/muhasaba/" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-edit amal"></i><span>মুহাসাবা</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-moon amal"></i><span>রমযান</span></a> 
-        <a href="#" class="grid-item"><i class="fas fa-kaaba amal"></i><span>হজ্ব ও ইমরা</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-plus-circle amal"></i><span>আরো দেখুন</span></a>
-    </div>
+            <div class="book-card cat-research" onclick="showInfo('i-dic')">
+                <div class="card-top">
+                    <div class="icon-box"><i class="fas fa-font"></i></div>
+                    <h3>রুট ডিকশনারি</h3>
+                </div>
+                <div class="card-actions"><a href="https://corpus.quran.com/qurandictionary.jsp" target="_blank" class="btn-open">খুলুন</a></div>
+                <div id="i-dic" class="info-panel"><i class="fas fa-times close-info"></i><br>শব্দের মূল ধাতু।</div>
+            </div>
 
-    <div id="seba-sec" class="category-label seba"><div class="label-bar seba-bar"></div> সেবা</div>
-    <div class="grid">
-        <a href="#" class="grid-item"><i class="fas fa-hand-holding-heart seba"></i><span>যাকাত</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-chart-line seba"></i><span>বিনিয়োগ</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-question-circle seba"></i><span>দ্বীনি জিজ্ঞাসা</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-shopping-bag seba"></i><span>কেনাকাটা</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-bookmark seba"></i><span>বুকমার্ক</span></a>
-        <a href="madrasha.html" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-school seba"></i><span>মাদরাসা</span></a>
-        <a href="https://maktaba-johir.github.io/Questions-of-madrasha/" class="grid-item"><i class="fas fa-file-signature seba"></i><span>বোর্ডপ্রশ্ন</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-plus-circle seba"></i><span>আরো দেখুন</span></a>
-    </div>
-
-    <div id="bibidh-sec" class="category-label bibidh"><div class="label-bar bibidh-bar"></div> বিবিধ</div>
-    <div class="grid">
-        <a href="https://qiblafinder.withgoogle.com/" target="_blank" class="grid-item"><i class="fas fa-compass bibidh"></i><span>কিবলা</span></a>
-        <a href="https://www.google.com/maps/search/Mosque+near+me" target="_blank" class="grid-item"><i class="fas fa-map-marker-alt bibidh"></i><span>মসজিদ খুজি</span></a>
-        <a href="live.html" class="grid-item"><i class="fas fa-broadcast-tower bibidh"></i><span>লাইভ</span></a>
-        <a href="https://maktaba-johir.github.io/Calculator-Converter/" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-calculator bibidh"></i><span>ক্যালকুলেটর</span></a>
-        <a href="calendar.html" class="grid-item"><i class="fas fa-calendar-alt bibidh"></i><span>ক্যালেন্ডার</span></a>
-        <a href="important_days.html" class="grid-item"><i class="fas fa-star bibidh"></i><span>গুরুত্বপূর্ণ দিন</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-dharmachakra bibidh"></i><span>আসমাউল হুসনা</span></a>
-        <a href="#" class="grid-item"><i class="fas fa-gear bibidh"></i><span>আরো দেখুন</span></a>
-    </div>
-
-    <div class="author-card">
-        <div style="font-size: 1.15rem; font-weight: 700; color: var(--primary);">মুফতী জহিরুল ইসলাম</div>
-        <div style="font-size: 0.8rem; margin: 6px 0;">জামি‘আতুল অলিজা ইসলামিয়া মাদরাসা, ধীরাশ্রম, গাজীপুর।</div>
-        <div class="social-links">
-            <a href="https://wa.me/8801742812210" class="social-btn" style="background:#25d366"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-            <a href="https://www.facebook.com/786johir" class="social-btn" style="background:#1877f2"><i class="fab fa-facebook"></i> Facebook</a>
-            <a href="https://t.me/johirarif" class="social-btn" style="background:#0088cc"><i class="fab fa-telegram"></i> Telegram</a>
-            <a href="tel:8801742812210" class="social-btn" style="background:#34495e"><i class="fas fa-phone"></i> Call</a>
-            <a href="https://github.com/maktaba-johir" class="social-btn" style="background:#333"><i class="fab fa-github"></i> GitHub</a>
-            <a href="https://fimo.onelink.me/?QQl/sm" class="social-btn" style="background:#1e90ff"><i class="fas fa-video"></i> IMO</a>
+            <div class="book-card cat-research" onclick="showInfo('i-srch')">
+                <div class="card-top">
+                    <div class="icon-box"><i class="fas fa-search"></i></div>
+                    <h3>অ্যাডভান্স সার্চ</h3>
+                </div>
+                <div class="card-actions"><a href="https://www.searchtruth.com/search.php" target="_blank" class="btn-open">খুলুন</a></div>
+                <div id="i-srch" class="info-panel"><i class="fas fa-times close-info"></i><br>আয়াত খোঁজার টুল।</div>
+            </div>
         </div>
-    </div>
 
-    <footer>সর্বস্বত্ব সংরক্ষিত © ২০২৬ | রাহবার</footer>
+        <div class="section-title">তাফসীর ও অন্যান্য</div>
+        <div class="button-grid">
+            <div class="book-card cat-tafsir" onclick="showInfo('i-taf')">
+                <div class="card-top">
+                    <div class="icon-box"><i class="fas fa-books"></i></div>
+                    <h3>তাফসীরসমূহ</h3>
+                </div>
+                <div class="card-actions"><a href="https://www.altafsir.com/Tafasir.asp" target="_blank" class="btn-open">খুলুন</a></div>
+                <div id="i-taf" class="info-panel"><i class="fas fa-times close-info"></i><br>১০০+ আরবী তাফসীর।</div>
+            </div>
 
-    <div class="bottom-nav">
-        <a href="#ilm-sec" class="nav-item"><i class="fas fa-book"></i><span>ইলম</span></a>
-        <a href="#amal-sec" class="nav-item"><i class="fas fa-pray"></i><span>আমল</span></a>
-        <a href="#seba-sec" class="nav-item"><i class="fas fa-hands-helping"></i><span>সেবা</span></a>
-        <a href="#bibidh-sec" class="nav-item"><i class="fas fa-th-large"></i><span>বিবিধ</span></a>
+            <div class="book-card cat-tafsir" onclick="showInfo('i-sn')">
+                <div class="card-top">
+                    <div class="icon-box"><i class="fas fa-landmark"></i></div>
+                    <h3>শানে নুজুল</h3>
+                </div>
+                <div class="card-actions"><a href="https://www.altafsir.com/AsbabAlnuzol.asp" target="_blank" class="btn-open">খুলুন</a></div>
+                <div id="i-sn" class="info-panel"><i class="fas fa-times close-info"></i><br>নাযিলের পটভূমি।</div>
+            </div>
+
+            <div class="book-card cat-tafsir" onclick="showInfo('i-ah')">
+                <div class="card-top">
+                    <div class="icon-box"><i class="fas fa-gavel"></i></div>
+                    <h3>আহকামুল কুরআন</h3>
+                </div>
+                <div class="card-actions"><a href="https://www.altafsir.com/Ahkam_Alquran.asp" target="_blank" class="btn-open">খুলুন</a></div>
+                <div id="i-ah" class="info-panel"><i class="fas fa-times close-info"></i><br>কুরআনের আইন-কানুন।</div>
+            </div>
+
+            <div class="book-card cat-tafsir" onclick="showInfo('i-fz')">
+                <div class="card-top">
+                    <div class="icon-box"><i class="fas fa-star"></i></div>
+                    <h3>ফযীলত</h3>
+                </div>
+                <div class="card-actions"><a href="https://www.altafsir.com/FadaelAlQuran.asp" target="_blank" class="btn-open">খুলুন</a></div>
+                <div id="i-fz" class="info-panel"><i class="fas fa-times close-info"></i><br>আয়াতের ফজিলত।</div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        const basePrayerTimes = [
-            { name: "ফজর", start: "05:15", end: "06:30" },
-            { name: "ইশরাক", start: "06:45", end: "12:00" },
-            { name: "যোহর", start: "12:15", end: "16:15" },
-            { name: "আসর", start: "16:16", end: "17:55" },
-            { name: "মাগরিব", start: "17:57", end: "19:05" },
-            { name: "ইশা", start: "19:06", end: "23:59" },
-            { name: "তাহাজ্জুদ", start: "00:00", end: "05:14" } 
-        ];
-
-        function timeToSeconds(timeStr) {
-            const [h, m] = timeStr.split(':').map(Number);
-            return h * 3600 + m * 60;
+        function showInfo(id) {
+            event.stopPropagation();
+            const target = document.getElementById(id);
+            const isVisible = target.style.display === 'block';
+            document.querySelectorAll('.info-panel').forEach(p => p.style.display = 'none');
+            if(!isVisible) target.style.display = 'block';
         }
 
-        function updateLive() {
-            const now = new Date();
-            const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
-            const totalSec = h * 3600 + m * 60 + s;
-
-            const offsetMin = parseInt(document.getElementById('district').value);
-            const offsetSec = offsetMin * 60;
-
-            document.getElementById('live-clock').innerText = now.toLocaleTimeString('bn-BD', {hour12: true});
-            document.getElementById('date-text').innerText = now.toLocaleDateString('bn-BD', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
-
-            let currentWakt = null;
-            let nextWakt = null;
-
-            for (let i = 0; i < basePrayerTimes.length; i++) {
-                const start = timeToSeconds(basePrayerTimes[i].start) + offsetSec;
-                const end = timeToSeconds(basePrayerTimes[i].end) + offsetSec;
-
-                if (totalSec >= start && totalSec <= end) {
-                    currentWakt = basePrayerTimes[i];
-                    nextWakt = basePrayerTimes[(i + 1) % basePrayerTimes.length];
-                    
-                    const duration = end - start;
-                    const elapsed = totalSec - start;
-                    let progress = (elapsed / duration) * 100;
-                    progress = Math.min(Math.max(progress, 0), 100);
-
-                    document.getElementById('progress-fill').style.width = progress + "%";
-                    const angle = (progress / 100) * Math.PI;
-                    const sun = document.getElementById('sun');
-                    if(sun){
-                        sun.style.left = (50 + 40 * Math.cos(Math.PI - angle)) + "%";
-                        sun.style.top = (50 - 50 * Math.sin(angle)) + "px";
-                    }
-
-                    const diff = end - totalSec;
-                    document.getElementById('time-left').innerText = `${Math.floor(diff/60)} মি. ${diff%60} সে. বাকি`;
-                    break;
-                }
-            }
-
-            if (currentWakt) {
-                document.getElementById('label-running').innerText = currentWakt.name + " চলমান";
-                document.getElementById('label-next').innerText = "পরবর্তী: " + nextWakt.name;
+        window.onclick = function(event) {
+            if (!event.target.closest('.book-card')) {
+                document.querySelectorAll('.info-panel').forEach(p => p.style.display = 'none');
             }
         }
-
-        setInterval(updateLive, 1000);
-        window.onload = updateLive;
     </script>
 </body>
 </html>
