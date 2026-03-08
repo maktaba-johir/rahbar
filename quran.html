@@ -27,17 +27,17 @@
             background: white; 
             border-radius: 5px 15px 15px 5px; 
             box-shadow: 5px 5px 15px rgba(0,0,0,0.1); 
-            border-left: 10px solid var(--primary); /* বইয়ের স্পাইন বা বাঁধাই */
+            border-left: 10px solid var(--primary); 
             display: flex; 
             flex-direction: column; 
             transition: 0.3s; 
             position: relative;
-            height: 220px; /* বইয়ের উচ্চতা */
+            height: 230px; 
         }
         .book-card:hover { transform: rotateY(-10deg) translateX(5px); box-shadow: 10px 10px 20px rgba(0,0,0,0.15); }
 
         .card-top { padding: 20px 10px; text-align: center; cursor: pointer; flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .icon-box { font-size: 2rem; margin-bottom: 15px; opacity: 0.8; }
+        .icon-box { font-size: 1.8rem; margin-bottom: 12px; opacity: 0.8; }
         
         /* ক্যাটাগরি অনুযায়ী রঙ */
         .cat-learn { border-left-color: #e67e22; color: #e67e22; }
@@ -53,9 +53,9 @@
         .btn-info { color: #555; border-right: 1px solid #eee; }
         .btn-open { color: var(--accent); }
 
-        /* ইনফো প্যানেল (বইয়ের ভেতর থেকে তথ্য বের হওয়া) */
+        /* ইনফো প্যানেল */
         .info-panel { display: none; padding: 12px; background: #fffbe6; font-size: 0.8rem; color: #444; border-top: 1px solid #ffe58f; text-align: left; line-height: 1.5; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; border-radius: 5px 15px 15px 5px; box-sizing: border-box; overflow-y: auto; }
-        .close-info { float: right; cursor: pointer; color: #cc0000; font-size: 1rem; }
+        .close-info { float: right; cursor: pointer; color: #cc0000; font-size: 1.1rem; padding: 5px; }
     </style>
 </head>
 <body>
@@ -84,6 +84,18 @@
             </div>
 
             <div class="book-card cat-learn">
+                <div class="card-top" onclick="showInfo('i-vid')">
+                    <div class="icon-box"><i class="fas fa-video"></i></div>
+                    <h3>যমযম কুরআন ভিডিও</h3>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-opt btn-info" onclick="showInfo('i-vid')">জানুন</button>
+                    <a href="https://www.alim.org/quran-videos/zamzam/" target="_blank" class="btn-opt btn-open">খুলুন</a>
+                </div>
+                <div id="i-vid" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> এখানে আল-কুরআনের বিভিন্ন আয়াতের ভিজ্যুয়াল বা ভিডিও উপস্থাপনা পাওয়া যায়, যা শিখতে সহজ করে দেয়।</div>
+            </div>
+
+            <div class="book-card cat-learn">
                 <div class="card-top" onclick="showInfo('i1')">
                     <div class="icon-box"><i class="fas fa-chalkboard-teacher"></i></div>
                     <h3>কুরআন টিচার</h3>
@@ -105,18 +117,6 @@
                     <a href="https://www.searchtruth.com/mushaf/quran.php" target="_blank" class="btn-opt btn-open">খুলুন</a>
                 </div>
                 <div id="i2" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> ছাপানো হাফেজী কুরআনের মতো পৃষ্ঠা উল্টে পড়তে এটি ব্যবহার করুন।</div>
-            </div>
-
-            <div class="book-card cat-read">
-                <div class="card-top" onclick="showInfo('i3')">
-                    <div class="icon-box"><i class="fas fa-headphones-alt"></i></div>
-                    <h3>অডিও তেলাওয়াত</h3>
-                </div>
-                <div class="card-actions">
-                    <button class="btn-opt btn-info" onclick="showInfo('i3')">জানুন</button>
-                    <a href="https://www.searchtruth.com/quran/recitation.php" target="_blank" class="btn-opt btn-open">খুলুন</a>
-                </div>
-                <div id="i3" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> প্রিয় ক্বারীদের তিলাওয়াত শোনার জন্য এখানে সূরা নির্বাচন করে প্লে করুন।</div>
             </div>
         </div>
 
@@ -144,7 +144,7 @@
                     <button class="btn-opt btn-info" onclick="showInfo('i-tb')">জানুন</button>
                     <a href="https://corpus.quran.com/treebank.jsp" target="_blank" class="btn-opt btn-open">খুলুন</a>
                 </div>
-                <div id="i-tb" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> আল-তাফসীর সাইট কাজ না করলে এখান থেকে আয়াতের তারকীব বা গ্রামাটিক্যাল গ্রাফ দেখতে পারেন।</div>
+                <div id="i-tb" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> আয়াতের তারকীব বা গ্রামাটিক্যাল ম্যাপ (Treebank) দেখার জন্য সচল লিঙ্ক।</div>
             </div>
 
             <div class="book-card cat-research">
@@ -168,7 +168,7 @@
                     <button class="btn-opt btn-info" onclick="showInfo('i-srch')">জানুন</button>
                     <a href="https://www.searchtruth.com/search.php" target="_blank" class="btn-opt btn-open">খুলুন</a>
                 </div>
-                <div id="i-srch" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> আরবী কি-ওয়ার্ড বা নির্দিষ্ট শব্দ লিখে কুরআনের আয়াত খুঁজে বের করার জন্য এটি ব্যবহার করুন।</div>
+                <div id="i-srch" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> আরবী শব্দ বা বিষয় লিখে কুরআনের আয়াত তাৎক্ষণিক খুঁজে বের করার জন্য।</div>
             </div>
         </div>
 
@@ -184,7 +184,7 @@
                     <button class="btn-opt btn-info" onclick="showInfo('i-taf')">জানুন</button>
                     <a href="https://www.altafsir.com/Tafasir.asp" target="_blank" class="btn-opt btn-open">খুলুন</a>
                 </div>
-                <div id="i-taf" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> ১০০টিরও বেশি ক্লাসিক্যাল আরবী তাফসীর পড়ার জন্য এটি পৃথিবীর শ্রেষ্ঠ আর্কাইভ।</div>
+                <div id="i-taf" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> আরবী ভাষায় বিশ্বের সেরা সব তাফসীর গ্রন্থ একত্রে পড়ার জন্য এটি সেরা আর্কাইভ।</div>
             </div>
 
             <div class="book-card cat-tafsir">
@@ -196,7 +196,7 @@
                     <button class="btn-opt btn-info" onclick="showInfo('i-sn')">জানুন</button>
                     <a href="https://www.altafsir.com/AsbabAlnuzol.asp" target="_blank" class="btn-opt btn-open">খুলুন</a>
                 </div>
-                <div id="i-sn" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> আয়াত নাযিলের ঐতিহাসিক পটভূমি ও কারণ জানতে এখানে সার্চ করুন।</div>
+                <div id="i-sn" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> আয়াত নাযিলের ঐতিহাসিক পটভূমি ও কারণসমূহ এখানে পাওয়া যাবে।</div>
             </div>
 
             <div class="book-card cat-tafsir">
@@ -208,7 +208,7 @@
                     <button class="btn-opt btn-info" onclick="showInfo('i-ah')">জানুন</button>
                     <a href="https://www.altafsir.com/Ahkam_Alquran.asp" target="_blank" class="btn-opt btn-open">খুলুন</a>
                 </div>
-                <div id="i-ah" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> কুরআন থেকে ফিকহী মাসআলা ও বিধান বের করার কিতাবসমূহ এখানে পাওয়া যাবে।</div>
+                <div id="i-ah" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> কুরআনের বিধিবিধান ও ফিকহী মাসআলা সম্পর্কিত কিতাবসমূহ।</div>
             </div>
 
             <div class="book-card cat-tafsir">
@@ -220,7 +220,7 @@
                     <button class="btn-opt btn-info" onclick="showInfo('i-fz')">জানুন</button>
                     <a href="https://www.altafsir.com/FadaelAlQuran.asp" target="_blank" class="btn-opt btn-open">খুলুন</a>
                 </div>
-                <div id="i-fz" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> বিভিন্ন সূরা ও আয়াতের গুরুত্ব ও বরকত সম্পর্কে জানতে এখানে পড়ুন।</div>
+                <div id="i-fz" class="info-panel"><i class="fas fa-times close-info" onclick="hideAll()"></i><br><strong>ব্যবহার:</strong> বিভিন্ন সূরা ও আয়াতের গুরুত্ব ও নেক আমল সম্পর্কে এখানে পড়ুন।</div>
             </div>
 
         </div>
@@ -238,7 +238,6 @@
             document.querySelectorAll('.info-panel').forEach(p => p.style.display = 'none');
         }
         
-        // বাইরের কোথাও ক্লিক করলে ইনফো বন্ধ হবে
         window.onclick = function(event) {
             if (!event.target.closest('.book-card')) {
                 hideAll();
@@ -247,3 +246,5 @@
     </script>
 </body>
 </html>
+
+```
