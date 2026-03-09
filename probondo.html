@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আহকামে জিন্দেগী - পূর্ণাঙ্গ তালিকা</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --primary: #1a472a; --bg: #eaeff2; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); padding-bottom: 50px; }
+
+        .header { background: var(--primary); color: white; padding: 18px; display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .back-btn { color: white; font-size: 1.2rem; margin-right: 15px; text-decoration: none; }
+
+        .main-title { background: white; margin: 15px; padding: 20px; border-radius: 20px; text-align: center; border-bottom: 5px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+        /* অ্যাকর্ডিয়ন ডিজাইন */
+        .accordion-item { background: white; margin: 12px 15px; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border: 1px solid #ddd; }
+        
+        .accordion-header { 
+            width: 100%; display: flex; align-items: center; padding: 16px; 
+            color: white; font-weight: 700; font-size: 1.1rem; border: none; 
+            outline: none; cursor: pointer; transition: 0.3s;
+        }
+
+        .icon-box { background: rgba(255,255,255,0.25); width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 1.5rem; filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.2)); }
+        
+        .arrow { margin-left: auto; transition: 0.3s; }
+        .active .arrow { transform: rotate(180deg); }
+
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: #f9f9f9; }
+
+        /* গ্রিড লেআউট */
+        .topics-grid { padding: 15px; display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+        
+        .topic-link { 
+            background: white; color: #333; padding: 10px 5px; border-radius: 10px; 
+            text-decoration: none; font-size: 0.8rem; font-weight: 700; text-align: center; 
+            border: 1px solid #eee; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            display: flex; align-items: center; justify-content: center; min-height: 45px;
+        }
+        
+        .topic-link:active { background: #e8f0fe; transform: scale(0.95); }
+
+        /* থিম কালার */
+        .iman { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .ibadat { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .muamalat { background: linear-gradient(135deg, #e67e22, #d35400); }
+        .muasharat { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .akhlaq { background: linear-gradient(135deg, #f1c40f, #f39c12); }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+        <span style="font-weight:700">আহকামে জিন্দেগী</span>
+    </div>
+
+    <div class="main-title">
+        <h2 style="color:var(--primary)">পূর্ণাঙ্গ সূচিপত্র</h2>
+        <p style="font-size:0.8rem; color:#666">ছবিতে থাকা সকল বিষয় এখানে অন্তর্ভুক্ত</p>
+    </div>
+
+    <div class="accordion-item">
+        <button class="accordion-header iman">
+            <div class="icon-box">🕋</div> ১. ঈমান ও আকাইদ
+            <i class="fas fa-chevron-down arrow"></i>
+        </button>
+        <div class="accordion-content">
+            <div class="topics-grid">
+                <a href="articles/iman.html" class="topic-link">ঈমান-আকাইদ</a>
+                <a href="articles/kufr.html" class="topic-link">কুফর</a>
+                <a href="articles/shirk.html" class="topic-link">শিরক</a>
+                <a href="articles/bidat.html" class="topic-link">বিদআত</a>
+                <a href="articles/rusm.html" class="topic-link">রছম</a>
+                <a href="articles/kusonskar.html" class="topic-link">কুসংস্কার</a>
+                <a href="articles/kobira.html" class="topic-link">গোনাহে কবীরা</a>
+                <a href="articles/sogira.html" class="topic-link">গোনাহে সগীরা</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <button class="accordion-header ibadat">
+            <div class="icon-box">📿</div> ২. ইবাদাত
+            <i class="fas fa-chevron-down arrow"></i>
+        </button>
+        <div class="accordion-content">
+            <div class="topics-grid">
+                <a href="articles/pobitrota.html" class="topic-link">পবিত্রতা</a>
+                <a href="articles/estenja.html" class="topic-link">ইস্তেনজা</a>
+                <a href="articles/ozu.html" class="topic-link">ওযু</a>
+                <a href="articles/gosol.html" class="topic-link">গোসল</a>
+                <a href="articles/tayammum.html" class="topic-link">তায়াম্মুম</a>
+                <a href="articles/haiz.html" class="topic-link">হায়েয-নেফাস</a>
+                <a href="articles/namaz.html" class="topic-link">নামাজ</a>
+                <a href="articles/roja.html" class="topic-link">রোজা</a>
+                <a href="articles/hajj.html" class="topic-link">হজ্জ</a>
+                <a href="articles/zakat.html" class="topic-link">যাকাত</a>
+                <a href="articles/munajat.html" class="topic-link">মুনাজাত</a>
+                <a href="articles/etekaf.html" class="topic-link">এ'তেকাফ</a>
+                <a href="articles/qurbani.html" class="topic-link">কুরবানী</a>
+                <a href="articles/mannot.html" class="topic-link">মান্নত</a>
+                <a href="articles/kosom.html" class="topic-link">কছম</a>
+                <a href="articles/aqiqa.html" class="topic-link">আকীকা</a>
+                <a href="articles/khotna.html" class="topic-link">খতনা</a>
+                <a href="articles/porda.html" class="topic-link">পর্দা</a>
+                <a href="articles/chul_nokh.html" class="topic-link">চুল ও নখ</a>
+                <a href="articles/dari_gof.html" class="topic-link">দাড়ি ও গোঁফ</a>
+                <a href="articles/din_khon.html" class="topic-link">দিন ও সময়ের আমল</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <button class="accordion-header muamalat">
+            <div class="icon-box">🤝</div> ৩. মুয়ামালাত
+            <i class="fas fa-chevron-down arrow"></i>
+        </button>
+        <div class="accordion-content">
+            <div class="topics-grid">
+                <a href="articles/len_den.html" class="topic-link">লেন-দেন</a>
+                <a href="articles/business.html" class="topic-link">ব্যবসা-বাণিজ্য</a>
+                <a href="articles/orthoniti.html" class="topic-link">অর্থনীতি</a>
+                <a href="articles/shromniti.html" class="topic-link">শ্রমনীতি</a>
+                <a href="articles/chakuri.html" class="topic-link">চাকুরী</a>
+                <a href="articles/krishi.html" class="topic-link">কৃষি ও শিল্প</a>
+                <a href="articles/pesha.html" class="topic-link">বিভিন্ন পেশা</a>
+                <a href="articles/bibaho.html" class="topic-link">বিবাহ</a>
+                <a href="articles/talak.html" class="topic-link">তালাক</a>
+                <a href="articles/waqf.html" class="topic-link">ওয়াক্ফ</a>
+                <a href="articles/mosjid_madrasa.html" class="topic-link">মসজিদ-মাদরাসা</a>
+                <a href="articles/koborstan.html" class="topic-link">কবরস্থান</a>
+                <a href="articles/oshiyat.html" class="topic-link">ওছিয়াত</a>
+                <a href="articles/miras.html" class="topic-link">মীরাছ</a>
+                <a href="articles/shofa.html" class="topic-link">শোপফা</a>
+                <a href="articles/bondhok.html" class="topic-link">বন্ধক</a>
+                <a href="articles/rin.html" class="topic-link">ঋণ</a>
+                <a href="articles/mamla.html" class="topic-link">মামলা-মোকদ্দমা</a>
+                <a href="articles/bichar.html" class="topic-link">বিচার</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <button class="accordion-header muasharat">
+            <div class="icon-box">🏠</div> ৪. মুয়াশারাত
+            <i class="fas fa-chevron-down arrow"></i>
+        </button>
+        <div class="accordion-content">
+            <div class="topics-grid">
+                <a href="articles/achoron.html" class="topic-link">আচার-আচরণ</a>
+                <a href="articles/manobadhikar.html" class="topic-link">মানবাধিকার</a>
+                <a href="articles/shishtachar.html" class="topic-link">শিষ্টাচার ও সংস্কৃতি</a>
+                <a href="articles/poribar.html" class="topic-link">পরিবার নীতি</a>
+                <a href="articles/somajniti.html" class="topic-link">রাজনীতি ও রাষ্ট্র</a>
+                <a href="articles/poshak.html" class="topic-link">পোশাক-পরিচ্ছদ</a>
+                <a href="articles/saj_goj.html" class="topic-link">সাজ-গোজ</a>
+                <a href="articles/porishkar.html" class="topic-link">পরিষ্কার-পরিচ্ছন্নতা</a>
+                <a href="articles/salam.html" class="topic-link">সালাম-কালাম</a>
+                <a href="articles/chithi.html" class="topic-link">চিঠি-পত্র</a>
+                <a href="articles/musafaha.html" class="topic-link">মুসাফাহা ও মুআনাকা</a>
+                <a href="articles/kodombuchi.html" class="topic-link">কদমবুছী</a>
+                <a href="articles/pana_har.html" class="topic-link">পানা-হার</a>
+                <a href="articles/mehmandari.html" class="topic-link">মেহমানদারী</a>
+                <a href="articles/bondhutto.html" class="topic-link">বন্ধুত্ব</a>
+                <a href="articles/hadiya.html" class="topic-link">হাদিয়া-তোহফা</a>
+                <a href="articles/rog_shushrusha.html" class="topic-link">রোগ শুশ্রূষা</a>
+                <a href="articles/kafon_dafon.html" class="topic-link">কাফন-দাফন</a>
+                <a href="articles/isale_sowab.html" class="topic-link">ইছালে সওয়াব</a>
+                <a href="articles/kobor_ziyarot.html" class="topic-link">কবর যিয়ারত</a>
+                <a href="articles/nidra_shopno.html" class="topic-link">নিদ্রা ও স্বপ্ন</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <button class="accordion-header akhlaq">
+            <div class="icon-box">💎</div> ৫. আখলাকিয়াত
+            <i class="fas fa-chevron-down arrow"></i>
+        </button>
+        <div class="accordion-content">
+            <div class="topics-grid">
+                <a href="articles/akhlaq.html" class="topic-link">আখলাক-চরিত্র</a>
+                <a href="articles/porishuddhi.html" class="topic-link">আধ্যাত্মিক পরিশুদ্ধি</a>
+                <a href="articles/pirmuridi.html" class="topic-link">পীর-মুরীদী</a>
+                <a href="articles/zikr.html" class="topic-link">যিকির-আযকার</a>
+                <a href="articles/dua.html" class="topic-link">দুআ-দুরুদ</a>
+                <a href="articles/tilawat.html" class="topic-link">তিলাওয়াত ও তাজবীদ</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const accHeaders = document.querySelectorAll(".accordion-header");
+        accHeaders.forEach(header => {
+            header.addEventListener("click", () => {
+                header.classList.toggle("active");
+                const content = header.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
