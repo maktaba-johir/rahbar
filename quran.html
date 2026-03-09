@@ -10,19 +10,44 @@
         :root { --primary: #1a472a; --accent: #27ae60; --bg: #eaeff2; }
         body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); margin: 0; padding: 10px; }
         
-        .header { background: #1a472a; color: white; padding: 10px; text-align: center; border-radius: 8px; margin-bottom: 15px; }
-        .header h1 { margin: 0; font-size: 1rem; font-weight: 700; }
+        /* ব্যাক বাটনসহ হেডার স্টাইল */
+        .header { 
+            background: #1a472a; 
+            color: white; 
+            padding: 12px; 
+            text-align: center; 
+            border-radius: 8px; 
+            margin-bottom: 15px; 
+            display: flex; 
+            align-items: center; 
+            position: relative;
+        }
+        .back-btn {
+            position: absolute;
+            left: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            background: rgba(255,255,255,0.15);
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+        .back-btn:active { background: rgba(255,255,255,0.3); transform: scale(0.9); }
+        .header h1 { margin: 0 auto; font-size: 1rem; font-weight: 700; }
 
         .section-title { font-size: 0.85rem; color: #2c3e50; margin: 15px 0 8px; font-weight: 800; border-left: 4px solid var(--accent); padding-left: 8px; }
 
-        /* ৪টি করে কার্ড এক লাইনে ধরার জন্য গ্রিড */
         .button-grid { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
             gap: 8px; 
         }
 
-        /* কার্ড স্টাইল - ছোট ও মুসলিম বাংলার মতো */
         .book-card { 
             background: white; 
             border-radius: 8px; 
@@ -35,7 +60,7 @@
             text-decoration: none;
             transition: 0.2s;
             border: 1px solid #ddd;
-            height: 90px; /* নির্দিষ্ট উচ্চতা যেন সব সমান থাকে */
+            height: 90px;
         }
         .book-card:active { transform: scale(0.95); background: #f0f0f0; }
 
@@ -50,17 +75,16 @@
             font-weight: 700;
         }
 
-        /* ক্যাটাগরি কালার বর্ডার */
         .cat-read { border-bottom: 3px solid #2ecc71; }
         .cat-gram { border-bottom: 3px solid #3498db; }
         .cat-tafsir { border-bottom: 3px solid #9b59b6; }
         .cat-tool { border-bottom: 3px solid #f1c40f; }
-
     </style>
 </head>
 <body>
 
     <div class="header">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
         <h1>কুরআন রিসার্চ ল্যাব - রাহবার</h1>
     </div>
 
@@ -70,7 +94,7 @@
             <span class="icon-box">📖</span><h3>মুসলিম বাংলা</h3>
         </a>
         <a href="https://muslimbangla.com/quran?menu=topics" target="_blank" class="book-card cat-read">
-            <span class="icon-box">📌</span><h3>বিষয়ভিত্তিক</h3>
+            <span class="icon-box">📌</span><h3>বিষয়ভিত্তিক</h3>
         </a>
         <a href="https://www.alim.org/quran-videos/zamzam/" target="_blank" class="book-card cat-read">
             <span class="icon-box">📺</span><h3>যমযম ভিডিও</h3>
