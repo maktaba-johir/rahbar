@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রাহবার AI - ডিজিটাল হাব</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1a472a;
+            --bg: #eaeff2;
+            --verified: #1DA1F2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); color: #1a1a1a; padding-bottom: 50px; }
+
+        /* হেডার */
+        .app-header {
+            background: var(--primary); color: white; padding: 20px;
+            text-align: center; position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .back-link { position: absolute; left: 15px; top: 22px; color: white; text-decoration: none; font-size: 1.1rem; }
+
+        .category-label { 
+            display: flex; align-items: center; gap: 8px; padding: 0 15px; 
+            margin: 25px 0 12px; font-size: 1rem; font-weight: 800; color: #2c3e50;
+        }
+        .label-bar { width: 5px; height: 18px; border-radius: 10px; }
+
+        /* গ্রিড লেআউট - ইনডেক্স পেজের মতো */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 10px; padding: 0 15px; 
+        }
+        
+        .grid-item {
+            position: relative; 
+            background: #ffffff; 
+            padding: 15px 4px;
+            border-radius: 12px; 
+            text-align: center; 
+            text-decoration: none; 
+            color: #333;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08); 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 125px; transition: 0.2s; border: 1px solid #eee;
+            border-bottom: 3px solid var(--verified); /* ইনডেক্স পেজের স্টাইল */
+        }
+        
+        .grid-item:active { transform: scale(0.92); background: #f9f9f9; }
+
+        /* আইকন শ্যাডো */
+        .grid-item i { 
+            font-size: 1.8rem; margin-bottom: 8px; 
+            filter: drop-shadow(3px 5px 4px rgba(0,0,0,0.25)); 
+        }
+        
+        .grid-item span { font-size: 0.7rem; font-weight: 700; line-height: 1.2; }
+
+        /* ছোট ডেসক্রিপশন (টুলটি কী করে) */
+        .tool-info {
+            font-size: 0.55rem; color: #666; font-weight: 400; margin-top: 4px;
+            display: block; padding: 0 2px;
+        }
+
+        .verified-badge {
+            position: absolute; top: 5px; right: 5px; background: var(--verified);
+            color: white; border-radius: 50%; font-size: 0.45rem; width: 14px; height: 14px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        footer { text-align: center; padding: 40px 15px; font-size: 0.75rem; font-weight: 700; opacity: 0.5; }
+
+        @media (max-width: 400px) {
+            .grid { grid-template-columns: repeat(3, 1fr); }
+            .grid-item { height: 115px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-header">
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i></a>
+        <div style="font-size: 1.2rem; font-weight: 700;">এআই রিসার্চ হাব</div>
+        <div style="font-size: 0.6rem; opacity: 0.8;">আধুনিক প্রযুক্তির স্মার্ট লাইব্রেরি</div>
+    </div>
+
+    <div class="category-label"><div class="label-bar" style="background:#2980b9"></div> বুদ্ধিবৃত্তিক চ্যাট (Chat AI)</div>
+    <div class="grid">
+        <a href="https://gemini.google.com" class="grid-item">
+            <i class="fas fa-wand-magic-sparkles" style="color:#4285F4"></i>
+            <span>Gemini</span>
+            <small class="tool-info">গুগলের সেরা এআই</small>
+        </a>
+        <a href="https://chatgpt.com" class="grid-item">
+            <i class="fas fa-robot" style="color:#10a37f"></i>
+            <span>ChatGPT</span>
+            <small class="tool-info">সবার প্রিয় চ্যাটবট</small>
+        </a>
+        <a href="https://x.com/i/grok" class="grid-item">
+            <div class="verified-badge"><i class="fas fa-check"></i></div>
+            <i class="fas fa-bolt" style="color:#000"></i>
+            <span>Grok</span>
+            <small class="tool-info">ইলন মাস্কের এআই</small>
+        </a>
+        <a href="https://claude.ai" class="grid-item">
+            <i class="fas fa-brain" style="color:#d97757"></i>
+            <span>Claude AI</span>
+            <small class="tool-info">নিখুঁত ও স্মার্ট লেখা</small>
+        </a>
+    </div>
+
+    <div id="study-sec" class="category-label"><div class="label-bar" style="background:#27ae60"></div> পড়া ও গবেষণা (Study)</div>
+    <div class="grid">
+        <a href="https://notebooklm.google.com/" class="grid-item">
+            <div class="verified-badge"><i class="fas fa-check"></i></div>
+            <i class="fas fa-book-reader" style="color:#4285F4"></i>
+            <span>NotebookLM</span>
+            <small class="tool-info">পিডিএফ থেকে নোট</small>
+        </a>
+        <a href="https://aistudio.google.com/" class="grid-item">
+            <i class="fas fa-microchip" style="color:#1a73e8"></i>
+            <span>AI Studio</span>
+            <small class="tool-info">গুগল ডেভেলপার হাব</small>
+        </a>
+        <a href="https://perplexity.ai" class="grid-item">
+            <i class="fas fa-search" style="color:#20b2aa"></i>
+            <span>Perplexity</span>
+            <small class="tool-info">স্মার্ট তথ্য খোঁজা</small>
+        </a>
+        <a href="https://manus.ai/" class="grid-item">
+            <div class="verified-badge"><i class="fas fa-check"></i></div>
+            <i class="fas fa-paper-plane" style="color:#8e44ad"></i>
+            <span>Manus AI</span>
+            <small class="tool-info">ভবিষ্যতের এআই এজেন্ট</small>
+        </a>
+    </div>
+
+    <div class="category-label"><div class="label-bar" style="background:#e67e22"></div> মিডিয়া ও ক্রিয়েশন</div>
+    <div class="grid">
+        <a href="https://suno.com/" class="grid-item">
+            <i class="fas fa-music" style="color:#ff4500"></i>
+            <span>Suno AI</span>
+            <small class="tool-info">অসাধারণ গান তৈরি</small>
+        </a>
+        <a href="https://leonardo.ai" class="grid-item">
+            <i class="fas fa-palette" style="color:#6c5ce7"></i>
+            <span>Leonardo</span>
+            <small class="tool-info">ছবি জেনারেশন</small>
+        </a>
+        <a href="https://elevenlabs.io" class="grid-item">
+            <i class="fas fa-microphone-alt" style="color:#2d3436"></i>
+            <span>ElevenLabs</span>
+            <small class="tool-info">মানুষের মতো কণ্ঠ</small>
+        </a>
+        <a href="https://runwayml.com" class="grid-item">
+            <i class="fas fa-film" style="color:#fdcb6e"></i>
+            <span>Runway</span>
+            <small class="tool-info">ভিডিও এডিটিং</small>
+        </a>
+    </div>
+
+    <div class="category-label"><div class="label-bar" style="background:#8e44ad"></div> কোডিং ও ডেভলপার</div>
+    <div class="grid">
+        <a href="https://blackbox.ai" class="grid-item">
+            <i class="fas fa-code" style="color:#3498db"></i>
+            <span>Blackbox</span>
+            <small class="tool-info">দ্রুত কোডিং সমাধান</small>
+        </a>
+        <a href="https://v0.dev" class="grid-item">
+            <i class="fas fa-laptop-code" style="color:#000"></i>
+            <span>v0.dev</span>
+            <small class="tool-info">ওয়েবসাইট ডিজাইন</small>
+        </a>
+        <a href="https://replit.com" class="grid-item">
+            <i class="fas fa-terminal" style="color:#f39c12"></i>
+            <span>Replit</span>
+            <small class="tool-info">অনলাইন এডিটর</small>
+        </a>
+        <a href="https://poe.com" class="grid-item">
+            <i class="fas fa-layer-group" style="color:#e91e63"></i>
+            <span>Poe</span>
+            <small class="tool-info">সব এআই একসাথে</small>
+        </a>
+    </div>
+
+    <footer>রাহবার ডিজিটাল ড্যাশবোর্ড | ২০২৬</footer>
+
+</body>
+</html>
