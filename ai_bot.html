@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>রাহবার AI - ডিজিটাল হাব</title>
+    <title>রাহবার AI - সুপার ডিরেক্টরি</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
@@ -16,23 +16,22 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); color: #1a1a1a; padding-bottom: 50px; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); color: #1a1a1a; padding-bottom: 80px; }
 
-        /* হেডার */
         .app-header {
-            background: var(--primary); color: white; padding: 20px;
+            background: var(--primary); color: white; padding: 25px 20px;
             text-align: center; position: sticky; top: 0; z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        .back-link { position: absolute; left: 15px; top: 22px; color: white; text-decoration: none; font-size: 1.1rem; }
+        .back-link { position: absolute; left: 15px; top: 28px; color: white; text-decoration: none; }
 
         .category-label { 
             display: flex; align-items: center; gap: 8px; padding: 0 15px; 
-            margin: 25px 0 12px; font-size: 1rem; font-weight: 800; color: #2c3e50;
+            margin: 30px 0 15px; font-size: 1.1rem; font-weight: 800; color: #2c3e50;
         }
-        .label-bar { width: 5px; height: 18px; border-radius: 10px; }
+        .label-bar { width: 6px; height: 20px; border-radius: 10px; }
 
-        /* গ্রিড লেআউট - ইনডেক্স পেজের মতো */
+        /* গ্রিড ডিজাইন */
         .grid { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
@@ -42,44 +41,44 @@
         .grid-item {
             position: relative; 
             background: #ffffff; 
-            padding: 15px 4px;
-            border-radius: 12px; 
+            padding: 12px 2px;
+            border-radius: 15px; 
             text-align: center; 
             text-decoration: none; 
             color: #333;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06); 
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: 125px; transition: 0.2s; border: 1px solid #eee;
-            border-bottom: 3px solid var(--verified); /* ইনডেক্স পেজের স্টাইল */
+            height: 135px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border: 1px solid #eee;
+            border-bottom: 4px solid var(--verified);
         }
         
-        .grid-item:active { transform: scale(0.92); background: #f9f9f9; }
+        .grid-item:active { transform: scale(0.9); }
+        .grid-item:hover { border-color: var(--verified); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
 
-        /* আইকন শ্যাডো */
         .grid-item i { 
-            font-size: 1.8rem; margin-bottom: 8px; 
-            filter: drop-shadow(3px 5px 4px rgba(0,0,0,0.25)); 
+            font-size: 2rem; margin-bottom: 8px; 
+            filter: drop-shadow(3px 4px 5px rgba(0,0,0,0.2)); 
         }
         
-        .grid-item span { font-size: 0.7rem; font-weight: 700; line-height: 1.2; }
+        .grid-item span { font-size: 0.7rem; font-weight: 700; line-height: 1.2; padding: 0 2px; }
 
-        /* ছোট ডেসক্রিপশন (টুলটি কী করে) */
         .tool-info {
-            font-size: 0.55rem; color: #666; font-weight: 400; margin-top: 4px;
-            display: block; padding: 0 2px;
+            font-size: 0.58rem; color: #7f8c8d; font-weight: 600; margin-top: 5px;
+            display: block; line-height: 1.1;
         }
 
         .verified-badge {
-            position: absolute; top: 5px; right: 5px; background: var(--verified);
-            color: white; border-radius: 50%; font-size: 0.45rem; width: 14px; height: 14px;
+            position: absolute; top: 6px; right: 6px; background: var(--verified);
+            color: white; border-radius: 50%; font-size: 0.5rem; width: 16px; height: 16px;
             display: flex; align-items: center; justify-content: center;
         }
 
-        footer { text-align: center; padding: 40px 15px; font-size: 0.75rem; font-weight: 700; opacity: 0.5; }
+        footer { text-align: center; padding: 50px 20px; font-size: 0.8rem; font-weight: 700; opacity: 0.6; }
 
-        @media (max-width: 400px) {
+        @media (max-width: 480px) {
             .grid { grid-template-columns: repeat(3, 1fr); }
-            .grid-item { height: 115px; }
+            .grid-item { height: 125px; }
         }
     </style>
 </head>
@@ -87,107 +86,68 @@
 
     <div class="app-header">
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i></a>
-        <div style="font-size: 1.2rem; font-weight: 700;">এআই রিসার্চ হাব</div>
-        <div style="font-size: 0.6rem; opacity: 0.8;">আধুনিক প্রযুক্তির স্মার্ট লাইব্রেরি</div>
+        <div style="font-size: 1.4rem; font-weight: 700;">রাহবার এআই সুপার-হাব</div>
+        <div style="font-size: 0.7rem; opacity: 0.9;">বিশ্বসেরা ১০০+ এআই টুলের সমাহার</div>
     </div>
 
-    <div class="category-label"><div class="label-bar" style="background:#2980b9"></div> বুদ্ধিবৃত্তিক চ্যাট (Chat AI)</div>
+    <div class="category-label"><div class="label-bar" style="background:#3498db"></div> স্মার্ট চ্যাট ও সার্চ</div>
     <div class="grid">
-        <a href="https://gemini.google.com" class="grid-item">
-            <i class="fas fa-wand-magic-sparkles" style="color:#4285F4"></i>
-            <span>Gemini</span>
-            <small class="tool-info">গুগলের সেরা এআই</small>
-        </a>
-        <a href="https://chatgpt.com" class="grid-item">
-            <i class="fas fa-robot" style="color:#10a37f"></i>
-            <span>ChatGPT</span>
-            <small class="tool-info">সবার প্রিয় চ্যাটবট</small>
-        </a>
-        <a href="https://x.com/i/grok" class="grid-item">
-            <div class="verified-badge"><i class="fas fa-check"></i></div>
-            <i class="fas fa-bolt" style="color:#000"></i>
-            <span>Grok</span>
-            <small class="tool-info">ইলন মাস্কের এআই</small>
-        </a>
-        <a href="https://claude.ai" class="grid-item">
-            <i class="fas fa-brain" style="color:#d97757"></i>
-            <span>Claude AI</span>
-            <small class="tool-info">নিখুঁত ও স্মার্ট লেখা</small>
-        </a>
+        <a href="https://gemini.google.com" class="grid-item"><i class="fas fa-wand-magic-sparkles" style="color:#4285F4"></i><span>Gemini</span><small class="tool-info">গুগলের স্মার্ট এআই</small></a>
+        <a href="https://chatgpt.com" class="grid-item"><i class="fas fa-robot" style="color:#10a37f"></i><span>ChatGPT</span><small class="tool-info">ওপেন এআই চ্যাট</small></a>
+        <a href="https://x.com/i/grok" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-bolt" style="color:#000"></i><span>Grok AI</span><small class="tool-info">রিয়েল টাইম তথ্য</small></a>
+        <a href="https://claude.ai" class="grid-item"><i class="fas fa-brain" style="color:#d97757"></i><span>Claude</span><small class="tool-info">সবচেয়ে মানবিক এআই</small></a>
+        <a href="https://perplexity.ai" class="grid-item"><i class="fas fa-search" style="color:#20b2aa"></i><span>Perplexity</span><small class="tool-info">স্মার্ট সার্চ ইঞ্জিন</small></a>
+        <a href="https://pi.ai" class="grid-item"><i class="fas fa-comment-dots" style="color:#2ecc71"></i><span>Pi AI</span><small class="tool-info">বন্ধুত্বপূর্ণ সহকারী</small></a>
+        <a href="https://duckduckgo.com/?q=DuckDuckGo+AI+Chat" class="grid-item"><i class="fas fa-duck" style="color:#de5833"></i><span>Duck AI</span><small class="tool-info">গোপন চ্যাটবট</small></a>
+        <a href="https://you.com" class="grid-item"><i class="fas fa-globe" style="color:#1e90ff"></i><span>You.com</span><small class="tool-info">এআই ভিত্তিক সার্চ</small></a>
     </div>
 
-    <div id="study-sec" class="category-label"><div class="label-bar" style="background:#27ae60"></div> পড়া ও গবেষণা (Study)</div>
+    <div class="category-label"><div class="label-bar" style="background:#27ae60"></div> গবেষণা ও একাডেমিক</div>
     <div class="grid">
-        <a href="https://notebooklm.google.com/" class="grid-item">
-            <div class="verified-badge"><i class="fas fa-check"></i></div>
-            <i class="fas fa-book-reader" style="color:#4285F4"></i>
-            <span>NotebookLM</span>
-            <small class="tool-info">পিডিএফ থেকে নোট</small>
-        </a>
-        <a href="https://aistudio.google.com/" class="grid-item">
-            <i class="fas fa-microchip" style="color:#1a73e8"></i>
-            <span>AI Studio</span>
-            <small class="tool-info">গুগল ডেভেলপার হাব</small>
-        </a>
-        <a href="https://perplexity.ai" class="grid-item">
-            <i class="fas fa-search" style="color:#20b2aa"></i>
-            <span>Perplexity</span>
-            <small class="tool-info">স্মার্ট তথ্য খোঁজা</small>
-        </a>
-        <a href="https://manus.ai/" class="grid-item">
-            <div class="verified-badge"><i class="fas fa-check"></i></div>
-            <i class="fas fa-paper-plane" style="color:#8e44ad"></i>
-            <span>Manus AI</span>
-            <small class="tool-info">ভবিষ্যতের এআই এজেন্ট</small>
-        </a>
+        <a href="https://notebooklm.google.com/" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-book-reader" style="color:#4285F4"></i><span>NotebookLM</span><small class="tool-info">অডিও সামারি ও নোট</small></a>
+        <a href="https://consensus.app" class="grid-item"><i class="fas fa-microscope" style="color:#6c5ce7"></i><span>Consensus</span><small class="tool-info">বিজ্ঞানভিত্তিক তথ্য</small></a>
+        <a href="https://elicit.org" class="grid-item"><i class="fas fa-graduation-cap" style="color:#000"></i><span>Elicit</span><small class="tool-info">রিসার্চ পেপার এআই</small></a>
+        <a href="https://www.chatpdf.com" class="grid-item"><i class="fas fa-file-pdf" style="color:#e74c3c"></i><span>ChatPDF</span><small class="tool-info">পিডিএফ-এর সাথে চ্যাট</small></a>
+        <a href="https://scispace.com" class="grid-item"><i class="fas fa-atom" style="color:#3498db"></i><span>SciSpace</span><small class="tool-info">জটিল কিতাব বুঝতে</small></a>
+        <a href="https://humata.ai" class="grid-item"><i class="fas fa-file-alt" style="color:#2ecc71"></i><span>Humata</span><small class="tool-info">বড় ফাইল এনালাইসিস</small></a>
+        <a href="https://scholarcy.com" class="grid-item"><i class="fas fa-bookmark" style="color:#f1c40f"></i><span>Scholarcy</span><small class="tool-info">বইয়ের সংক্ষিপ্ত সার</small></a>
+        <a href="https://researchrabbit.ai" class="grid-item"><i class="fas fa-vial" style="color:#e67e22"></i><span>ResearchRabbit</span><small class="tool-info">গবেষণার মানচিত্র</small></a>
     </div>
 
-    <div class="category-label"><div class="label-bar" style="background:#e67e22"></div> মিডিয়া ও ক্রিয়েশন</div>
+    <div class="category-label"><div class="label-bar" style="background:#f1c40f"></div> লেখালেখি ও অনুবাদ</div>
     <div class="grid">
-        <a href="https://suno.com/" class="grid-item">
-            <i class="fas fa-music" style="color:#ff4500"></i>
-            <span>Suno AI</span>
-            <small class="tool-info">অসাধারণ গান তৈরি</small>
-        </a>
-        <a href="https://leonardo.ai" class="grid-item">
-            <i class="fas fa-palette" style="color:#6c5ce7"></i>
-            <span>Leonardo</span>
-            <small class="tool-info">ছবি জেনারেশন</small>
-        </a>
-        <a href="https://elevenlabs.io" class="grid-item">
-            <i class="fas fa-microphone-alt" style="color:#2d3436"></i>
-            <span>ElevenLabs</span>
-            <small class="tool-info">মানুষের মতো কণ্ঠ</small>
-        </a>
-        <a href="https://runwayml.com" class="grid-item">
-            <i class="fas fa-film" style="color:#fdcb6e"></i>
-            <span>Runway</span>
-            <small class="tool-info">ভিডিও এডিটিং</small>
-        </a>
+        <a href="https://quillbot.com" class="grid-item"><i class="fas fa-pen-fancy" style="color:#4db051"></i><span>Quillbot</span><small class="tool-info">লেখা পরিবর্তন করুন</small></a>
+        <a href="https://copy.ai" class="grid-item"><i class="fas fa-copy" style="color:#3498db"></i><span>Copy.ai</span><small class="tool-info">কপিরাইটিং সহকারী</small></a>
+        <a href="https://writesonic.com" class="grid-item"><i class="fas fa-feather" style="color:#ff6b6b"></i><span>Writesonic</span><small class="tool-info">নিবন্ধ ও ব্লগ লেখন</small></a>
+        <a href="https://deepl.com/translator" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-language" style="color:#0f2d46"></i><span>DeepL</span><small class="tool-info">সেরা অনুবাদক</small></a>
+        <a href="https://grammarly.com" class="grid-item"><i class="fas fa-spell-check" style="color:#15c39a"></i><span>Grammarly</span><small class="tool-info">ভুল সংশোধন</small></a>
+        <a href="https://hemingwayapp.com" class="grid-item"><i class="fas fa-edit" style="color:#333"></i><span>Hemingway</span><small class="tool-info">সহজবোধ্য লেখা</small></a>
+        <a href="https://jasper.ai" class="grid-item"><i class="fas fa-gem" style="color:#6f42c1"></i><span>Jasper</span><small class="tool-info">প্রফেশনাল কন্টেন্ট</small></a>
+        <a href="https://rytr.me" class="grid-item"><i class="fas fa-pen-nib" style="color:#f1c40f"></i><span>Rytr</span><small class="tool-info">দ্রুত ড্রাফট তৈরি</small></a>
     </div>
 
-    <div class="category-label"><div class="label-bar" style="background:#8e44ad"></div> কোডিং ও ডেভলপার</div>
+    <div class="category-label"><div class="label-bar" style="background:#e67e22"></div> অডিও ও ভিডিও ক্রিয়েশন</div>
     <div class="grid">
-        <a href="https://blackbox.ai" class="grid-item">
-            <i class="fas fa-code" style="color:#3498db"></i>
-            <span>Blackbox</span>
-            <small class="tool-info">দ্রুত কোডিং সমাধান</small>
-        </a>
-        <a href="https://v0.dev" class="grid-item">
-            <i class="fas fa-laptop-code" style="color:#000"></i>
-            <span>v0.dev</span>
-            <small class="tool-info">ওয়েবসাইট ডিজাইন</small>
-        </a>
-        <a href="https://replit.com" class="grid-item">
-            <i class="fas fa-terminal" style="color:#f39c12"></i>
-            <span>Replit</span>
-            <small class="tool-info">অনলাইন এডিটর</small>
-        </a>
-        <a href="https://poe.com" class="grid-item">
-            <i class="fas fa-layer-group" style="color:#e91e63"></i>
-            <span>Poe</span>
-            <small class="tool-info">সব এআই একসাথে</small>
-        </a>
+        <a href="https://suno.com" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-music" style="color:#ff4500"></i><span>Suno AI</span><small class="tool-info">দুর্দান্ত নাশিদ/মিউজিক</small></a>
+        <a href="https://leonardo.ai" class="grid-item"><i class="fas fa-palette" style="color:#6c5ce7"></i><span>Leonardo</span><small class="tool-info">অসাধারণ ছবি তৈরি</small></a>
+        <a href="https://elevenlabs.io" class="grid-item"><i class="fas fa-microphone-lines" style="color:#1a1a1a"></i><span>ElevenLabs</span><small class="tool-info">ভয়েস ক্লোনিং এআই</small></a>
+        <a href="https://pika.art" class="grid-item"><i class="fas fa-video" style="color:#000"></i><span>Pika Art</span><small class="tool-info">এনিমেটেড ভিডিও</small></a>
+        <a href="https://heygen.com" class="grid-item"><i class="fas fa-user-tie" style="color:#4a90e2"></i><span>HeyGen</span><small class="tool-info">কথা বলা অবতার</small></a>
+        <a href="https://adobe.com/firefly" class="grid-item"><i class="fas fa-fire" style="color:#ff0000"></i><span>Firefly</span><small class="tool-info">এডবি ফটো এআই</small></a>
+        <a href="https://midjourney.com" class="grid-item"><i class="fas fa-mountain-sun" style="color:#5e35b1"></i><span>Midjourney</span><small class="tool-info">আর্টিস্টিক ছবি</small></a>
+        <a href="https://descript.com" class="grid-item"><i class="fas fa-file-audio" style="color:#2ecc71"></i><span>Descript</span><small class="tool-info">অডিও এডিটিং</small></a>
+    </div>
+
+    <div class="category-label"><div class="label-bar" style="background:#8e44ad"></div> কোডিং ও এআই এজেন্ট</div>
+    <div class="grid">
+        <a href="https://manus.ai" class="grid-item"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-paper-plane" style="color:#8e44ad"></i><span>Manus AI</span><small class="tool-info">সব কাজ করা এজেন্ট</small></a>
+        <a href="https://aistudio.google.com" class="grid-item"><i class="fas fa-microchip" style="color:#1a73e8"></i><span>AI Studio</span><small class="tool-info">গুগল জেমিনি প্রো</small></a>
+        <a href="https://blackbox.ai" class="grid-item"><i class="fas fa-code" style="color:#3498db"></i><span>Blackbox</span><small class="tool-info">কোড জেনারেটর</small></a>
+        <a href="https://v0.dev" class="grid-item"><i class="fas fa-terminal" style="color:#000"></i><span>v0.dev</span><small class="tool-info">ইউআই ডিজাইন এআই</small></a>
+        <a href="https://replit.com" class="grid-item"><i class="fas fa-laptop-code" style="color:#f39c12"></i><span>Replit Agent</span><small class="tool-info">পুরো অ্যাপ তৈরি</small></a>
+        <a href="https://cursor.com" class="grid-item"><i class="fas fa-keyboard" style="color:#34495e"></i><span>Cursor</span><small class="tool-info">স্মার্ট এডিটর</small></a>
+        <a href="https://github.com/features/copilot" class="grid-item"><i class="fab fa-github" style="color:#333"></i><span>Copilot</span><small class="tool-info">গিটহাব কোডিং</small></a>
+        <a href="https://phind.com" class="grid-item"><i class="fas fa-compass" style="color:#2ecc71"></i><span>Phind</span><small class="tool-info">ডেভেলপার সার্চ</small></a>
     </div>
 
     <footer>রাহবার ডিজিটাল ড্যাশবোর্ড | ২০২৬</footer>
