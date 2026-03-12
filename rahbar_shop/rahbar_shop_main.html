@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রাহবার প্রিমিয়াম শপ ও লাইব্রেরি</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --royal-blue: #0a3d62;
+            --glossy-shine: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%);
+            --shadow-deep: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        body { font-family: 'Hind Siliguri', sans-serif; background: #e0e4e8; margin: 0; padding-bottom: 60px; overflow-x: hidden; }
+
+        /* রঙিন বুদবুদ */
+        .bubble-wrap { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .b { position: absolute; bottom: -50px; border-radius: 50%; animation: fly 7s infinite linear; opacity: 0.6; }
+        @keyframes fly { from { transform: translateY(0); } to { transform: translateY(-110vh); } }
+
+        /* হেডার */
+        .header { background: var(--royal-blue); padding: 20px; text-align: center; color: #f1c40f; box-shadow: 0 5px 20px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; }
+        .header h1 { margin: 0; flex-grow: 1; font-family: 'Baloo Da 2'; font-size: 1.5rem; }
+        .back { color: #f1c40f; text-decoration: none; font-size: 1.5rem; width: 40px; }
+
+        .container { max-width: 600px; margin: 20px auto; padding: 0 15px; }
+
+        /* বিশেষ হাইলাইট: রাহবার লাইব্রেরি */
+        .library-hero {
+            background: linear-gradient(135deg, #27ae60, #1a472a);
+            border: 3px solid #000;
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+            color: white;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .library-hero::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 50%; background: var(--glossy-shine); }
+        .library-hero i { font-size: 4rem; margin-bottom: 10px; filter: drop-shadow(0 8px 10px rgba(0,0,0,0.3)); }
+        .library-hero h2 { margin: 0; font-family: 'Baloo Da 2'; font-size: 2rem; }
+        .library-hero p { margin: 5px 0 0; opacity: 0.9; }
+
+        /* ক্যাটাগরি লেবেল */
+        .section-title { background: #000; color: #fff; display: inline-block; padding: 5px 25px; border-radius: 30px; font-size: 1.1rem; font-weight: 700; margin: 25px 0 15px; border: 2px solid #f1c40f; }
+
+        /* গ্রিড */
+        .shop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+
+        .category-box {
+            background: #fff;
+            border: 2.5px solid #000;
+            border-radius: 22px;
+            padding: 22px 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #222;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--shadow-deep);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .category-box::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 50%; background: var(--glossy-shine); }
+        .category-box:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        .category-box i { font-size: 2.5rem; margin-bottom: 12px; filter: drop-shadow(3px 5px 6px rgba(0,0,0,0.2)); }
+        .category-box span { font-size: 1rem; font-weight: 800; font-family: 'Baloo Da 2'; }
+
+        /* আইকন কালারস */
+        .pdf-color { color: #e74c3c; }
+        .book-color { color: #2980b9; }
+        .gift-color { color: #8e44ad; }
+        .tshirt-color { color: #e67e22; }
+
+        .footer { text-align: center; margin-top: 40px; color: #555; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+    <div class="bubble-wrap" id="bg"></div>
+
+    <div class="header">
+        <a href="../shop.html" class="back"><i class="fas fa-chevron-left"></i></a>
+        <h1>✨ রাহবার এক্সক্লুসিভ শপ ✨</h1>
+        <div style="width:40px"></div>
+    </div>
+
+    <div class="container">
+        
+        <a href="altamash_books.html" class="library-hero">
+            <i class="fas fa-book-reader"></i>
+            <h2>রাহবার লাইব্রেরি</h2>
+            <p>পিডিএফ ও হার্ডকপি বইয়ের বিশাল কালেকশন</p>
+        </a>
+
+        <div class="section-title">বইয়ের ক্যাটাগরি</div>
+        <div class="shop-grid">
+            <a href="#" class="category-box">
+                <i class="fas fa-file-pdf pdf-color"></i>
+                <span>পিডিএফ বই</span>
+            </a>
+            <a href="#" class="category-box">
+                <i class="fas fa-book book-color"></i>
+                <span>ইসলামী সাহিত্য</span>
+            </a>
+            <a href="#" class="category-box">
+                <i class="fas fa-quran book-color"></i>
+                <span>কুরআন ও তাফসীর</span>
+            </a>
+            <a href="#" class="category-box">
+                <i class="fas fa-child gift-color"></i>
+                <span>শিশু কিশোর সাহিত্য</span>
+            </a>
+        </div>
+
+        <div class="section-title">লাইফস্টাইল ও অন্যান্য</div>
+        <div class="shop-grid">
+            <a href="#" class="category-box">
+                <i class="fas fa-tshirt tshirt-color"></i>
+                <span>প্রিমিয়াম পাঞ্জাবি</span>
+            </a>
+            <a href="#" class="category-box">
+                <i class="fas fa-spray-can gift-color"></i>
+                <span>বেস্ট কালেকশন আতর</span>
+            </a>
+            <a href="#" class="category-box">
+                <i class="fas fa-gifts gift-color"></i>
+                <span>ইসলামিক গিফট বক্স</span>
+            </a>
+            <a href="#" class="category-box">
+                <i class="fas fa-laptop-house tshirt-color"></i>
+                <span>গৃহস্থালী পণ্য</span>
+            </a>
+        </div>
+
+        <div class="footer">
+            &copy; ২০২৬ রাহবার ডিজিটাল সার্ভিস | আপনার বিশ্বস্ত শপিং পার্টনার
+        </div>
+    </div>
+
+    <script>
+        const bg = document.getElementById('bg');
+        const colors = ['#ff9ff3', '#feca57', '#ff6b6b', '#48dbfb', '#1dd1a1', '#54a0ff'];
+        function makeBubble() {
+            const b = document.createElement('div');
+            const size = Math.random() * 40 + 20 + "px";
+            b.className = 'b';
+            b.style.width = size; b.style.height = size;
+            b.style.left = Math.random() * 100 + "%";
+            b.style.background = colors[Math.floor(Math.random() * colors.length)];
+            b.style.animationDuration = Math.random() * 5 + 5 + "s";
+            bg.appendChild(b);
+            setTimeout(() => { b.remove(); }, 7000);
+        }
+        setInterval(makeBubble, 400);
+    </script>
+</body>
+</html>

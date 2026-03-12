@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রাহবার শপিং হাব - প্রিমিয়াম</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600;700&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --silver-bg: #d1d9e0; /* একটু ডার্ক সিলভার যেন চকচকে বাটন ফোটে */
+            --glass-white: rgba(255, 255, 255, 0.85);
+            --glossy-overlay: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.05) 100%);
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--silver-bg);
+            margin: 0;
+            padding-bottom: 50px;
+            overflow-x: hidden;
+        }
+
+        /* রঙিন বুদবুদ */
+        .bubble-area { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .bubble { position: absolute; bottom: -100px; border-radius: 50%; opacity: 0.7; animation: moveUp 8s infinite linear; box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1); }
+        @keyframes moveUp { from { transform: translateY(0); } to { transform: translateY(-120vh); } }
+
+        /* হেডার */
+        .header {
+            background: linear-gradient(135deg, #1a472a, #000);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .back-btn { color: white; text-decoration: none; font-size: 1.5rem; }
+        .header h1 { margin: 0; font-size: 1.3rem; flex-grow: 1; text-align: center; font-family: 'Baloo Da 2'; }
+
+        .container { max-width: 600px; margin: 20px auto; padding: 0 15px; }
+
+        /* স্পেশাল চকচকে রাহবার শপ কার্ড */
+        .rahbar-main-card {
+            background: linear-gradient(135deg, #ff9f43, #ee5253);
+            border: 3px solid #000; /* কালো রাউন্ড বর্ডার */
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+            color: white;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 5px 15px rgba(255,255,255,0.4);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .rahbar-main-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--glossy-overlay); }
+
+        .rahbar-main-card i { 
+            font-size: 3.5rem; 
+            margin-bottom: 10px; 
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4)); /* ইমজি শেডু */
+            position: relative;
+        }
+        .rahbar-main-card h2 { margin: 0; font-family: 'Baloo Da 2'; font-size: 2rem; position: relative; }
+
+        /* ক্যাটাগরি লেবেল */
+        .category-label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            background: #000;
+            padding: 6px 20px;
+            border-radius: 50px;
+            width: fit-content;
+            margin: 30px 0 15px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        /* চকচকে শপ গ্রিড */
+        .shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+
+        .shop-box {
+            background: var(--glass-white);
+            border: 2px solid #000; /* কালো রাউন্ড বর্ডার */
+            border-radius: 20px;
+            padding: 18px 5px;
+            text-align: center;
+            text-decoration: none;
+            color: #000;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* বাটন চকচকে করার জন্য গ্লসি এফেক্ট */
+        .shop-box::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+        }
+
+        .shop-box:hover { transform: translateY(-8px) scale(1.05); background: #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+
+        .shop-box i { 
+            font-size: 2.2rem; 
+            margin-bottom: 10px; 
+            filter: drop-shadow(0 5px 8px rgba(0,0,0,0.3)); /* আইকন শেডু */
+            z-index: 1;
+        }
+        .shop-box span { font-size: 0.9rem; font-weight: 800; z-index: 1; }
+
+        /* কালারস */
+        .c-daraz { color: #ff6200; }
+        .c-rokomari { color: #27ae60; }
+        .c-chaldal { color: #f39c12; }
+        .c-wafi { color: #8e44ad; }
+        .c-star { color: #e74c3c; }
+        .c-food { color: #ff0050; }
+
+        @media (max-width: 450px) { .shop-grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+
+    <div class="bubble-area" id="bubbles"></div>
+
+    <div class="header">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+        <h1>রাহবার প্রিমিয়াম শপ</h1>
+        <div style="width:40px"></div>
+    </div>
+
+    <div class="container">
+        
+        <a href="rahbar_shop/rahbar_shop_main.html" class="rahbar-main-card">
+            <i class="fas fa-gem"></i>
+            <h2>রাহবার শপ (Rahbar Shop)</h2>
+            <p>আমাদের প্রিমিয়াম কালেকশন ও ডিল</p>
+        </a>
+
+        <div class="category-label">মার্কেটপ্লেস</div>
+        <div class="shop-grid">
+            <a href="https://www.daraz.com.bd" target="_blank" class="shop-box">
+                <i class="fas fa-shopping-bag c-daraz"></i>
+                <span>দারাজ</span>
+            </a>
+            <a href="https://www.chaldal.com" target="_blank" class="shop-box">
+                <i class="fas fa-shopping-basket c-chaldal"></i>
+                <span>চালডাল</span>
+            </a>
+            <a href="https://www.bikroy.com" target="_blank" class="shop-box">
+                <i class="fas fa-tags c-food"></i>
+                <span>বিক্রয়.কম</span>
+            </a>
+        </div>
+
+        <div class="category-label">বই ও ইসলাম</div>
+        <div class="shop-grid">
+            <a href="https://www.rokomari.com" target="_blank" class="shop-box">
+                <i class="fas fa-book-open c-rokomari"></i>
+                <span>রকমারি</span>
+            </a>
+            <a href="https://www.wafilife.com" target="_blank" class="shop-box">
+                <i class="fas fa-mosque c-wafi"></i>
+                <span>ওয়াফি লাইফ</span>
+            </a>
+            <a href="https://www.boighar.com" target="_blank" class="shop-box">
+                <i class="fas fa-book c-star"></i>
+                <span>বইঘর</span>
+            </a>
+        </div>
+
+        <div class="category-label">টেক ও গ্যাজেট</div>
+        <div class="shop-grid">
+            <a href="https://www.startech.com.bd" target="_blank" class="shop-box">
+                <i class="fas fa-laptop c-star"></i>
+                <span>স্টার টেক</span>
+            </a>
+            <a href="https://www.pickaboo.com" target="_blank" class="shop-box">
+                <i class="fas fa-mobile-alt c-wafi"></i>
+                <span>পিকাবু</span>
+            </a>
+            <a href="https://www.ryanscomputers.com" target="_blank" class="shop-box">
+                <i class="fas fa-desktop c-daraz"></i>
+                <span>রায়ানস</span>
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        const bubbleContainer = document.getElementById('bubbles');
+        const colors = ['#ff4d4d', '#33d9b2', '#34e7e4', '#ffb142', '#706fd3', '#ff5252'];
+
+        function createBubble() {
+            const bubble = document.createElement('div');
+            const size = Math.random() * 50 + 15 + "px";
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            bubble.className = 'bubble';
+            bubble.style.width = size;
+            bubble.style.height = size;
+            bubble.style.left = Math.random() * 100 + "%";
+            bubble.style.backgroundColor = color;
+            bubble.style.animationDuration = Math.random() * 4 + 4 + "s";
+            
+            bubbleContainer.appendChild(bubble);
+            setTimeout(() => { bubble.remove(); }, 8000);
+        }
+        setInterval(createBubble, 300);
+    </script>
+
+</body>
+</html>
