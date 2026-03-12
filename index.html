@@ -122,13 +122,6 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* Live Modal Style */
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; }
-        .modal-content { background: white; width: 85%; border-radius: 20px; padding: 20px; text-align: center; position: relative; }
-        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; color: #333; cursor: pointer; }
-        .live-btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-        .live-opt { padding: 15px; border-radius: 10px; text-decoration: none; color: white; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; }
-
         .author-card { background: white; margin: 25px 15px; padding: 20px; border-radius: 20px; text-align: center; border: 1px solid #ddd; }
         .social-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 15px; }
         .social-btn { padding: 8px; border-radius: 8px; color: white; text-decoration: none; font-size: 0.65rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 3px; }
@@ -228,7 +221,7 @@
 
     <div id="bibidh-sec" class="category-label"><div class="label-bar" style="background:#8e44ad"></div> বিবিধ</div>
     <div class="grid">
-        <a href="javascript:void(0)" class="grid-item line-bibidh" onclick="openLiveModal()"><i class="fas fa-broadcast-tower" style="color:#e74c3c"></i><span>লাইভ</span></a>
+        <a href="live.html" class="grid-item line-bibidh"><i class="fas fa-broadcast-tower" style="color:#e74c3c"></i><span>লাইভ</span></a>
         <a href="important_days.html" class="grid-item line-bibidh"><i class="fas fa-calendar-check" style="color:#f39c12"></i><span>গুরুত্বপূর্ণ দিন</span></a>
         <a href="calendar.html" class="grid-item line-bibidh"><i class="fas fa-calendar-alt" style="color:#2980b9"></i><span>ক্যালেন্ডার</span></a>
         <a href="#" class="grid-item line-bibidh"><i class="fas fa-list-ol" style="color:#9b59b6"></i><span>আসমাউল হুসনা</span></a>
@@ -257,21 +250,6 @@
         </div>
     </div>
 
-    <div id="liveModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeLiveModal()">×</span>
-            <h3 style="color: var(--primary); margin-bottom: 15px;">সরাসরি সম্প্রচার</h3>
-            <div class="live-btn-group">
-                <a href="https://www.youtube.com/results?search_query=makkah+live" target="_blank" class="live-opt" style="background: #2c3e50;">
-                    <i class="fas fa-kaaba"></i> মক্কা লাইভ
-                </a>
-                <a href="https://www.youtube.com/results?search_query=madinah+live" target="_blank" class="live-opt" style="background: #27ae60;">
-                    <i class="fas fa-mosque"></i> মদীনা লাইভ
-                </a>
-            </div>
-        </div>
-    </div>
-
     <footer>সর্বস্বত্ব সংরক্ষিত © ২০২৬ | রাহবার</footer>
 
     <div class="bottom-nav">
@@ -282,14 +260,9 @@
     </div>
 
     <script>
-        // Live Modal Functions
-        function openLiveModal() { document.getElementById('liveModal').style.display = 'flex'; }
-        function closeLiveModal() { document.getElementById('liveModal').style.display = 'none'; }
-        window.onclick = function(event) { if (event.target == document.getElementById('liveModal')) closeLiveModal(); }
-
         const basePrayerTimes = [
             { name: "ফজর", start: "05:15", end: "06:30" },
-            { name: "ইশরাক", start: "06:45", end: "12:00" },
+            { name: "イশরাক", start: "06:45", end: "12:00" },
             { name: "যোহর", start: "12:15", end: "16:15" },
             { name: "আসর", start: "16:16", end: "17:55" },
             { name: "মাগরিব", start: "17:57", end: "19:05" },
