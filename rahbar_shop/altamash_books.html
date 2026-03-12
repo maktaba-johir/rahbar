@@ -62,6 +62,23 @@
         }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
 
+        /* ফেসবুক মলাট দেখার বাটন */
+        .fb-preview-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #1877F2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border: 2px solid #000;
+            transition: 0.3s;
+        }
+        .fb-preview-btn:hover { background: #145dbf; transform: scale(1.05); }
+
         .price-section {
             background: #fff9c4;
             border: 2px dashed #f39c12;
@@ -69,9 +86,10 @@
             border-radius: 15px;
             margin: 20px 0;
         }
-        .price-section h3 { margin: 0; color: #d35400; font-size: 1.6rem; }
+        .price-section h3 { margin: 0; color: #d35400; font-size: 1.8rem; }
+        .old-price { text-decoration: line-through; color: #7f8c8d; font-size: 1.1rem; margin-right: 10px; }
 
-        /* বইয়ের তালিকা স্টাইল */
+        /* বইয়ের তালিকা স্টাইল */
         .full-list {
             text-align: left;
             background: #f9f9f9;
@@ -89,23 +107,26 @@
             color: #2c3e50;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 8px;
             border-bottom: 1px solid #eee;
             padding-bottom: 5px;
         }
+        .book-name div { display: flex; align-items: center; gap: 8px; }
         .book-name i { color: #27ae60; font-size: 0.8rem; }
         .vol-count {
-            background: #e0e0e0;
-            font-size: 0.75rem;
+            background: #2c3e50;
+            font-size: 0.7rem;
             padding: 2px 8px;
             border-radius: 10px;
             font-weight: 700;
-            color: #555;
+            color: #fff;
+            white-space: nowrap;
         }
 
         .order-btn {
             display: block;
-            background: linear-gradient(135deg, #27ae60, #1e8449);
+            background: linear-gradient(135deg, #f39c12, #e67e22);
             color: #fff;
             padding: 18px;
             border-radius: 50px;
@@ -113,11 +134,11 @@
             font-size: 1.4rem;
             font-weight: 800;
             border: 3px solid #000;
-            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3);
             margin-top: 25px;
             transition: 0.3s;
         }
-        .order-btn:hover { transform: translateY(-5px); background: #1a472a; }
+        .order-btn:hover { transform: translateY(-5px); background: #d35400; }
 
     </style>
 </head>
@@ -134,44 +155,51 @@
         </div>
 
         <div class="main-card">
-            <div class="offer-badge">মেগা অফার!</div>
-            <h2 style="font-family:'Baloo Da 2'; color:var(--primary);">সবগুলো বই পাবেন একটি প্যাকেজে</h2>
-            <p>নিচের ২০টি বইয়ের সকল খণ্ড (পিডিএফ) আজীবন এক্সেস পাবেন।</p>
+            <div class="offer-badge">ধামাকা অফার!</div>
+            <h2 style="font-family:'Baloo Da 2'; color:var(--primary);">মেগা কালেকশন: ২০টি বই (সকল খণ্ড)</h2>
+            
+            <p style="margin-bottom: 10px;">নিচের প্রতিটি বইয়ের সকল খণ্ড এখন একটি লিঙ্কেই পাবেন।</p>
+
+            <a href="https://www.facebook.com/share/p/17U36d5fFL/" target="_blank" class="fb-preview-btn">
+                <i class="fab fa-facebook-square"></i> বইয়ের মলাটগুলো দেখুন
+            </a>
 
             <div class="full-list">
-                <div class="book-name"><i class="fas fa-file-pdf"></i> নাঙ্গা তলোয়ার <span class="vol-count">১-৬ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> ঈমানদীপ্ত দাস্তান <span class="vol-count">১-৮ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> ভারত অভিযান <span class="vol-count">১-৫ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> অনিঃশেষ আলো <span class="vol-count">১-৪ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> প্রেম যুদ্ধ <span class="vol-count">১ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> শেষ আঘাত <span class="vol-count">১-৪ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> আমি কারো মেয়ে নই <span class="vol-count">১ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> আরব কন্যার আর্তনাদ <span class="vol-count">১ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> কাল নাগিনী <span class="vol-count">১ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> দামেস্কের কারাগারে <span class="vol-count">১ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> শয়তানের বেহেশত <span class="vol-count">১-২ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> স্পেনের রূপশী কন্যা <span class="vol-count">১-২ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> অপারেশন আলেপ্পা <span class="vol-count">১ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> আন্দালুসিয়ার সৈকতে <span class="vol-count">১ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> ঝলকিত তলোয়ার <span class="vol-count">১ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> পরাজিত অহংকার <span class="vol-count">১ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> পীর ও পুলিশ <span class="vol-count">১ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> স্বপ্নের তারকা <span class="vol-count">১ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> হেজাযের তুফান <span class="vol-count">১-২ খণ্ড</span></div>
-                <div class="book-name"><i class="fas fa-file-pdf"></i> সিংহশাবক <span class="vol-count">১ খণ্ড</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> নাঙ্গা তলোয়ার</div> <span class="vol-count">১-৬ খণ্ড</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> ঈমানদীপ্ত দাস্তান</div> <span class="vol-count">১-৮ খণ্ড</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> ভারত অভিযান</div> <span class="vol-count">১-৫ খণ্ড</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> অনিঃশেষ আলো</div> <span class="vol-count">১-৪ খণ্ড</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> প্রেম যুদ্ধ</div> <span class="vol-count">পূর্ণাঙ্গ</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> শেষ আঘাত</div> <span class="vol-count">১-৪ খণ্ড</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> আমি কারো মেয়ে নই</div> <span class="vol-count">পূর্ণাঙ্গ</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> আরব কন্যার আর্তনাদ</div> <span class="vol-count">পূর্ণাঙ্গ</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> কাল নাগিনী</div> <span class="vol-count">পূর্ণাঙ্গ</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> দামেস্কের কারাগারে</div> <span class="vol-count">পূর্ণাঙ্গ</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> শয়তানের বেহেশত</div> <span class="vol-count">১-২ খণ্ড</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> স্পেনের রূপশী কন্যা</div> <span class="vol-count">১-২ খণ্ড</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> অপারেশন আলেপ্পা</div> <span class="vol-count">পূর্ণাঙ্গ</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> আন্দালুসিয়ার সৈকতে</div> <span class="vol-count">পূর্ণাঙ্গ</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> ঝলকিত তলোয়ার</div> <span class="vol-count">পূর্ণাঙ্গ</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> পরাজিত অহংকার</div> <span class="vol-count">পূর্ণাঙ্গ</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> পীর ও পুলিশ</div> <span class="vol-count">পূর্ণাঙ্গ</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> স্বপ্নের তারকা</div> <span class="vol-count">পূর্ণাঙ্গ</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> হেজাযের তুফান</div> <span class="vol-count">১-২ খণ্ড</span></div>
+                <div class="book-name"><div><i class="fas fa-file-pdf"></i> সিংহশাবক</div> <span class="vol-count">পূর্ণাঙ্গ</span></div>
             </div>
 
             <div class="price-section">
-                <h3>প্যাকেজ মূল্য: ৩০ টাকা</h3>
-                <p style="margin:5px 0 0; font-size:0.9rem;">(একবার পেমেন্ট করলেই সবগুলো বই আপনার)</p>
+                <h3><span class="old-price">৳৫০০</span> প্যাকেজ মূল্য: ৫০ টাকা</h3>
+                <p style="margin:5px 0 0; font-size:0.95rem; font-weight: bold; color: #2c3e50;">
+                    (আজীবন অ্যাক্সেস পাবেন মাত্র ৫০ টাকায়!)
+                </p>
             </div>
 
             <a href="https://maktaba-johir.github.io/my-book-store/" class="order-btn">
-                <i class="fas fa-shopping-cart"></i> এই প্যাকেজটি কিনুন
+                <i class="fas fa-shopping-cart"></i> পুরো প্যাকেজটি কিনুন (৫০৳)
             </a>
             
             <p style="margin-top:20px; font-size: 0.85rem; color: #666; line-height: 1.4;">
-                <i class="fas fa-info-circle"></i> উপরের প্রিভিউতে একটি বইয়ের নমুনা দেওয়া আছে। পেমেন্ট করার পর আপনি একটি গুগল ড্রাইভ ফোল্ডার লিঙ্ক পাবেন যেখানে এই ২০টি বই গুছিয়ে রাখা আছে।
+                <i class="fas fa-info-circle"></i> উপরের ফেসবুক বাটনে ক্লিক করে বইয়ের মলাটগুলো দেখে নিন। পেমেন্ট করার পর স্বয়ংক্রিয়ভাবে আপনি ড্রাইভ লিঙ্ক পেয়ে যাবেন।
             </p>
         </div>
 
