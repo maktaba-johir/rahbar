@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পরিচিতি মেনু - রাহবার</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1a472a; --bg: #f4f7f6; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); margin: 0; }
+        
+        .header { background: linear-gradient(180deg, #2d6a4f, #1a472a); color: white; padding: 15px; text-align: center; display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .back-btn { color: white; text-decoration: none; font-size: 1.2rem; width: 40px; }
+        .header h1 { margin: 0; font-size: 1.2rem; flex-grow: 1; }
+        
+        .menu-container { padding: 20px; display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 0 auto; }
+        
+        .p-item { 
+            background: white; 
+            padding: 18px; 
+            border-radius: 15px; 
+            display: flex; 
+            align-items: center; 
+            text-decoration: none; 
+            color: #333; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+            transition: 0.3s; 
+            border-left: 6px solid var(--primary);
+        }
+        
+        .p-item:active { transform: scale(0.96); background: #eef2ef; }
+        
+        .p-item i { font-size: 1.6rem; margin-right: 18px; color: var(--primary); width: 30px; text-align: center; }
+        
+        .p-item-text { display: flex; flex-direction: column; }
+        .p-title { font-size: 1.1rem; font-weight: 700; color: #1a472a; }
+        .p-sub { font-size: 0.8rem; color: #777; }
+
+        .footer-note { text-align: center; font-size: 0.8rem; color: #aaa; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="../index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+        <h1>পরিচিতি ও বিবরণ</h1>
+        <div style="width:40px"></div>
+    </div>
+
+    <div class="menu-container">
+        <a href="kitab.html" class="p-item">
+            <i class="fas fa-book-quran"></i>
+            <div class="p-item-text">
+                <span class="p-title">কিতাব পরিচিতি</span>
+                <span class="p-sub">কিতাবের নাম ও গুরুত্ব জানুন</span>
+            </div>
+        </a>
+
+        <a href="lekhok.html" class="p-item">
+            <i class="fas fa-user-tie"></i>
+            <div class="p-item-text">
+                <span class="p-title">লেখক পরিচিতি</span>
+                <span class="p-sub">গ্রন্থকারের জীবনী ও অবদান</span>
+            </div>
+        </a>
+
+        <a href="subjects.html" class="p-item">
+            <i class="fas fa-layer-group"></i>
+            <div class="p-item-text">
+                <span class="p-title">বিষয় পরিচিতি</span>
+                <span class="p-sub">কিতাবের মূল আলোচ্য বিষয়সমূহ</span>
+            </div>
+        </a>
+
+        <a href="onnyanno.html" class="p-item">
+            <i class="fas fa-info-circle"></i>
+            <div class="p-item-text">
+                <span class="p-title">অন্যান্য পরিচিতি</span>
+                <span class="p-sub">আরও প্রয়োজনীয় তথ্যসমূহ</span>
+            </div>
+        </a>
+    </div>
+
+    <p class="footer-note">রাহবার ডিজিটাল লাইব্রেরি - ২০২৬</p>
+</body>
+</html>
