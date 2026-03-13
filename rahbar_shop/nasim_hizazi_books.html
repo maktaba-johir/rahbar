@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নাসিম হিজাজী সংগ্রহ - ২১টি কালজয়ী বই একসাথে</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d3b66; /* নাসিম হিজাজীর জন্য একটু ভিন্ন থিম কালার */
+            --accent: #f1c40f;
+            --silver: #d1d9e0;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--silver);
+            margin: 0; padding-bottom: 50px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), #000);
+            color: var(--accent);
+            padding: 15px; text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        .container { max-width: 700px; margin: 20px auto; padding: 0 15px; }
+
+        /* প্রিভিউ সেকশন */
+        .preview-box {
+            background: #000;
+            border: 4px solid var(--accent);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .preview-box iframe { width: 100%; height: 400px; border: none; }
+
+        /* মেইন কার্ড */
+        .main-card {
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            border: 2px solid #000;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .offer-badge {
+            background: #e74c3c;
+            color: white;
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
+
+        .price-section {
+            background: #fff9c4;
+            border: 2px dashed #f39c12;
+            padding: 15px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .price-section h3 { margin: 0; color: #d35400; font-size: 1.8rem; }
+        .old-price { text-decoration: line-through; color: #7f8c8d; font-size: 1.1rem; margin-right: 10px; }
+
+        /* বইয়ের তালিকা স্টাইল */
+        .full-list {
+            text-align: left;
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        @media (max-width: 500px) { .full-list { grid-template-columns: 1fr; } }
+
+        .book-name {
+            font-size: 0.95rem;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .book-name i { color: #2980b9; font-size: 0.8rem; }
+
+        .order-btn {
+            display: block;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: #fff;
+            padding: 18px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 800;
+            border: 3px solid #000;
+            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3);
+            margin-top: 25px;
+            transition: 0.3s;
+        }
+        .order-btn:hover { transform: translateY(-5px); background: #d35400; }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>নাসিম হিজাজী সংগ্রহ</h1>
+    </div>
+
+    <div class="container">
+        
+        <div class="preview-box">
+            <iframe src="https://drive.google.com/file/d/1T2lNLBV-UPGJN4nUQmgHugu4bjVZHy1G/preview"></iframe>
+        </div>
+
+        <div class="main-card">
+            <div class="offer-badge">মেগা অফার!</div>
+            <h2 style="font-family:'Baloo Da 2'; color:var(--primary);">ঐতিহাসিক উপন্যাস কালেকশন: ২১টি বই</h2>
+            
+            <p style="margin-bottom: 10px;">মুসলিম বীরত্বের ইতিহাস নিয়ে লেখা নাসিম হিজাজীর সেরা ২১টি বই এখন পাবেন এক প্যাকেজে।</p>
+
+            <div class="full-list">
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ০১. অপরাজিত</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ০২. আঁধার রাতের মুসাফির</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ০৩. ইউসুফ বিন তাশফিন</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ০৪. কায়সার ও কিসরা</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ০৫. সফেদ দ্বীপের রাজকন্যা</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ০৬. খুন রাঙা পথ</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ০৭. চুড়ান্ত লড়াই</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ০৮. দাস্তানে মুজাহিদ</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ০৯. ভারত যখন ভাঙলো</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ১০. ভেঙ্গে গেল তলোয়ার</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ১১. মরণজয়ী</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ১২. মরু সাইমুম</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ১৩. মানুষ ও দেবতা</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ১৪. মুহাম্মদ ইবনে কাসিম</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ১৫. রক্তাক্ত ভারত</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ১৬. লৌহ মানব</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ১৭. শেষ প্রান্তর</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ১৮. শেষ বিকেলের কান্না</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ১৯. সীমান্ত ঈগল</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ২০. হেজাজের কাফেলা</div>
+                <div class="book-name"><i class="fas fa-file-pdf"></i> ২১. প্রত্যয়ের সূর্যোদয়</div>
+            </div>
+
+            <div class="price-section">
+                <h3><span class="old-price">৳৫০০</span> প্যাকেজ মূল্য: ৫০ টাকা</h3>
+                <p style="margin:5px 0 0; font-size:0.95rem; font-weight: bold; color: #2c3e50;">
+                    (২১টি বইয়ের আজীবন অ্যাক্সেস মাত্র ৫০ টাকায়!)
+                </p>
+            </div>
+
+            <a href="index.html?item=নাসিম-হিজাজী-সংগ্রহ&price=50" class="order-btn">
+                <i class="fas fa-shopping-cart"></i> পুরো প্যাকেজটি কিনুন (৫০৳)
+            </a>
+            
+            <p style="margin-top:20px; font-size: 0.85rem; color: #666; line-height: 1.4;">
+                <i class="fas fa-info-circle"></i> পেমেন্ট সফল হওয়ার পর আপনার ইমেইলে স্বয়ংক্রিয়ভাবে ড্রাইভ লিঙ্কটি পৌঁছে যাবে। কোনো সমস্যা হলে আমাদের সাথে যোগাযোগ করুন।
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
