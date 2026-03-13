@@ -29,7 +29,7 @@
 
         .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
 
-        /* স্লাইডার সেকশন - সুন্দর ও গতিশীল */
+        /* স্লাইডার সেকশন */
         .slider-box {
             background: #000;
             border: 4px solid var(--accent);
@@ -37,7 +37,7 @@
             overflow: hidden;
             margin-bottom: 25px;
             position: relative;
-            height: 450px; /* উচ্চতা বাড়িয়ে কালো জায়গা কমানো হয়েছে */
+            height: 450px; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -45,12 +45,11 @@
         }
 
         .slider-box img {
-            height: 100%; /* ছবি পুরো উচ্চতা জুড়ে থাকবে */
+            height: 100%; 
             width: auto;
             position: absolute;
             transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
             opacity: 0;
-            /* আসার সময় হালকা বাঁকা (Rotate) হয়ে আসবে */
             transform: translateX(120%) rotate(10deg) scale(0.8); 
         }
 
@@ -62,7 +61,6 @@
 
         .slider-box img.last {
             opacity: 0;
-            /* যাওয়ার সময় উল্টো দিকে বাঁকা হয়ে যাবে */
             transform: translateX(-120%) rotate(-10deg) scale(0.8);
             z-index: 1;
         }
@@ -127,14 +125,13 @@
             box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3); transition: 0.3s;
         }
 
-        /* লাইব্রেরি গ্যালারি - এক লাইনে ৫টি ছবি */
         .library-title {
             margin: 40px 0 15px; font-family: 'Baloo Da 2';
             color: var(--primary); font-size: 1.6rem; text-align: center;
         }
         .book-gallery {
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* এক লাইনে ৫টি */
+            grid-template-columns: repeat(5, 1fr);
             gap: 12px;
             background: #fff;
             padding: 20px;
@@ -142,7 +139,7 @@
             border: 3px solid var(--primary);
         }
         @media (max-width: 600px) {
-            .book-gallery { grid-template-columns: repeat(3, 1fr); } /* মোবাইলে ৩টি */
+            .book-gallery { grid-template-columns: repeat(3, 1fr); }
         }
         
         .gallery-item {
@@ -203,12 +200,12 @@
                 <h3>প্যাকেজ মূল্য: ৫০ টাকা</h3>
             </div>
 
-            <a href="https://maktaba-johir.github.io/my-book-store/" class="order-btn">
+            <a href="https://maktaba-johir.github.io/my-book-store/?type=altamash" class="order-btn">
                 <i class="fas fa-shopping-cart"></i> পুরো প্যাকেজটি কিনুন (৫০৳)
             </a>
         </div>
 
-        <h3 class="library-title"><i class="fas fa-book-reader"></i> আমাদের বইয়ের লাইব্রেরি</h3>
+        <h3 class="library-title"><i class="fas fa-book-reader"></i> আমাদের বইয়ের লাইব্রেরি</h3>
         <div class="book-gallery" id="gallery"></div>
 
     </div>
@@ -230,12 +227,13 @@
             img.src = url;
             if (i === 1) img.classList.add('active');
             img.onload = () => { if(loader) loader.style.display = 'none'; };
+            img.onerror = function() { this.src = 'https://via.placeholder.com/300x450?text=Cover+'+i; };
             slider.appendChild(img);
 
             // গ্যালারির ছবি
             const gItem = document.createElement('div');
             gItem.classList.add('gallery-item');
-            gItem.innerHTML = `<img src="${url}" alt="বই ${i}">`;
+            gItem.innerHTML = `<img src="${url}" alt="বই ${i}" onerror="this.src='https://via.placeholder.com/150x200?text=বই+${i}'">`;
             gallery.appendChild(gItem);
         }
 
@@ -258,7 +256,7 @@
             }, 1000);
         }
 
-        setInterval(autoSlide, 3500); // ৩.৫ সেকেন্ড পর পর পরিবর্তন
+        setInterval(autoSlide, 3500); 
     </script>
 </body>
 </html>
