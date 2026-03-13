@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0d3b66; /* নাসিম হিজাজীর জন্য একটু আলাদা থিম */
+            --primary: #0d3b66; 
             --accent: #f4d35e;
             --silver: #ebebd3;
         }
@@ -29,7 +29,6 @@
 
         .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
 
-        /* স্লাইডার সেকশন - সুন্দর ও গতিশীল */
         .slider-box {
             background: #000;
             border: 4px solid var(--accent);
@@ -65,7 +64,6 @@
             z-index: 1;
         }
 
-        /* মেইন কার্ড */
         .main-card {
             background: white;
             border-radius: 25px;
@@ -87,6 +85,27 @@
         }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
 
+        /* বইয়ের নামের লিস্ট স্টাইল */
+        .full-list {
+            text-align: left;
+            background: #fdfdfd;
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        @media (max-width: 600px) { .full-list { grid-template-columns: 1fr; } }
+
+        .book-name {
+            font-size: 0.95rem; color: #2c3e50;
+            display: flex; align-items: center;
+            gap: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;
+        }
+        .book-name i { color: var(--primary); font-size: 0.8rem; }
+
         .price-section {
             background: #fff9c4;
             border: 2px dashed #f39c12;
@@ -103,7 +122,6 @@
             box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3); transition: 0.3s;
         }
 
-        /* লাইব্রেরি গ্যালারি - এক লাইনে ৫টি ছবি */
         .library-title {
             margin: 40px 0 15px; font-family: 'Baloo Da 2';
             color: var(--primary); font-size: 1.6rem; text-align: center;
@@ -150,18 +168,40 @@
 
         <div class="main-card">
             <div class="offer-badge">বিশেষ কালেকশন!</div>
-            <h2 style="font-family:'Baloo Da 2'; color:var(--primary); margin-top:0;">২১টি কালজয়ী ঐতিহাসিক উপন্যাস</h2>
+            <h2 style="font-family:'Baloo Da 2'; color:var(--primary); margin-top:0;">২১টি কালজয়ী ঐতিহাসিক উপন্যাস</h2>
             
-            <p style="margin-bottom: 15px; font-size: 1rem; color: #555;">নাসিম হিজাজীর সকল জনপ্রিয় বই এখন এক সাথে আপনার সংগ্রহে রাখুন।</p>
+            <div class="full-list">
+                <div class="book-name"><i class="fas fa-book-open"></i> ০১. অপরাজিত</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ০২. আঁধার রাতের মুসাফির</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ০৩. ইউসুফ বিন তাশফিন</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ০৪. কায়সার ও কিসরা</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ০৫. সফেদ দ্বীপের রাজকন্যা</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ০৬. খুন রাঙা পথ</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ০৭. চুড়ান্ত লড়াই</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ০৮. দাস্তানে মুজাহিদ</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ০৯. ভারত যখন ভাঙলো</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ১০. ভেঙ্গে গেল তলোয়ার</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ১১. মরণজয়ী</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ১২. মরু সাইমুম</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ১৩. মানুষ ও দেবতা</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ১৪. মুহাম্মদ ইবনে কাসিম</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ১৫. রক্তাক্ত ভারত</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ১৬. লৌহ মানব</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ১৭. শেষ প্রান্তর</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ১৮. শেষ বিকেলের কান্না</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ১৯. সীমান্ত ঈগল</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ২০. হেজাজের কাফেলা</div>
+                <div class="book-name"><i class="fas fa-book-open"></i> ২১. প্রত্যয়ের সূর্যোদয়</div>
+            </div>
 
             <div class="price-section">
                 <h3>প্যাকেজ মূল্য: ৫০ টাকা</h3>
                 <p style="margin:5px 0 0; font-size:0.95rem; font-weight: bold; color: #2c3e50;">
-                    (২১টি বইয়ের ডিজিটাল কপি আজীবন অ্যাক্সেস!)
+                    (২১টি বইয়ের ডিজিটাল কপি আজীবন অ্যাক্সেস!)
                 </p>
             </div>
 
-            <a href="#" class="order-btn">
+            <a href="https://maktaba-johir.github.io/my-book-store/" class="order-btn">
                 <i class="fas fa-shopping-cart"></i> পুরো প্যাকেজটি কিনুন (৫০৳)
             </a>
         </div>
@@ -172,10 +212,9 @@
     </div>
 
     <script>
-        // আপনার দেওয়া নতুন ডাইরেক্ট লিঙ্ক পাথ
         const archiveID = "nasim_hijaji";
         const folder = "book-nasim_hizazi";
-        const total = 21; // আপনি ২১টি বই বলেছেন
+        const total = 21;
 
         const slider = document.getElementById('slider');
         const gallery = document.getElementById('gallery');
@@ -189,13 +228,13 @@
             img.src = url;
             if (i === 1) img.classList.add('active');
             img.onload = () => { if(loader) loader.style.display = 'none'; };
-            img.onerror = function() { this.src = 'https://via.placeholder.com/300x450?text=Error'; };
+            img.onerror = function() { this.src = 'https://via.placeholder.com/300x450?text=Cover+'+i; };
             slider.appendChild(img);
 
             // গ্যালারির ছবি
             const gItem = document.createElement('div');
             gItem.classList.add('gallery-item');
-            gItem.innerHTML = `<img src="${url}" alt="বই ${i}" onerror="this.src='https://via.placeholder.com/150x200?text=Error'">`;
+            gItem.innerHTML = `<img src="${url}" alt="বই ${i}" onerror="this.src='https://via.placeholder.com/150x200?text=বই+${i}'">`;
             gallery.appendChild(gItem);
         }
 
@@ -218,7 +257,7 @@
             }, 1000);
         }
 
-        setInterval(autoSlide, 3500); // ৩.৫ সেকেন্ড পর পর স্লাইড হবে
+        setInterval(autoSlide, 3500); 
     </script>
 </body>
 </html>
