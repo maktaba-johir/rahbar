@@ -112,7 +112,7 @@
             border: 1px dashed var(--verified); display: flex; align-items: center; justify-content: center; gap: 5px;
         }
 
-        /* আপডেট করা লাইভ কাউন্টার ডিজাইন */
+        /* ভিউ কাউন্টার ডিজাইন */
         .user-counter-box {
             background: linear-gradient(135deg, #1a472a, #27ae60);
             color: white; padding: 15px; margin: 20px 15px; border-radius: 15px;
@@ -236,8 +236,8 @@
 
     <div class="user-counter-box">
         <i class="fas fa-eye"></i>
-        <span class="counter-number" id="visitor-count">...</span>
-        <span class="counter-text">বার এই পেজটি দেখা হয়েছে</span>
+        <span class="counter-number" id="visitor-count">১</span>
+        <span class="counter-text">বার এই পেজটি দেখা হয়েছে</span>
     </div>
 
     <footer>সর্বস্বত্ব সংরক্ষিত © ২০২৬ | রাহবার</footer>
@@ -250,13 +250,20 @@
     </div>
 
     <script>
-        function updateCounter(response) {
-            document.getElementById('visitor-count').innerText = response.value.toLocaleString('bn-BD');
+        // ভিউ কাউন্টার লজিক: এটি ব্রাউজার মেমোরিতে ১ থেকে শুরু করবে
+        function initCounter() {
+            let count = localStorage.getItem('rahbar_total_views');
+            if (!count) {
+                count = 1; // একদম প্রথমবার ১ দেখাবে
+            } else {
+                count = parseInt(count) + 1; // এরপর প্রতিবার ১ যোগ হবে
+            }
+            localStorage.setItem('rahbar_total_views', count);
+            document.getElementById('visitor-count').innerText = count.toLocaleString('bn-BD');
         }
-    </script>
-    <script async src="https://api.countapi.xyz/hit/rahbar-dashboard.github.io/visits?callback=updateCounter"></script>
+        initCounter();
 
-    <script>
+        // নামাজের সময় লজিক
         const basePrayerTimes = [
             { name: "ফজর", start: "05:15", end: "06:30" },
             { name: "ইশরাক", start: "06:45", end: "12:00" },
@@ -264,7 +271,7 @@
             { name: "আসর", start: "16:16", end: "17:55" },
             { name: "মাগরিব", start: "17:57", end: "19:05" },
             { name: "ইশা", start: "19:06", end: "23:59" },
-            { name: "Tahajjud", start: "00:00", end: "05:14" } 
+            { name: "তাহাজ্জুদ", start: "00:00", end: "05:14" } 
         ];
 
         function timeToSeconds(timeStr) {
@@ -286,6 +293,7 @@
             for (let i = 0; i < basePrayerTimes.length; i++) {
                 const start = timeToSeconds(basePrayerTimes[i].start) + offsetSec;
                 const end = timeToSeconds(basePrayerTimes[i].end) + offsetSec;
+                
                 if (totalSec >= start && totalSec <= end) {
                     currentWakt = basePrayerTimes[i];
                     const nextWakt = basePrayerTimes[(i + 1) % basePrayerTimes.length];
@@ -299,8 +307,8 @@
 
                     const diff = end - totalSec;
                     document.getElementById('time-left').innerText = `${Math.floor(diff/60)} মি. বাকি`;
-                    document.getElementById('label-running').innerText = (currentWakt.name === "Tahajjud" ? "তাহাজ্জুদ" : currentWakt.name) + " চলমান";
-                    document.getElementById('label-next').innerText = "পরবর্তী: " + (nextWakt.name === "Tahajjud" ? "তাহাজ্জুদ" : nextWakt.name);
+                    document.getElementById('label-running').innerText = currentWakt.name + " চলমান";
+                    document.getElementById('label-next').innerText = "পরবর্তী: " + nextWakt.name;
                     break;
                 }
             }
