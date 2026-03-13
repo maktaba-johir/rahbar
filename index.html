@@ -250,20 +250,7 @@
     </div>
 
     <script>
-        // ভিউ কাউন্টার লজিক: এটি ব্রাউজার মেমোরিতে ১ থেকে শুরু করবে
-        function initCounter() {
-            let count = localStorage.getItem('rahbar_total_views');
-            if (!count) {
-                count = 1; // একদম প্রথমবার ১ দেখাবে
-            } else {
-                count = parseInt(count) + 1; // এরপর প্রতিবার ১ যোগ হবে
-            }
-            localStorage.setItem('rahbar_total_views', count);
-            document.getElementById('visitor-count').innerText = count.toLocaleString('bn-BD');
-        }
-        initCounter();
-
-        // নামাজের সময় লজিক
+        // নামাজের সময় লজিক
         const basePrayerTimes = [
             { name: "ফজর", start: "05:15", end: "06:30" },
             { name: "ইশরাক", start: "06:45", end: "12:00" },
@@ -316,5 +303,7 @@
         setInterval(updateLive, 1000);
         updateLive();
     </script>
+
+    <script src="https://maktaba-johir.github.io/Rahbar/counter.js"></script>
 </body>
 </html>
