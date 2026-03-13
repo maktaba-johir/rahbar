@@ -158,7 +158,6 @@
     </div>
 
     <div class="container">
-        
         <div class="slider-box" id="slider">
             <div id="loader" style="color: white; font-size: 1.2rem;">
                 <i class="fas fa-spinner fa-spin"></i> ছবি আসছে...
@@ -195,24 +194,20 @@
 
             <div class="price-section">
                 <h3>প্যাকেজ মূল্য: ৫০ টাকা</h3>
-                <p style="margin:5px 0 0; font-size:0.95rem; font-weight: bold; color: #2c3e50;">
-                    (২১টি বইয়ের ডিজিটাল কপি আজীবন অ্যাক্সেস!)
-                </p>
             </div>
 
-            <a href="https://maktaba-johir.github.io/my-book-store/?type=nasim" class="order-btn">
+            <a href="https://maktaba-johir.github.io/my-book-store/index.html?type=nasim" class="order-btn">
                 <i class="fas fa-shopping-cart"></i> পুরো প্যাকেজটি কিনুন (৫০৳)
             </a>
         </div>
 
         <h3 class="library-title"><i class="fas fa-book-reader"></i> নাসিম হিজাজী লাইব্রেরি</h3>
         <div class="book-gallery" id="gallery"></div>
-
     </div>
 
     <script>
-        const archiveID = "nasim_hijaji";
-        const folder = "book-nasim_hizazi";
+        const archiveID = "nasim_hizazi_202603"; // এখানে আপনার সঠিক Archive ID দিন
+        const folder = "book-covers_nasim_hizazi";
         const total = 21;
 
         const slider = document.getElementById('slider');
@@ -222,7 +217,6 @@
         for (let i = 1; i <= total; i++) {
             const url = `https://archive.org/download/${archiveID}/${folder}/${i}.jpg`;
 
-            // স্লাইডারের ছবি
             const img = document.createElement('img');
             img.src = url;
             if (i === 1) img.classList.add('active');
@@ -230,7 +224,6 @@
             img.onerror = function() { this.src = 'https://via.placeholder.com/300x450?text=Cover+'+i; };
             slider.appendChild(img);
 
-            // গ্যালারির ছবি
             const gItem = document.createElement('div');
             gItem.classList.add('gallery-item');
             gItem.innerHTML = `<img src="${url}" alt="বই ${i}" onerror="this.src='https://via.placeholder.com/150x200?text=বই+${i}'">`;
@@ -241,21 +234,14 @@
         function autoSlide() {
             const images = slider.querySelectorAll('img');
             if (images.length < 2) return;
-
             images[current].classList.remove('active');
             images[current].classList.add('last');
-
             let oldIdx = current;
             current = (current + 1) % images.length;
-
             images[current].classList.remove('last');
             images[current].classList.add('active');
-
-            setTimeout(() => {
-                images[oldIdx].classList.remove('last');
-            }, 1000);
+            setTimeout(() => { images[oldIdx].classList.remove('last'); }, 1000);
         }
-
         setInterval(autoSlide, 3500); 
     </script>
 </body>
