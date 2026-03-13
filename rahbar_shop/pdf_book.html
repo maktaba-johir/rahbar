@@ -3,27 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>রাহবার পিডিএফ লাইব্রেরি - বইয়ের তালিকা</title>
+    <title>রাহবার পিডিএফ লাইব্রেরি - বইয়ের তালিকা</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --primary: #1a472a; --secondary: #2e7d32; }
         body { font-family: 'Hind Siliguri', sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
         
-        /* হেডার সেকশন */
         .navbar { background: var(--primary); color: white; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .navbar h1 { margin: 0; font-size: 24px; }
 
         .container { max-width: 900px; margin: 30px auto; padding: 0 15px; }
         .intro { text-align: center; margin-bottom: 30px; color: #555; }
 
-        /* বুক গ্রিড ডিজাইন */
         .book-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         
         .book-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #eee; display: flex; flex-direction: column; }
         .book-card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
 
-        .card-img { height: 180px; background: #e8f5e9; display: flex; align-items: center; justify-content: center; font-size: 50px; color: var(--primary); }
+        .card-img-slider { 
+            height: 250px; 
+            background: #000; 
+            position: relative; 
+            overflow: hidden; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        
+        .card-img-slider img {
+            height: 90%;
+            width: auto;
+            position: absolute;
+            transition: all 0.8s ease-in-out;
+            opacity: 0;
+            transform: translateX(100%) scale(0.9);
+        }
+
+        .card-img-slider img.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+
+        .card-img-slider img.last {
+            opacity: 0;
+            transform: translateX(-100%) scale(0.9);
+        }
         
         .card-content { padding: 20px; text-align: center; flex-grow: 1; }
         .card-content h3 { margin: 0 0 10px; color: #333; font-size: 20px; }
@@ -50,23 +75,23 @@
         <div class="book-grid">
             
             <div class="book-card">
-                <div class="card-img">
-                    <i class="fas fa-book-open"></i>
+                <div class="card-img-slider" id="altamas-slider">
+                    <div style="color:white; font-size:12px;">লোড হচ্ছে...</div>
                 </div>
                 <div class="card-content">
                     <h3>এনায়েতুল্লাহ আলতামাস সমগ্র</h3>
-                    <p>ইতিহাসাশ্রয়ী ঈমানদীপ্ত উপন্যাসের অনবদ্য সংগ্রহ। এখানে ২০টি কিতাব পাবেন একত্রে।</p>
+                    <p>ইতিহাসাশ্রয়ী ঈমানদীপ্ত উপন্যাসের অনবদ্য সংগ্রহ। এখানে ২০টি কিতাব পাবেন একত্রে।</p>
                     <a href="altamash_books.html" class="view-btn">বইগুলো দেখুন</a>
                 </div>
             </div>
 
             <div class="book-card">
-                <div class="card-img">
-                    <i class="fas fa-shield-alt"></i>
+                <div class="card-img-slider" id="nasim-slider">
+                    <div style="color:white; font-size:12px;">লোড হচ্ছে...</div>
                 </div>
                 <div class="card-content">
                     <h3>নাসিম হিজাজী সংগ্রহ</h3>
-                    <p>বিশ্ববিখ্যাত ঐতিহাসিক উপন্যাস যা মুসলিম বীরত্ব ও ত্যাগের কথা স্মরণ করিয়ে দেয়।</p>
+                    <p>বিশ্ববিখ্যাত ঐতিহাসিক উপন্যাস যা মুসলিম বীরত্ব ও ত্যাগের কথা স্মরণ করিয়ে দেয়।</p>
                     <a href="nasim_hizazi_books.html" class="view-btn">বইগুলো দেখুন</a>
                 </div>
             </div>
@@ -78,5 +103,68 @@
         &copy; ২০২৬ রাহবার শপিং হাব | সর্বস্বত্ব সংরক্ষিত।
     </footer>
 
+    <script>
+        const config = {
+            altamas: {
+                id: "altamas_book_cover", 
+                folder: "book-covers",
+                total: 20,
+                elementId: "altamas-slider"
+            },
+            nasim: {
+                id: "nasim_hijaji", 
+                folder: "book-nasim_hizazi",
+                total: 21,
+                elementId: "nasim-slider"
+            }
+        };
+
+        function createSlider(type) {
+            const data = config[type];
+            const container = document.getElementById(data.elementId);
+            
+            // ছবিগুলো যুক্ত করা
+            for (let i = 1; i <= data.total; i++) {
+                const img = document.createElement('img');
+                // আর্কাইভ ডাইরেক্ট লিঙ্ক স্ট্রাকচার
+                img.src = `https://archive.org/download/${data.id}/${data.folder}/${i}.jpg`;
+                if (i === 1) img.classList.add('active');
+                
+                // লোডিং মেসেজ দূর করা যখন প্রথম ছবি লোড হবে
+                img.onload = () => {
+                    const loader = container.querySelector('div');
+                    if(loader) loader.remove();
+                };
+
+                container.appendChild(img);
+            }
+
+            // স্লাইডার ফাংশন
+            let current = 0;
+            setInterval(() => {
+                const images = container.querySelectorAll('img');
+                if (images.length === 0) return;
+
+                images[current].classList.remove('active');
+                images[current].classList.add('last');
+                
+                let prev = current;
+                current = (current + 1) % images.length;
+                
+                images[current].classList.remove('last');
+                images[current].classList.add('active');
+
+                setTimeout(() => {
+                    images[prev].classList.remove('last');
+                }, 800);
+            }, 3000); 
+        }
+
+        // স্লাইডারগুলো চালু করা
+        window.onload = () => {
+            createSlider('altamas');
+            createSlider('nasim');
+        };
+    </script>
 </body>
 </html>
