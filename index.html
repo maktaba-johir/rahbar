@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>রাহবার - ডিজিটাল ড্যাশবোর্ড</title>
     
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a472a">
+    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCYJP0HV80"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -112,7 +115,6 @@
             border: 1px dashed var(--verified); display: flex; align-items: center; justify-content: center; gap: 5px;
         }
 
-        /* ভিউ কাউন্টার ডিজাইন */
         .user-counter-box {
             background: linear-gradient(135deg, #1a472a, #27ae60);
             color: white; padding: 15px; margin: 10px 15px; border-radius: 15px;
@@ -122,7 +124,6 @@
         .counter-number { font-size: 1.6rem; font-weight: 800; display: block; color: #f1c40f; }
         .counter-text { font-size: 0.8rem; font-weight: 600; opacity: 0.9; }
 
-        /* --- নতুন লাইব্রেরি বাটন ডিজাইন --- */
         .library-button-box { padding: 10px 15px; margin-bottom: 10px; }
         .library-link {
             display: flex; align-items: center; justify-content: center; gap: 12px;
@@ -274,10 +275,28 @@
     </div>
 
     <script>
-        // নামাজের সময় লজিক
+        // --- সার্ভিস ওয়ার্কার (অফলাইন সাপোর্ট) ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').then(() => {
+                    console.log("Rahbar Offline Mode Ready");
+                });
+            });
+        }
+
+        // --- লোকাল কাউন্টার লজিক ---
+        function initCounter() {
+            let count = localStorage.getItem('rahbar_visit_count') || 0;
+            count++;
+            localStorage.setItem('rahbar_visit_count', count);
+            document.getElementById('visitor-count').innerText = count.toLocaleString('bn-BD');
+        }
+        initCounter();
+
+        // --- নামাজের সময় লজিক ---
         const basePrayerTimes = [
             { name: "ফজর", start: "05:15", end: "06:30" },
-            { name: "イশরাক", start: "06:45", end: "12:00" },
+            { name: "ইশরাক", start: "06:45", end: "12:00" },
             { name: "যোহর", start: "12:15", end: "16:15" },
             { name: "আসর", start: "16:16", end: "17:55" },
             { name: "মাগরিব", start: "17:57", end: "19:05" },
@@ -327,7 +346,7 @@
         setInterval(updateLive, 1000);
         updateLive();
     </script>
-
-    <script src="https://maktaba-johir.github.io/Rahbar/counter.js"></script>
+    
+    <script src="https://maktaba-johir.github.io/Rahbar/counter.js" async></script>
 </body>
 </html>
