@@ -1,26 +1,38 @@
 // counter.js
 function updateGlobalCounter() {
-    // ব্রাউজার মেমোরি থেকে ডাটা নেওয়া (যদি না থাকে তবে ০ ধরবে)
-    let totalCount = localStorage.getItem('rahbar_total_views') || 0;
-    
-    // সেশন চেক (একই ব্যক্তি বারবার রিফ্রেশ করলে যেন সংখ্যা না বাড়ে)
-    if (!sessionStorage.getItem('counted_this_session')) {
-        totalCount = parseInt(totalCount) + 1;
-        localStorage.setItem('rahbar_total_views', totalCount);
-        sessionStorage.setItem('counted_this_session', 'true');
-    }
-
-    // যদি পেজে 'visitor-count' আইডিওয়ালা কোনো এলিমেন্ট থাকে, তবে সেখানে সংখ্যা দেখাবে
     const countDisplay = document.getElementById('visitor-count');
-    if (countDisplay) {
-        // সংখ্যাটিকে বাংলা ফরম্যাটে (bn-BD) রূপান্তর করে দেখাচ্ছে
-        countDisplay.innerText = parseInt(totalCount).toLocaleString('bn-BD');
+    if (!countDisplay) return;
+
+    // একই সেশনে বারবার কাউন্ট হওয়া রোধ করতে সেশন চেক
+    const hasCounted = sessionStorage.getItem('counted_rahbar_live');
+
+    // CountAPI ব্যবহার করে অনলাইনে ডাটা সেভ এবং রিট্রিভ করা
+    // এখানে 'rahbar-library-johir' একটি ইউনিক কি (Key) হিসেবে কাজ করবে
+    const namespace = "maktaba-johir.github.io";
+    const key = "rahbar-library-total";
+
+    if (!hasCounted) {
+        // নতুন ভিউ হলে কাউন্ট ১ বাড়াবে (Hit)
+        fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+            .then(res => res.json())
+            .then(data => {
+                countDisplay.innerText = data.value.toLocaleString('bn-BD');
+                sessionStorage.setItem('counted_rahbar_live', 'true');
+            })
+            .catch(err => {
+                console.log("Counter Error:", err);
+                countDisplay.innerText = "১"; // এরর হলে ডিফল্ট ১
+            });
+    } else {
+        // সেশনে অলরেডি কাউন্ট হয়ে থাকলে শুধু বর্তমান ভিউ সংখ্যা দেখাবে (Get)
+        fetch(`https://api.countapi.xyz/get/${namespace}/${key}`)
+            .then(res => res.json())
+            .then(data => {
+                countDisplay.innerText = data.value.toLocaleString('bn-BD');
+            })
+            .catch(err => console.log("Counter Error:", err));
     }
 }
 
-// পেজের কন্টেন্ট লোড হওয়ার সাথে সাথেই ফাংশনটি রান করবে (window.onload এর চেয়ে দ্রুত)
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateGlobalCounter);
-} else {
-    updateGlobalCounter();
-}
+// পেজ লোড হলে রান করবে
+updateGlobalCounter();
