@@ -109,10 +109,18 @@
         .social-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 15px; }
         .social-btn { padding: 8px; border-radius: 8px; color: white; text-decoration: none; font-size: 0.65rem; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 3px; }
 
-        .credit-notice { 
-            background: #fff; color: #1a472a; padding: 10px; margin: 10px 15px; 
-            border-radius: 10px; font-size: 0.65rem; text-align: center; font-weight: 700;
-            border: 1px dashed var(--verified); display: flex; align-items: center; justify-content: center; gap: 5px;
+        .library-button-box { padding: 10px 15px; margin-bottom: 10px; }
+        .library-link {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            background: linear-gradient(45deg, #ffca28, #ffa000);
+            color: #000; text-decoration: none; padding: 18px; border-radius: 20px;
+            font-weight: 800; font-size: 1.1rem; box-shadow: 0 8px 20px rgba(255,160,0,0.3);
+            border: 2px solid #fff; animation: pulse-yellow 2s infinite;
+        }
+        @keyframes pulse-yellow {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
         }
 
         .user-counter-box {
@@ -120,25 +128,7 @@
             color: white; padding: 15px; margin: 10px 15px; border-radius: 15px;
             text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid #fff;
         }
-        .user-counter-box i { font-size: 1.5rem; margin-bottom: 5px; }
         .counter-number { font-size: 1.6rem; font-weight: 800; display: block; color: #f1c40f; }
-        .counter-text { font-size: 0.8rem; font-weight: 600; opacity: 0.9; }
-
-        .library-button-box { padding: 10px 15px; margin-bottom: 10px; }
-        .library-link {
-            display: flex; align-items: center; justify-content: center; gap: 12px;
-            background: linear-gradient(45deg, #ffca28, #ffa000);
-            color: #000; text-decoration: none; padding: 18px; border-radius: 20px;
-            font-weight: 800; font-size: 1.1rem; box-shadow: 0 8px 20px rgba(255,160,0,0.3);
-            border: 2px solid #fff; transition: 0.3s;
-            animation: pulse-yellow 2s infinite;
-        }
-        .library-link i { font-size: 1.5rem; }
-        @keyframes pulse-yellow {
-            0% { transform: scale(1); box-shadow: 0 8px 20px rgba(255,160,0,0.3); }
-            50% { transform: scale(1.02); box-shadow: 0 8px 30px rgba(255,160,0,0.5); }
-            100% { transform: scale(1); box-shadow: 0 8px 20px rgba(255,160,0,0.3); }
-        }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; z-index: 2000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
         .nav-item { text-align: center; text-decoration: none; color: #777; font-size: 0.65rem; font-weight: 700; }
@@ -186,11 +176,6 @@
         </div>
     </div>
 
-    <div class="credit-notice">
-        <i class="fas fa-certificate" style="color:var(--verified)"></i> 
-        <span>নীল ব্যাজগুলো আমাদের বিশেষ মৌলিক কাজ</span>
-    </div>
-
     <div id="ilm-sec" class="category-label"><div class="label-bar" style="background:#27ae60"></div> ইলম</div>
     <div class="grid">
         <a href="quran.html" class="grid-item line-ilm"><i class="fas fa-book-quran" style="color:#2ecc71"></i><span>কুরআন</span></a>
@@ -232,7 +217,7 @@
         <a href="live.html" class="grid-item line-bibidh"><i class="fas fa-broadcast-tower" style="color:#e74c3c"></i><span>লাইভ</span></a>
         <a href="important_days.html" class="grid-item line-bibidh"><i class="fas fa-calendar-check" style="color:#f39c12"></i><span>গুরুত্বপূর্ণ দিন</span></a>
         <a href="calendar.html" class="grid-item line-bibidh"><i class="fas fa-calendar-alt" style="color:#2980b9"></i><span>ক্যালেন্ডার</span></a>
-        <a href="#" class="grid-item line-bibidh"><i class="fas fa-list-ol" style="color:#9b59b6"></i><span>আসমাউল হুসনা</span></a>
+        <a href="hadiea.html" class="grid-item line-bibidh"><i class="fas fa-heart" style="color:#e74c3c"></i><span>হাদিয়া</span></a>
         <a href="https://maktaba-johir.github.io/Calculator-Converter/" class="grid-item line-bibidh"><i class="fas fa-calculator" style="color:#3498db"></i><span>ক্যালকুলেটর</span></a>
         <a href="sharai_converter.html" class="grid-item line-bibidh"><div class="verified-badge"><i class="fas fa-check"></i></div><i class="fas fa-scale-balanced" style="color:#e67e22"></i><span>শরয়ী কনভার্টার</span></a>
         <a href="ai_bot.html" class="grid-item line-bibidh"><i class="fas fa-robot" style="color:#1DA1F2"></i><span>AI</span></a>
@@ -275,16 +260,14 @@
     </div>
 
     <script>
-        // --- সার্ভিস ওয়ার্কার (অফলাইন সাপোর্ট) ---
+        // সার্ভিস ওয়ার্কার
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js').then(() => {
-                    console.log("Rahbar Offline Mode Ready");
-                });
+                navigator.serviceWorker.register('./sw.js').catch(err => console.log("SW error: ", err));
             });
         }
 
-        // --- লোকাল কাউন্টার লজিক ---
+        // ভিজিটর কাউন্টার
         function initCounter() {
             let count = localStorage.getItem('rahbar_visit_count') || 0;
             count++;
@@ -293,7 +276,7 @@
         }
         initCounter();
 
-        // --- নামাজের সময় লজিক ---
+        // নামাজের সময় লজিক
         const basePrayerTimes = [
             { name: "ফজর", start: "05:15", end: "06:30" },
             { name: "ইশরাক", start: "06:45", end: "12:00" },
@@ -311,25 +294,22 @@
 
         function updateLive() {
             const now = new Date();
-            const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
-            const totalSec = h * 3600 + m * 60 + s;
-            const offsetMin = parseInt(document.getElementById('district').value);
-            const offsetSec = offsetMin * 60;
+            const totalSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+            const offsetSec = parseInt(document.getElementById('district').value) * 60;
 
             document.getElementById('live-clock').innerText = now.toLocaleTimeString('bn-BD', {hour12: true});
             document.getElementById('date-text').innerText = now.toLocaleDateString('bn-BD', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
 
-            let currentWakt = null;
             for (let i = 0; i < basePrayerTimes.length; i++) {
                 const start = timeToSeconds(basePrayerTimes[i].start) + offsetSec;
                 const end = timeToSeconds(basePrayerTimes[i].end) + offsetSec;
                 
                 if (totalSec >= start && totalSec <= end) {
-                    currentWakt = basePrayerTimes[i];
+                    const currentWakt = basePrayerTimes[i];
                     const nextWakt = basePrayerTimes[(i + 1) % basePrayerTimes.length];
                     const progress = ((totalSec - start) / (end - start)) * 100;
-                    document.getElementById('progress-fill').style.width = progress + "%";
                     
+                    document.getElementById('progress-fill').style.width = progress + "%";
                     const angle = (progress / 100) * Math.PI;
                     const sun = document.getElementById('sun');
                     sun.style.left = (50 + 35 * Math.cos(Math.PI - angle)) + "%";
@@ -346,7 +326,6 @@
         setInterval(updateLive, 1000);
         updateLive();
     </script>
-    
     <script src="https://maktaba-johir.github.io/Rahbar/counter.js" async></script>
 </body>
 </html>
