@@ -29,7 +29,11 @@
         canvas { background: white; display: block; margin: 0 auto 15px; max-width: 100%; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
         .bottom-controls { background: rgba(0,0,0,0.9); padding: 10px; display: flex; justify-content: space-around; align-items: center; position: fixed; bottom: 0; width: 100%; z-index: 100; }
         .btn { background: none; border: none; color: white; font-size: 20px; cursor: pointer; padding: 5px 10px; }
-        #page-stat { font-family: monospace; font-weight: bold; }
+        
+        /* নতুন স্টাইল: পৃষ্ঠা জাম্প ইনপুট */
+        .page-input-container { display: flex; align-items: center; gap: 5px; background: #333; padding: 2px 8px; border-radius: 5px; border: 1px solid #555; }
+        #page-num-input { background: transparent; border: none; color: var(--accent); width: 40px; text-align: center; font-family: monospace; font-weight: bold; font-size: 16px; outline: none; }
+        #total-pages { font-family: monospace; font-size: 14px; color: #ccc; }
     </style>
 </head>
 <body>
@@ -70,7 +74,12 @@
     <div class="bottom-controls" id="navigation-bar" style="display:none">
         <button class="btn" onclick="goToFirstPage()"><i class="fas fa-angle-double-left"></i></button>
         <button class="btn" onclick="prevPage()"><i class="fas fa-chevron-left"></i></button>
-        <span id="page-stat">0/0</span>
+        
+        <div class="page-input-container">
+            <input type="number" id="page-num-input" min="1" onkeypress="if(event.key === 'Enter') jumpToPage()">
+            <span id="total-pages">/ 0</span>
+        </div>
+
         <button class="btn" onclick="nextPage()"><i class="fas fa-chevron-right"></i></button>
         <button class="btn" onclick="goToLastPage()"><i class="fas fa-angle-double-right"></i></button>
         <button class="btn" onclick="toggleScrollMode()" id="scroll-btn"><i class="fas fa-scroll"></i></button>
@@ -87,7 +96,6 @@
     const sidebar = document.getElementById("sidebar");
     let db;
 
-    // IndexedDB কানেকশন
     const request = indexedDB.open("RahbarLibraryDB", 1);
     request.onupgradeneeded = e => e.target.result.createObjectStore("books");
     request.onsuccess = e => { db = e.target.result; updateBookList(); };
@@ -99,7 +107,7 @@
     function getCategory(name) { return getCategories()[name] || "সাধারণ"; }
 
     function setCategory(name) {
-        let cat = prompt("ক্যাটাগরির নাম লিখুন (যেমন: হাদিস, ফিকহ):");
+        let cat = prompt("ক্যাটাগরির নাম লিখুন:");
         if (cat) {
             let cats = getCategories();
             cats[name] = cat;
@@ -113,7 +121,6 @@
         updateBookList();
     }
 
-    // প্রধান ফাংশন: কিতাব লিস্ট ও সিরিয়াল ম্যানেজমেন্ট
     function updateBookList() {
         const listDiv = document.getElementById("book-list");
         listDiv.innerHTML = "";
@@ -123,13 +130,10 @@
         tx.objectStore("books").getAllKeys().onsuccess = e => {
             let keys = e.target.result;
             let savedOrder = JSON.parse(localStorage.getItem('rahbar_order_v6') || '[]');
-
-            // নতুন ফাইল যোগ হলে ও ডিলিট হলে সিরিয়াল সিঙ্ক করা
             keys.forEach(k => { if(!savedOrder.includes(k)) savedOrder.push(k); });
             savedOrder = savedOrder.filter(k => keys.includes(k));
             localStorage.setItem('rahbar_order_v6', JSON.stringify(savedOrder));
 
-            // ক্যাটাগরি ড্রপডাউন আপডেট
             const select = document.getElementById("category-filter");
             let uniqueCats = new Set();
             keys.forEach(name => uniqueCats.add(getCategory(name)));
@@ -137,7 +141,6 @@
             uniqueCats.forEach(c => select.innerHTML += `<option value="${c}">${c}</option>`);
             select.value = filter;
 
-            // সিরিয়াল অনুযায়ী প্রদর্শন
             savedOrder.forEach(name => {
                 let cat = getCategory(name);
                 if(filter !== "all" && cat !== filter) return;
@@ -159,14 +162,10 @@
                 listDiv.appendChild(item);
             });
 
-            // ড্র্যাগ অ্যান্ড ড্রপ অ্যাক্টিভেট
-            new Sortable(listDiv, { 
-                handle: '.handle', animation: 200,
-                onEnd: function() {
-                    const newOrder = Array.from(listDiv.querySelectorAll('.book-item')).map(el => el.getAttribute('data-id'));
-                    localStorage.setItem('rahbar_order_v6', JSON.stringify(newOrder));
-                }
-            });
+            new Sortable(listDiv, { handle: '.handle', animation: 200, onEnd: function() {
+                const newOrder = Array.from(listDiv.querySelectorAll('.book-item')).map(el => el.getAttribute('data-id'));
+                localStorage.setItem('rahbar_order_v6', JSON.stringify(newOrder));
+            }});
         };
     }
 
@@ -180,7 +179,22 @@
         pdfDoc = await pdfjsLib.getDocument(url).promise;
         pageNum = parseInt(localStorage.getItem(currentFileName)) || 1;
         document.getElementById("navigation-bar").style.display = "flex";
+        document.getElementById("total-pages").textContent = `/ ${pdfDoc.numPages}`;
         renderView();
+    }
+
+    // নতুন ফাংশন: পৃষ্ঠা জাম্প
+    function jumpToPage() {
+        const input = document.getElementById("page-num-input");
+        let val = parseInt(input.value);
+        if(val >= 1 && val <= pdfDoc.numPages) {
+            pageNum = val;
+            renderView();
+            document.getElementById('reader-container').scrollTop = 0;
+        } else {
+            alert("ভুল পৃষ্ঠা নাম্বার!");
+            input.value = pageNum;
+        }
     }
 
     async function renderView() {
@@ -190,7 +204,7 @@
             for(let i=1; i<=pdfDoc.numPages; i++) await renderPage(i);
         } else {
             await renderPage(pageNum);
-            document.getElementById("page-stat").textContent = `${pageNum} / ${pdfDoc.numPages}`;
+            document.getElementById("page-num-input").value = pageNum; // ইনপুট আপডেট
         }
         localStorage.setItem(currentFileName, pageNum);
     }
@@ -210,6 +224,7 @@
     function goToLastPage() { pageNum = pdfDoc.numPages; renderView(); }
     function zoomIn() { scale += 0.2; renderView(); }
     function zoomOut() { if(scale > 0.4) { scale -= 0.2; renderView(); } }
+    
     function toggleScrollMode() { 
         isScrollMode = !isScrollMode; 
         document.getElementById('scroll-btn').style.color = isScrollMode ? 'var(--accent)' : 'white';
@@ -238,7 +253,6 @@
         reader.readAsArrayBuffer(file);
     });
 
-    // ডাবল ট্যাপ জুম
     const hammer = new Hammer(document.getElementById('reader-container'));
     hammer.on("doubletap", () => { if(pdfDoc) { scale = (scale > 1.2) ? 1 : 1.8; renderView(); } });
 </script>
