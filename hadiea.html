@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সহযোগিতার আবেদন - রাহবার</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1a472a; --accent: #27ae60; --bg: #f4f7f6; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); color: #333; line-height: 1.6; padding: 0; margin: 0; }
+        
+        .header { background: var(--primary); color: white; padding: 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .container { padding: 20px; max-width: 600px; margin: -30px auto 50px; }
+        
+        .letter-card { background: white; padding: 30px 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; position: relative; }
+        .letter-card::before { content: "\f658"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: -15px; right: 20px; font-size: 2rem; color: #f1c40f; background: white; padding: 0 10px; }
+        
+        h2 { color: var(--primary); font-size: 1.4rem; margin-bottom: 15px; border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 5px; }
+        p { margin-bottom: 15px; text-align: justify; font-size: 0.95rem; }
+        
+        .highlight-box { background: #fff9e6; border-left: 4px solid #f1c40f; padding: 15px; margin: 20px 0; border-radius: 8px; font-size: 0.9rem; color: #5d4037; }
+        
+        .payment-section { background: #f0fdf4; border: 2px dashed var(--accent); padding: 20px; border-radius: 15px; text-align: center; margin-top: 25px; }
+        .payment-title { font-weight: 800; color: var(--primary); margin-bottom: 15px; display: block; }
+        
+        .method { 
+            display: flex; align-items: center; justify-content: space-between; 
+            background: white; padding: 12px 15px; border-radius: 12px; 
+            margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #eee;
+        }
+        .method-info { display: flex; align-items: center; gap: 10px; }
+        .num { font-family: sans-serif; font-size: 1.1rem; font-weight: bold; color: #333; }
+        
+        .copy-btn { 
+            background: var(--primary); color: white; border: none; 
+            padding: 6px 12px; border-radius: 6px; cursor: pointer; 
+            font-size: 0.8rem; font-weight: bold; transition: 0.2s;
+        }
+        .copy-btn:active { transform: scale(0.9); }
+        
+        .footer-note { text-align: center; margin-top: 25px; font-size: 0.85rem; color: #666; font-style: italic; }
+        .back-btn { display: inline-block; margin-top: 20px; text-decoration: none; color: var(--primary); font-weight: bold; font-size: 0.9rem; }
+        
+        #toast {
+            visibility: hidden; min-width: 200px; background-color: #333; color: #fff;
+            text-align: center; border-radius: 10px; padding: 10px;
+            position: fixed; z-index: 1000; left: 50%; bottom: 30px;
+            transform: translateX(-50%); font-size: 0.9rem;
+        }
+        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1 style="font-size: 1.5rem;">দ্বীনি খিদমতে শরিক হোন</h1>
+    </div>
+
+    <div class="container">
+        <div class="letter-card">
+            <h2>সম্মানিত ব্যবহারকারী,</h2>
+            <p>আসসালামু আলাইকুম ওয়া রহমাতুল্লাহ।</p>
+            <p>
+                'রাহবার' অ্যাপটি আপনার দ্বীনি ও দুনিয়াবী পথপ্রদর্শক হিসেবে গড়ে তোলার জন্য আমি ও আমার একটি ক্ষুদ্র টিম নিরলস কাজ করে যাচ্ছি। এটি বর্তমানে গিটহাবে (GitHub) হোস্ট করা একটি সাধারণ ওয়েব অ্যাপ, যার কারণে এর প্রযুক্তিগত সীমাবদ্ধতা রয়েছে এবং অনেকগুলো ফিচার এখনো পুরোপুরি সচল করা সম্ভব হয়নি।
+            </p>
+            
+            <div class="highlight-box">
+                একটি পূর্ণাঙ্গ অ্যাপের জন্য নিজস্ব ডোমেইন ও শক্তিশালী হোস্টিং প্রয়োজন, যেখানে বিপুল তথ্য জমা রাখা যাবে এবং আপনি অফলাইনেও সব ফিচার ব্যবহার করতে পারবেন। এই দীর্ঘ মেহনত ও ব্যয়ের পথচলায় আমি আপনার সহযোগিতা কামনা করছি।
+            </div>
+
+            <p>
+                যদি মনে করেন এই ক্ষুদ্র প্রচেষ্টাটি আপনার উপকারে আসছে এবং এটিকে আরও বহুদূর এগিয়ে নেওয়া প্রয়োজন, তবে আপনি আপনার সামর্থ্য অনুযায়ী সামান্য 'হাদিয়া' পাঠিয়ে এই খিদমতের অংশীদার হতে পারেন।
+            </p>
+
+            <p>আপনার এই আন্তরিক সহযোগিতা এই কাজকে সামনের দিকে এগিয়ে নিতে বড় অনুপ্রেরণা যোগাবে ইনশাআল্লাহ।</p>
+
+            <div class="payment-section">
+                <span class="payment-title"><i class="fas fa-hand-holding-heart"></i> হাদিয়া পাঠানোর মাধ্যম:</span>
+                
+                <div class="method">
+                    <div class="method-info">
+                        <i class="fas fa-wallet" style="color: #d12053; font-size: 1.4rem;"></i>
+                        <div>
+                            <div style="font-size: 0.75rem; font-weight: bold; color: #d12053; text-align: left;">বিকাশ (পার্সোনাল)</div>
+                            <div class="num" id="bkash-num">01742812210</div>
+                        </div>
+                    </div>
+                    <button class="copy-btn" onclick="copyText('bkash-num')">কপি করুন</button>
+                </div>
+
+                <div class="method">
+                    <div class="method-info">
+                        <i class="fas fa-money-bill-wave" style="color: #f15922; font-size: 1.4rem;"></i>
+                        <div>
+                            <div style="font-size: 0.75rem; font-weight: bold; color: #e67e22; text-align: left;">নগদ (পার্সোনাল)</div>
+                            <div class="num" id="nagad-num">01742812210</div>
+                        </div>
+                    </div>
+                    <button class="copy-btn" onclick="copyText('nagad-num')">কপি করুন</button>
+                </div>
+            </div>
+
+            <div class="footer-note">
+                "আল্লাহ তাআলা আপনার এই সহযোগিতাকে কবুল করুন এবং একে সাদাকায়ে জারিয়া হিসেবে গ্রহণ করুন। আমীন।"
+            </div>
+
+            <center>
+                <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> অ্যাপে ফিরে যান</a>
+            </center>
+        </div>
+    </div>
+
+    <div id="toast">নাম্বার কপি হয়েছে!</div>
+
+    <script>
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast();
+            });
+        }
+        function showToast() {
+            const toast = document.getElementById("toast");
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+    </script>
+</body>
+</html>
