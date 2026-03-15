@@ -3,23 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>রাহবার শরয়ী কনভার্টার - ৩০টি পরিমাপ</title>
-    
+    <title>রাহবার শরয়ী আলটিমেট ক্যালকুলেটর</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        :root { --primary: #1a472a; --bg: #eaeff2; --gold: #d4af37; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); padding-bottom: 100px; }
+        :root { --primary: #1a472a; --bg: #eaeff2; --accent: #27ae60; --gold: #d4af37; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
+        body { background: var(--bg); padding-bottom: 40px; }
 
         .app-header {
             background: var(--primary); color: white; padding: 20px 15px;
             text-align: center; position: sticky; top: 0; z-index: 1000;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            display: flex; align-items: center; justify-content: center;
         }
-        .back-link { position: absolute; left: 15px; color: white; text-decoration: none; font-size: 1.2rem; }
 
         .category-label { 
             display: flex; align-items: center; gap: 8px; padding: 0 15px; 
@@ -27,29 +24,46 @@
         }
         .label-bar { width: 6px; height: 18px; border-radius: 10px; }
 
-        /* আপনার ইনডেক্স পেজের মতো ৩ডি গ্রিড */
+        /* গ্রিড ডিজাইন */
         .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 15px; }
-        
         .grid-item {
             background: #ffffff; padding: 10px 2px; border-radius: 15px; text-align: center; cursor: pointer;
             box-shadow: 0 5px 0px rgba(0,0,0,0.1); display: flex; flex-direction: column; 
             align-items: center; justify-content: center; height: 110px; transition: 0.2s; border: 1px solid #ddd;
         }
-        .grid-item:active { transform: translateY(4px); box-shadow: none; }
-        .grid-item i { font-size: 1.5rem; margin-bottom: 6px; filter: drop-shadow(2px 3px 3px rgba(0,0,0,0.1)); }
-        
+        .grid-item:active { transform: translateY(4px); box-shadow: none; border-color: var(--accent); }
+        .grid-item i { font-size: 1.5rem; margin-bottom: 6px; }
         .arabic-name { font-size: 0.82rem; font-weight: 800; color: #1a472a; line-height: 1.1; }
-        .bangla-sub { font-size: 0.5rem; font-weight: 700; color: #7f8c8d; margin-top: 2px; }
+        .bangla-sub { font-size: 0.55rem; font-weight: 700; color: #7f8c8d; margin-top: 2px; }
 
-        /* পপ-আপ স্টাইল */
-        #modal {
+        /* স্মার্ট প্যানেল */
+        #smartPanel {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(8px);
         }
-        .modal-content { background: white; width: 90%; max-width: 360px; padding: 25px; border-radius: 25px; text-align: center; }
-        input { width: 100%; padding: 15px; margin: 15px 0; border: 2px solid #eee; border-radius: 15px; font-size: 1.2rem; text-align: center; }
-        .calc-btn { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; font-weight: bold; width: 100%; }
-        #result { margin-top: 15px; font-weight: 800; color: #1a472a; font-size: 1.1rem; background: #e8f5e9; padding: 12px; border-radius: 12px; }
+        .panel-content {
+            background: #f8f9fa; width: 92%; max-width: 400px; padding: 25px; border-radius: 25px; 
+            position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #888; }
+        
+        input {
+            width: 100%; padding: 15px; margin: 10px 0; border: 2px solid var(--primary);
+            border-radius: 15px; font-size: 1.2rem; text-align: center; outline: none;
+        }
+
+        .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .res-item { background: white; padding: 10px; border-radius: 12px; border-left: 4px solid var(--accent); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .res-label { font-size: 0.7rem; color: #777; display: block; font-weight: bold; }
+        .res-val { font-size: 0.95rem; color: #222; font-weight: 800; }
+        .full-width { grid-column: span 2; background: #e8f5e9; }
+
+        /* তথ্য তালিকা টেবিল */
+        .info-section { margin: 30px 15px; background: white; border-radius: 15px; padding: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .info-section h3 { color: var(--primary); border-bottom: 2px solid #eee; padding-bottom: 8px; margin-bottom: 12px; text-align: center; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th, td { border: 1px solid #eee; padding: 10px; text-align: left; }
+        th { background: #f9f9f9; color: var(--primary); }
 
         @media (max-width: 480px) { .grid { grid-template-columns: repeat(3, 1fr); } }
     </style>
@@ -57,149 +71,131 @@
 <body>
 
     <div class="app-header">
-        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i></a>
-        <div>
-            <div style="font-size: 1.1rem; font-weight: 700;">শরয়ী কনভার্টার আলটিমেট</div>
-            <div style="font-size: 0.6rem; opacity: 0.8;">ওজু, গোসল, মেহের, যাকাত ও সকল প্রাচীন পরিমাপ</div>
+        <div style="font-size: 1.2rem; font-weight: 700;">রাহবার শরয়ী কনভার্টার</div>
+        <div style="font-size: 0.7rem; opacity: 0.8;">শরয়ী পরিমাপের ডিজিটাল সমাধান</div>
+    </div>
+
+    <div class="category-label"><div class="label-bar" style="background:#3498db"></div> الطهارة (ওজু ও গোসল)</div>
+    <div class="grid">
+        <div class="grid-item" onclick="openSmart('الطهارة', 'ওজু ও গোসল', 'মুদ/সা')">
+            <i class="fas fa-faucet-drip" style="color:#3498db"></i><span class="arabic-name">وُضُوء ও غُسْل</span><span class="bangla-sub">ওজু ও গোসল</span>
         </div>
     </div>
 
-    <div class="category-label"><div class="label-bar" style="background:#3498db"></div> ওজু ও গোসল (الطهارة)</div>
+    <div class="category-label"><div class="label-bar" style="background:#f1c40f"></div> الموازين (ওজন ও মুদ্রা)</div>
     <div class="grid">
-        <div class="grid-item" onclick="openCalc('সুন্নাহ ওজু (১ মুদ)', 0.68, 'লিটার', 'রাসূলুল্লাহ (সা.) ১ মুদ পানি দিয়ে ওজু করতেন।')">
-            <i class="fas fa-faucet-drip" style="color:#3498db"></i><span class="arabic-name">وُضُوء السُنَّة</span><span class="bangla-sub">সুন্নাহ ওজু</span>
+        <div class="grid-item" onclick="openSmart('دِرْهَم', 'দিরহাম ও নেসাব', 'দিরহাম')">
+            <i class="fas fa-circle-notch" style="color:#95a5a6"></i><span class="arabic-name">دِرْهَم</span><span class="bangla-sub">দিরহাম</span>
         </div>
-        <div class="grid-item" onclick="openCalc('সুন্নাহ গোসল (১ সা)', 2.72, 'লিটার', 'রাসূলুল্লাহ (সা.) ১ সা পানি দিয়ে গোসল করতেন।')">
-            <i class="fas fa-shower" style="color:#2ecc71"></i><span class="arabic-name">غُسْل السُنَّة</span><span class="bangla-sub">সুন্নাহ গোসল</span>
+        <div class="grid-item" onclick="openSmart('دِينَار', 'দিনার ও স্বর্ণ', 'দিনার')">
+            <i class="fas fa-coins" style="color:#f1c40f"></i><span class="arabic-name">دِينَار</span><span class="bangla-sub">দিনার</span>
         </div>
-        <div class="grid-item" onclick="openCalc('ওজু ও গোসল (বড়)', 3.40, 'লিটার', '৫ মুদ পরিমাণ পানি।')">
-            <i class="fas fa-droplet" style="color:#1abc9c"></i><span class="arabic-name">مُدّ خَمْسَة</span><span class="bangla-sub">৫ মুদ পানি</span>
-        </div>
-    </div>
-
-    <div class="category-label"><div class="label-bar" style="background:#e91e63"></div> মেহের ও যাকাত (المهر والزكاة)</div>
-    <div class="grid">
-        <div class="grid-item" onclick="openCalc('মহরে ফাতেমী', 1.487, 'কেজি রুপা', '৫০০ শরয়ী দিরহাম বা ১৩১.২৫ তোলা রুপা।')">
-            <i class="fas fa-heart" style="color:#e91e63"></i><span class="arabic-name">مَهْر فَاطِمِي</span><span class="bangla-sub">মহরে ফাতেমী</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('সর্বনিম্ন মেহের', 29.75, 'গ্রাম রুপা', '১০ দিরহাম বা ২.৬২ তোলা রুপা।')">
-            <i class="fas fa-ring" style="color:#9b59b6"></i><span class="arabic-name">أقل المهر</span><span class="bangla-sub">সর্বনিম্ন মেহের</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('যাকাত (রুপা)', 595, 'গ্রাম রুপা', '৫৯৫ গ্রাম বা ৫২.৫ তোলা রুপা।')">
-            <i class="fas fa-hand-holding-dollar" style="color:#27ae60"></i><span class="arabic-name">نصاب الفضة</span><span class="bangla-sub">রুপার নেসাব</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('যাকাত (স্বর্ণ)', 85, 'গ্রাম স্বর্ণ', '৮৫ গ্রাম বা ৭.৫ তোলা স্বর্ণ।')">
-            <i class="fas fa-coins" style="color:#f1c40f"></i><span class="arabic-name">نصاب الذهب</span><span class="bangla-sub">স্বর্ণের নেসাব</span>
-        </div>
-    </div>
-
-    <div class="category-label"><div class="label-bar" style="background:#f1c40f"></div> মুদ্রা ও সূক্ষ্ম ওজন (الموازين)</div>
-    <div class="grid">
-        <div class="grid-item" onclick="openCalc('শরয়ী দিনার', 4.25, 'গ্রাম')">
-            <i class="fas fa-certificate" style="color:#f1c40f"></i><span class="arabic-name">دِينَار</span><span class="bangla-sub">দিনার (স্বর্ণ)</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('শরয়ী দিরহাম', 2.97, 'গ্রাম')">
-            <i class="fas fa-circle-notch" style="color:#95a5a6"></i><span class="arabic-name">دِرْهَم</span><span class="bangla-sub">দিরহাম (রুপা)</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('মিথকাল', 4.25, 'গ্রাম')">
-            <i class="fas fa-scale-unbalanced" style="color:#34495e"></i><span class="arabic-name">مِثْقَال</span><span class="bangla-sub">মিথকাল</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('উকিয়া', 119, 'গ্রাম')">
+        <div class="grid-item" onclick="openSmart('أُوقِيَّة', 'উকিয়া ও ওজন', 'উকিয়া')">
             <i class="fas fa-gem" style="color:#e91e63"></i><span class="arabic-name">أُوقِيَّة</span><span class="bangla-sub">উকিয়া</span>
         </div>
-        <div class="grid-item" onclick="openCalc('দানিক', 0.495, 'গ্রাম')">
-            <i class="fas fa-receipt" style="color:#e67e22"></i><span class="arabic-name">دَانِق</span><span class="bangla-sub">দানিক</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('কিরাত', 0.247, 'গ্রাম')">
-            <i class="fas fa-microchip" style="color:#1abc9c"></i><span class="arabic-name">قِيرَاط</span><span class="bangla-sub">কিরাত</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('তাসু', 0.123, 'গ্রাম')">
-            <i class="fas fa-leaf" style="color:#2ecc71"></i><span class="arabic-name">طَسُّوج</span><span class="bangla-sub">তাসু</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('হাব্বাহ', 0.049, 'গ্রাম')">
-            <i class="fas fa-seedling" style="color:#d35400"></i><span class="arabic-name">حَبَّة</span><span class="bangla-sub">হাব্বাহ</span>
-        </div>
     </div>
 
-    <div class="category-label"><div class="label-bar" style="background:#e67e22"></div> শস্য ও খাদ্য (المكاييل)</div>
+    <div class="category-label"><div class="label-bar" style="background:#2980b9"></div> المسافات (দূরত্ব ও দৈর্ঘ্য)</div>
     <div class="grid">
-        <div class="grid-item" onclick="openCalc('সা (Sa)', 3.27, 'কেজি')">
-            <i class="fas fa-shopping-basket" style="color:#e67e22"></i><span class="arabic-name">صَاع</span><span class="bangla-sub">সা' (শস্য)</span>
+        <div class="grid-item" onclick="openSmart('ذِرَاع', 'যিরা ও দৈর্ঘ্য', 'হাত')">
+            <i class="fas fa-ruler-horizontal" style="color:#3498db"></i><span class="arabic-name">ذِرَاع</span><span class="bangla-sub">যিরা (হাত)</span>
         </div>
-        <div class="grid-item" onclick="openCalc('মুদ (Mudd)', 0.817, 'কেজি')">
-            <i class="fas fa-hands-holding" style="color:#3498db"></i><span class="arabic-name">مُدّ</span><span class="bangla-sub">মুদ (শস্য)</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('ওয়াসাক', 196.2, 'কেজি')">
-            <i class="fas fa-box" style="color:#f39c12"></i><span class="arabic-name">وَسْق</span><span class="bangla-sub">ওয়াসাক</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('রতল', 0.408, 'কেজি')">
-            <i class="fas fa-wine-glass" style="color:#9b59b6"></i><span class="arabic-name">رَطْل</span><span class="bangla-sub">রতল</span>
+        <div class="grid-item" onclick="openSmart('مِيْل', 'শরয়ী মিল', 'মিল')">
+            <i class="fas fa-road" style="color:#7f8c8d"></i><span class="arabic-name">مِيْل</span><span class="bangla-sub">শরয়ী মিল</span>
         </div>
     </div>
 
-    <div class="category-label"><div class="label-bar" style="background:#2980b9"></div> দূরত্ব ও সফর (المسافات)</div>
-    <div class="grid">
-        <div class="grid-item" onclick="openCalc('বারিদ (সফর)', 22.17, 'কি.মি.')">
-            <i class="fas fa-camel" style="color:#1a472a"></i><span class="arabic-name">بَرِيد</span><span class="bangla-sub">বারিদ</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('ফারসাখ', 5.54, 'কি.মি.')">
-            <i class="fas fa-map-location-dot" style="color:#27ae60"></i><span class="arabic-name">فَرْسَخ</span><span class="bangla-sub">ফারসাখ</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('শরয়ী মিল', 1.85, 'কি.মি.')">
-            <i class="fas fa-road" style="color:#7f8c8d"></i><span class="arabic-name">مِيْل</span><span class="bangla-sub">মিল</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('যিরা (হাত)', 0.46, 'মিটার')">
-            <i class="fas fa-ruler-horizontal" style="color:#3498db"></i><span class="arabic-name">ذِرَاع</span><span class="bangla-sub">যিরা</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('উসবা (আঙুল)', 1.9, 'সে.মি.')">
-            <i class="fas fa-hand-pointer" style="color:#e67e22"></i><span class="arabic-name">إِصْبَع</span><span class="bangla-sub">উসবা</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('কাবজাহ', 7.6, 'সে.মি.')">
-            <i class="fas fa-hand-fist" style="color:#e74c3c"></i><span class="arabic-name">قَبْضَة</span><span class="bangla-sub">কাবজাহ</span>
-        </div>
+    <div class="info-section">
+        <h3>শরয়ী পরিমাপের তালিকা (রেফারেন্স)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ক্র নং</th>
+                    <th>শিরোনাম</th>
+                    <th>শরয়ী মান</th>
+                    <th>আধুনিক মান</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>০১</td><td>মুদ (مُدّ)</td><td>১ মুদ</td><td>৭৯৬.০৬৮ গ্রাম</td></tr>
+                <tr><td>০২</td><td>সা (صَاع)</td><td>৪ মুদ</td><td>৩.১৮৪ কেজি</td></tr>
+                <tr><td>০৩</td><td>দিরহাম (دِرْهَم)</td><td>১ দিরহাম</td><td>৩.০৬১৮ গ্রাম</td></tr>
+                <tr><td>০৪</td><td>দিনার (دِينَار)</td><td>১ দিনার</td><td>৪.৩৭৪ গ্রাম</td></tr>
+                <tr><td>০৫</td><td>উকিয়া (أُوقِيَّة)</td><td>৪০ দিরহাম</td><td>১২২.৪৭২ গ্রাম</td></tr>
+                <tr><td>০৬</td><td>যিরা (ذِرَاع)</td><td>১ হাত</td><td>১৮ ইঞ্চি / ৪৬ সেমি</td></tr>
+                <tr><td>০৭</td><td>শরয়ী মিল (مِيْل)</td><td>৪০০০ হাত</td><td>১.৮৫ কিমি</td></tr>
+                <tr><td>০৮</td><td>কছর সফর</td><td>৪৮ মাইল</td><td>৭৭.২৪ কিমি</td></tr>
+                <tr><td>০৯</td><td>যাকাত (রুপা)</td><td>৫২.৫ তোলা</td><td>৬১২.৩৬ গ্রাম</td></tr>
+                <tr><td>১০</td><td>যাকাত (স্বর্ণ)</td><td>৭.৫ তোলা</td><td>৮৭.৪৮ গ্রাম</td></tr>
+            </tbody>
+        </table>
     </div>
 
-    <div class="category-label"><div class="label-bar" style="background:#8e44ad"></div> জমি ও বিবিধ (المساحة)</div>
-    <div class="grid">
-        <div class="grid-item" onclick="openCalc('জারিব (জমি)', 1592, 'বর্গমি.')">
-            <i class="fas fa-table-cells" style="color:#1abc9c"></i><span class="arabic-name">جَرِيب</span><span class="bangla-sub">জারিব</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('শাউর (জব দানা)', 0.32, 'সে.মি.')">
-            <i class="fas fa-seedling" style="color:#2ecc71"></i><span class="arabic-name">شَعِيْر</span><span class="bangla-sub">শাউর</span>
-        </div>
-        <div class="grid-item" onclick="openCalc('বোর (গম দানা)', 0.21, 'সে.মি.')">
-            <i class="fas fa-ellipsis" style="color:#f39c12"></i><span class="arabic-name">بُرّ</span><span class="bangla-sub">বোর</span>
-        </div>
-    </div>
-
-    <div id="modal">
-        <div class="modal-content">
-            <h3 id="modalTitle" style="color: var(--primary);"></h3>
-            <p id="unitInfo" style="font-size: 0.75rem; color: #888; margin-bottom: 10px;"></p>
-            <input type="number" id="inputValue" placeholder="পরিমাণ লিখুন..." oninput="convert()">
-            <div id="result">০.০০০</div>
-            <button class="calc-btn" onclick="closeModal()" style="margin-top: 15px;">বন্ধ করুন</button>
+    <div id="smartPanel">
+        <div class="panel-content">
+            <span class="close-btn" onclick="closePanel()">&times;</span>
+            <div style="text-align:center; margin-bottom:15px;">
+                <p id="p-arabic" style="color:var(--primary); font-weight:800; font-size:1.2rem;"></p>
+                <h3 id="p-title">ক্যালকুলেটর</h3>
+            </div>
+            <input type="number" id="mainInput" placeholder="পরিমাণ..." oninput="calculateAll()">
+            <div class="result-grid" id="resGrid"></div>
         </div>
     </div>
 
     <script>
-        let currentRate = 0; let currentTargetUnit = "";
-        function openCalc(title, rate, targetUnit, desc = "") {
-            currentRate = rate; currentTargetUnit = targetUnit;
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('unitInfo').innerText = desc || ("১ এককের মান = " + rate + " " + targetUnit);
-            document.getElementById('modal').style.display = 'flex';
-            document.getElementById('inputValue').value = "";
-            document.getElementById('result').innerText = "০.০০০ " + targetUnit;
-            document.getElementById('inputValue').focus();
+        let currentMode = "";
+        function openSmart(arabic, title, unit) {
+            currentMode = arabic;
+            document.getElementById('p-arabic').innerText = arabic;
+            document.getElementById('p-title').innerText = title;
+            document.getElementById('mainInput').placeholder = "কত " + unit + "?";
+            document.getElementById('mainInput').value = "";
+            document.getElementById('resGrid').innerHTML = "";
+            document.getElementById('smartPanel').style.display = 'flex';
         }
-        function closeModal() { document.getElementById('modal').style.display = 'none'; }
-        function convert() {
-            let val = document.getElementById('inputValue').value;
-            let res = val * currentRate;
-            document.getElementById('result').innerText = res.toLocaleString(undefined, {minimumFractionDigits: 3}) + " " + currentTargetUnit;
+        function closePanel() { document.getElementById('smartPanel').style.display = 'none'; }
+
+        function calculateAll() {
+            let val = parseFloat(document.getElementById('mainInput').value) || 0;
+            let html = "";
+            if (currentMode === 'ذِرَاع') {
+                html += renderItem("ইঞ্চি", (val * 18).toFixed(2));
+                html += renderItem("সেন্টিমিটার", (val * 45.72).toFixed(2));
+                html += renderItem("মিলিমিটার", (val * 457.2).toFixed(0));
+                html += renderItem("গজ", (val * 0.5).toFixed(2));
+                html += renderItem("কিলোমিটার", (val * 0.000457).toFixed(5), true);
+            } else if (currentMode === 'الطهارة') {
+                html += renderItem("ওজু (১ মুদ)", (val * 0.796).toFixed(3) + " লিটার");
+                html += renderItem("গোসল (৪ মুদ/১ সা)", (val * 3.184).toFixed(3) + " লিটার");
+                html += renderItem("মোট গ্রাম", (val * 796.06).toFixed(2), true);
+            } else if (currentMode === 'دِرْهَم') {
+                let g = val * 3.0618;
+                html += renderItem("গ্রাম", g.toFixed(3));
+                html += renderItem("তোলা/ভরি", (g / 11.664).toFixed(3));
+                html += renderItem("রতি", (val * 25.2).toFixed(1));
+                html += renderItem("যাকাত নেসাব", "৫২.৫ তোলা", true);
+            } else if (currentMode === 'دِينَار') {
+                let g = val * 4.374;
+                html += renderItem("গ্রাম", g.toFixed(3));
+                html += renderItem("তোলা/ভরি", (g / 11.664).toFixed(3));
+                html += renderItem("মাশা", (val * 4.5).toFixed(2), true);
+            } else if (currentMode === 'أُوقِيَّة') {
+                html += renderItem("গ্রাম", (val * 122.47).toFixed(2));
+                html += renderItem("তোলা", (val * 10.5).toFixed(2));
+                html += renderItem("দিরহাম", (val * 40).toFixed(0), true);
+            } else if (currentMode === 'مِيْل') {
+                html += renderItem("কিলোমিটার", (val * 1.85).toFixed(3));
+                html += renderItem("হাত", (val * 4000).toFixed(0));
+                html += renderItem("গজ", (val * 2000).toFixed(0), true);
+            }
+            document.getElementById('resGrid').innerHTML = html;
         }
-        window.onclick = function(event) { if (event.target == document.getElementById('modal')) closeModal(); }
+
+        function renderItem(l, v, f=false) {
+            return `<div class="res-item ${f?'full-width':''}"><span class="res-label">${l}</span><span class="res-val">${v}</span></div>`;
+        }
+        window.onclick = function(e) { if(e.target == document.getElementById('smartPanel')) closePanel(); }
     </script>
 </body>
 </html>
