@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes">
     <title>রাহবার স্মার্ট রিডার</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
@@ -24,16 +24,24 @@
         .book-cat { font-size: 11px; color: var(--accent); margin-top: 2px; }
         .cat-btn { color: #f1c40f; cursor: pointer; margin-right: 15px; font-size: 18px; }
         .delete-btn { color: var(--danger); cursor: pointer; font-size: 18px; }
-        .reader-area { flex: 1; overflow: auto; display: flex; justify-content: center; background: #333; }
-        #pdf-viewer { width: 100%; padding: 10px; }
-        canvas { background: white; display: block; margin: 0 auto 15px; max-width: 100%; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
+        .reader-area { flex: 1; overflow: auto; display: flex; justify-content: center; background: #333; position: relative; touch-action: none; }
+        #pdf-viewer { width: 100%; padding: 10px; transform-origin: top center; transition: transform 0.1s ease-out; }
+        .canvas-container { position: relative; margin: 0 auto 15px; box-shadow: 0 0 15px rgba(0,0,0,0.5); background: white; }
+        canvas { display: block; max-width: 100%; }
+        .drawing-canvas { position: absolute; top: 0; left: 0; pointer-events: none; }
+        .drawing-canvas.active { pointer-events: auto; cursor: crosshair; }
         .bottom-controls { background: rgba(0,0,0,0.9); padding: 10px; display: flex; justify-content: space-around; align-items: center; position: fixed; bottom: 0; width: 100%; z-index: 100; }
         .btn { background: none; border: none; color: white; font-size: 20px; cursor: pointer; padding: 5px 10px; }
+        .btn.active { color: #f1c40f; }
         
-        /* নতুন স্টাইল: পৃষ্ঠা জাম্প ইনপুট */
         .page-input-container { display: flex; align-items: center; gap: 5px; background: #333; padding: 2px 8px; border-radius: 5px; border: 1px solid #555; }
         #page-num-input { background: transparent; border: none; color: var(--accent); width: 40px; text-align: center; font-family: monospace; font-weight: bold; font-size: 16px; outline: none; }
         #total-pages { font-family: monospace; font-size: 14px; color: #ccc; }
+
+        /* কালার প্যালেট */
+        .color-palette { display: none; position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); padding: 10px; border-radius: 20px; gap: 10px; z-index: 101; }
+        .color-palette.active { display: flex; }
+        .color-circle { width: 25px; height: 25px; border-radius: 50%; cursor: pointer; border: 2px solid white; }
     </style>
 </head>
 <body>
@@ -60,6 +68,7 @@
         <button class="btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
         <div>
             <button class="btn" onclick="zoomOut()"><i class="fas fa-search-minus"></i></button>
+            <button class="btn" onclick="resetZoom()"><span style="font-size: 14px;">100%</span></button>
             <button class="btn" onclick="zoomIn()"><i class="fas fa-search-plus"></i></button>
         </div>
         <button class="btn" onclick="location.href='index.html'"><i class="fas fa-home"></i></button>
@@ -69,6 +78,15 @@
         <div id="pdf-viewer">
             <p style="text-align:center; margin-top:40vh; color:#888;">একটি কিতাব নির্বাচন করুন</p>
         </div>
+    </div>
+
+    <div class="color-palette" id="color-palette">
+        <div class="color-circle" style="background: red;" onclick="setPenColor('red')"></div>
+        <div class="color-circle" style="background: blue;" onclick="setPenColor('blue')"></div>
+        <div class="color-circle" style="background: green;" onclick="setPenColor('green')"></div>
+        <div class="color-circle" style="background: yellow;" onclick="setPenColor('yellow')"></div>
+        <div class="color-circle" style="background: black;" onclick="setPenColor('black')"></div>
+        <button class="btn" onclick="clearDrawing()" style="font-size: 14px; color: white;">মুছুন</button>
     </div>
 
     <div class="bottom-controls" id="navigation-bar" style="display:none">
@@ -82,6 +100,7 @@
 
         <button class="btn" onclick="nextPage()"><i class="fas fa-chevron-right"></i></button>
         <button class="btn" onclick="goToLastPage()"><i class="fas fa-angle-double-right"></i></button>
+        <button class="btn" onclick="togglePen()" id="pen-btn"><i class="fas fa-pen"></i></button>
         <button class="btn" onclick="toggleScrollMode()" id="scroll-btn"><i class="fas fa-scroll"></i></button>
     </div>
 </div>
@@ -92,8 +111,10 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
     let pdfDoc = null, pageNum = 1, scale = 1, isScrollMode = false, currentFileName = "";
+    let isPenActive = false, penColor = 'red', isDrawing = false;
     const viewer = document.getElementById("pdf-viewer");
     const sidebar = document.getElementById("sidebar");
+    const readerContainer = document.getElementById('reader-container');
     let db;
 
     const request = indexedDB.open("RahbarLibraryDB", 1);
@@ -180,17 +201,17 @@
         pageNum = parseInt(localStorage.getItem(currentFileName)) || 1;
         document.getElementById("navigation-bar").style.display = "flex";
         document.getElementById("total-pages").textContent = `/ ${pdfDoc.numPages}`;
+        scale = 1;
         renderView();
     }
 
-    // নতুন ফাংশন: পৃষ্ঠা জাম্প
     function jumpToPage() {
         const input = document.getElementById("page-num-input");
         let val = parseInt(input.value);
         if(val >= 1 && val <= pdfDoc.numPages) {
             pageNum = val;
             renderView();
-            document.getElementById('reader-container').scrollTop = 0;
+            readerContainer.scrollTop = 0;
         } else {
             alert("ভুল পৃষ্ঠা নাম্বার!");
             input.value = pageNum;
@@ -204,26 +225,126 @@
             for(let i=1; i<=pdfDoc.numPages; i++) await renderPage(i);
         } else {
             await renderPage(pageNum);
-            document.getElementById("page-num-input").value = pageNum; // ইনপুট আপডেট
+            document.getElementById("page-num-input").value = pageNum;
         }
         localStorage.setItem(currentFileName, pageNum);
+        updateZoom();
     }
 
     async function renderPage(num) {
         const page = await pdfDoc.getPage(num);
-        const viewport = page.getViewport({scale: scale});
+        const viewport = page.getViewport({scale: 2}); // Render at higher resolution for better zoom
+        
+        const container = document.createElement("div");
+        container.className = "canvas-container";
+        container.style.width = (viewport.width / 2) + "px";
+        container.style.height = (viewport.height / 2) + "px";
+
         const canvas = document.createElement("canvas");
         canvas.height = viewport.height; canvas.width = viewport.width;
-        viewer.appendChild(canvas);
+        canvas.style.width = "100%"; canvas.style.height = "100%";
+        
+        const drawCanvas = document.createElement("canvas");
+        drawCanvas.className = "drawing-canvas" + (isPenActive ? " active" : "");
+        drawCanvas.width = viewport.width; drawCanvas.height = viewport.height;
+        drawCanvas.style.width = "100%"; drawCanvas.style.height = "100%";
+
+        container.appendChild(canvas);
+        container.appendChild(drawCanvas);
+        viewer.appendChild(container);
+
         await page.render({canvasContext: canvas.getContext("2d"), viewport: viewport}).promise;
+        setupDrawing(drawCanvas);
     }
 
-    function nextPage() { if(pageNum < pdfDoc.numPages) { pageNum++; renderView(); document.getElementById('reader-container').scrollTop = 0; } }
-    function prevPage() { if(pageNum > 1) { pageNum--; renderView(); document.getElementById('reader-container').scrollTop = 0; } }
+    // পেন্সিল ফিচার
+    function togglePen() {
+        isPenActive = !isPenActive;
+        document.getElementById('pen-btn').classList.toggle('active');
+        document.getElementById('color-palette').classList.toggle('active');
+        document.querySelectorAll('.drawing-canvas').forEach(c => {
+            c.classList.toggle('active', isPenActive);
+        });
+    }
+
+    function setPenColor(color) { penColor = color; }
+
+    function setupDrawing(canvas) {
+        const ctx = canvas.getContext('2d');
+        ctx.strokeStyle = penColor;
+        ctx.lineWidth = 5;
+        ctx.lineCap = 'round';
+
+        const startDraw = (e) => {
+            if(!isPenActive) return;
+            isDrawing = true;
+            ctx.beginPath();
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+            const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+            ctx.moveTo(x * (canvas.width / rect.width), y * (canvas.height / rect.height));
+        };
+
+        const draw = (e) => {
+            if(!isDrawing || !isPenActive) return;
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+            const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+            ctx.lineTo(x * (canvas.width / rect.width), y * (canvas.height / rect.height));
+            ctx.strokeStyle = penColor;
+            ctx.stroke();
+        };
+
+        const stopDraw = () => isDrawing = false;
+
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDraw);
+        canvas.addEventListener('touchstart', startDraw);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDraw);
+    }
+
+    function clearDrawing() {
+        document.querySelectorAll('.drawing-canvas').forEach(c => {
+            c.getContext('2d').clearRect(0, 0, c.width, c.height);
+        });
+    }
+
+    // উন্নত জুম ফিচার
+    function updateZoom() {
+        viewer.style.transform = `scale(${scale})`;
+    }
+
+    function zoomIn() { scale += 0.3; if(scale > 5) scale = 5; updateZoom(); }
+    function zoomOut() { scale -= 0.3; if(scale < 0.5) scale = 0.5; updateZoom(); }
+    function resetZoom() { scale = 1; updateZoom(); }
+
+    // Pinch to Zoom (Hammer.js)
+    const hammer = new Hammer(readerContainer);
+    hammer.get('pinch').set({ enable: true });
+
+    let startScale = 1;
+    hammer.on("pinchstart", () => { startScale = scale; });
+    hammer.on("pinchmove", (e) => {
+        if(isPenActive) return;
+        scale = startScale * e.scale;
+        if(scale < 0.5) scale = 0.5;
+        if(scale > 5) scale = 5;
+        updateZoom();
+    });
+
+    hammer.on("doubletap", () => { 
+        if(isPenActive) return;
+        scale = (scale > 1.2) ? 1 : 2; 
+        updateZoom(); 
+    });
+
+    function nextPage() { if(pageNum < pdfDoc.numPages) { pageNum++; renderView(); readerContainer.scrollTop = 0; } }
+    function prevPage() { if(pageNum > 1) { pageNum--; renderView(); readerContainer.scrollTop = 0; } }
     function goToFirstPage() { pageNum = 1; renderView(); }
     function goToLastPage() { pageNum = pdfDoc.numPages; renderView(); }
-    function zoomIn() { scale += 0.2; renderView(); }
-    function zoomOut() { if(scale > 0.4) { scale -= 0.2; renderView(); } }
     
     function toggleScrollMode() { 
         isScrollMode = !isScrollMode; 
@@ -252,9 +373,6 @@
         };
         reader.readAsArrayBuffer(file);
     });
-
-    const hammer = new Hammer(document.getElementById('reader-container'));
-    hammer.on("doubletap", () => { if(pdfDoc) { scale = (scale > 1.2) ? 1 : 1.8; renderView(); } });
 </script>
 </body>
 </html>
