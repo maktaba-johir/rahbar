@@ -24,24 +24,207 @@
         .book-cat { font-size: 11px; color: var(--accent); margin-top: 2px; }
         .cat-btn { color: #f1c40f; cursor: pointer; margin-right: 15px; font-size: 18px; }
         .delete-btn { color: var(--danger); cursor: pointer; font-size: 18px; }
-        .reader-area { flex: 1; overflow: auto; display: flex; justify-content: center; background: #333; position: relative; touch-action: none; }
-        #pdf-viewer { width: 100%; padding: 10px; transform-origin: top center; transition: transform 0.1s ease-out; }
-        .canvas-container { position: relative; margin: 0 auto 15px; box-shadow: 0 0 15px rgba(0,0,0,0.5); background: white; }
-        canvas { display: block; max-width: 100%; }
-        .drawing-canvas { position: absolute; top: 0; left: 0; pointer-events: none; }
-        .drawing-canvas.active { pointer-events: auto; cursor: crosshair; }
-        .bottom-controls { background: rgba(0,0,0,0.9); padding: 10px; display: flex; justify-content: space-around; align-items: center; position: fixed; bottom: 0; width: 100%; z-index: 100; }
-        .btn { background: none; border: none; color: white; font-size: 20px; cursor: pointer; padding: 5px 10px; }
+        
+        /* উন্নত রিডার এরিয়া */
+        .reader-area { 
+            flex: 1; 
+            overflow: auto; 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-start;
+            background: #333; 
+            position: relative; 
+            touch-action: none;
+            padding: 20px 0;
+        }
+        
+        #pdf-viewer { 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            transform-origin: center top;
+            transition: transform 0.1s ease-out;
+        }
+        
+        .canvas-container { 
+            position: relative; 
+            background: white;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        canvas { 
+            display: block; 
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+        }
+        
+        .drawing-canvas { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            pointer-events: none; 
+        }
+        
+        .drawing-canvas.active { 
+            pointer-events: auto; 
+            cursor: crosshair; 
+        }
+        
+        .bottom-controls { 
+            background: rgba(0,0,0,0.9); 
+            padding: 10px; 
+            display: flex; 
+            justify-content: space-around; 
+            align-items: center; 
+            position: fixed; 
+            bottom: 0; 
+            width: 100%; 
+            z-index: 100;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .btn { 
+            background: none; 
+            border: none; 
+            color: white; 
+            font-size: 20px; 
+            cursor: pointer; 
+            padding: 5px 10px;
+            transition: color 0.2s;
+        }
+        
+        .btn:hover { color: var(--accent); }
         .btn.active { color: #f1c40f; }
         
-        .page-input-container { display: flex; align-items: center; gap: 5px; background: #333; padding: 2px 8px; border-radius: 5px; border: 1px solid #555; }
-        #page-num-input { background: transparent; border: none; color: var(--accent); width: 40px; text-align: center; font-family: monospace; font-weight: bold; font-size: 16px; outline: none; }
-        #total-pages { font-family: monospace; font-size: 14px; color: #ccc; }
+        .page-input-container { 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+            background: #333; 
+            padding: 2px 8px; 
+            border-radius: 5px; 
+            border: 1px solid #555; 
+        }
+        
+        #page-num-input { 
+            background: transparent; 
+            border: none; 
+            color: var(--accent); 
+            width: 40px; 
+            text-align: center; 
+            font-family: monospace; 
+            font-weight: bold; 
+            font-size: 16px; 
+            outline: none; 
+        }
+        
+        #total-pages { 
+            font-family: monospace; 
+            font-size: 14px; 
+            color: #ccc; 
+        }
 
         /* কালার প্যালেট */
-        .color-palette { display: none; position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); padding: 10px; border-radius: 20px; gap: 10px; z-index: 101; }
-        .color-palette.active { display: flex; }
-        .color-circle { width: 25px; height: 25px; border-radius: 50%; cursor: pointer; border: 2px solid white; }
+        .color-palette { 
+            display: none; 
+            position: fixed; 
+            bottom: 70px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: rgba(0,0,0,0.9); 
+            padding: 10px; 
+            border-radius: 20px; 
+            gap: 10px; 
+            z-index: 101;
+            border: 2px solid var(--accent);
+        }
+        
+        .color-palette.active { 
+            display: flex; 
+        }
+        
+        .color-circle { 
+            width: 25px; 
+            height: 25px; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            border: 2px solid white;
+            transition: transform 0.2s;
+        }
+        
+        .color-circle:hover { transform: scale(1.1); }
+
+        /* স্ক্রল মোড ইন্ডিকেটর */
+        .mode-indicator {
+            position: fixed;
+            top: 70px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: var(--accent);
+            z-index: 50;
+        }
+
+        /* অটো-স্ক্রল কন্ট্রোল প্যানেল */
+        .auto-scroll-panel {
+            display: none;
+            position: fixed;
+            bottom: 70px;
+            right: 10px;
+            background: rgba(0,0,0,0.9);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid var(--accent);
+            z-index: 101;
+            min-width: 200px;
+        }
+
+        .auto-scroll-panel.active {
+            display: block;
+        }
+
+        .auto-scroll-panel label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .auto-scroll-panel input[type="range"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .speed-display {
+            text-align: center;
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .auto-scroll-panel button {
+            width: 100%;
+            padding: 8px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .auto-scroll-panel button:hover {
+            background: #1f8a4d;
+        }
     </style>
 </head>
 <body>
@@ -67,12 +250,14 @@
     <div class="top-toolbar">
         <button class="btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
         <div>
-            <button class="btn" onclick="zoomOut()"><i class="fas fa-search-minus"></i></button>
-            <button class="btn" onclick="resetZoom()"><span style="font-size: 14px;">100%</span></button>
-            <button class="btn" onclick="zoomIn()"><i class="fas fa-search-plus"></i></button>
+            <button class="btn" onclick="zoomOut()" title="জুম আউট"><i class="fas fa-search-minus"></i></button>
+            <button class="btn" onclick="resetZoom()" title="স্বাভাবিক আকার"><span style="font-size: 14px;">100%</span></button>
+            <button class="btn" onclick="zoomIn()" title="জুম ইন"><i class="fas fa-search-plus"></i></button>
         </div>
         <button class="btn" onclick="location.href='index.html'"><i class="fas fa-home"></i></button>
     </div>
+
+    <div class="mode-indicator" id="mode-indicator" style="display:none;"></div>
 
     <div class="reader-area" id="reader-container" onclick="closeSidebarIfOpen(event)">
         <div id="pdf-viewer">
@@ -81,27 +266,36 @@
     </div>
 
     <div class="color-palette" id="color-palette">
-        <div class="color-circle" style="background: red;" onclick="setPenColor('red')"></div>
-        <div class="color-circle" style="background: blue;" onclick="setPenColor('blue')"></div>
-        <div class="color-circle" style="background: green;" onclick="setPenColor('green')"></div>
-        <div class="color-circle" style="background: yellow;" onclick="setPenColor('yellow')"></div>
-        <div class="color-circle" style="background: black;" onclick="setPenColor('black')"></div>
-        <button class="btn" onclick="clearDrawing()" style="font-size: 14px; color: white;">মুছুন</button>
+        <div class="color-circle" style="background: red;" onclick="setPenColor('red')" title="লাল"></div>
+        <div class="color-circle" style="background: blue;" onclick="setPenColor('blue')" title="নীল"></div>
+        <div class="color-circle" style="background: green;" onclick="setPenColor('green')" title="সবুজ"></div>
+        <div class="color-circle" style="background: yellow;" onclick="setPenColor('yellow')" title="হলুদ"></div>
+        <div class="color-circle" style="background: black;" onclick="setPenColor('black')" title="কালো"></div>
+        <button class="btn" onclick="clearDrawing()" style="font-size: 14px; color: white;" title="ড্রয়িং মুছুন">🗑️</button>
+    </div>
+
+    <div class="auto-scroll-panel" id="auto-scroll-panel">
+        <label>অটো-স্ক্রল গতি:</label>
+        <input type="range" id="scroll-speed" min="1" max="10" value="5" onchange="updateScrollSpeed()">
+        <div class="speed-display" id="speed-display">মধ্যম</div>
+        <button onclick="startAutoScroll()">শুরু করুন</button>
+        <button onclick="stopAutoScroll()" style="margin-top: 5px; background: #e74c3c;">থামান</button>
     </div>
 
     <div class="bottom-controls" id="navigation-bar" style="display:none">
-        <button class="btn" onclick="goToFirstPage()"><i class="fas fa-angle-double-left"></i></button>
-        <button class="btn" onclick="prevPage()"><i class="fas fa-chevron-left"></i></button>
+        <button class="btn" onclick="goToFirstPage()" title="প্রথম পৃষ্ঠা"><i class="fas fa-angle-double-left"></i></button>
+        <button class="btn" onclick="prevPage()" title="আগের পৃষ্ঠা"><i class="fas fa-chevron-left"></i></button>
         
         <div class="page-input-container">
-            <input type="number" id="page-num-input" min="1" onkeypress="if(event.key === 'Enter') jumpToPage()">
+            <input type="number" id="page-num-input" min="1" onkeypress="if(event.key === 'Enter') jumpToPage()" title="পৃষ্ঠা নাম্বার">
             <span id="total-pages">/ 0</span>
         </div>
 
-        <button class="btn" onclick="nextPage()"><i class="fas fa-chevron-right"></i></button>
-        <button class="btn" onclick="goToLastPage()"><i class="fas fa-angle-double-right"></i></button>
-        <button class="btn" onclick="togglePen()" id="pen-btn"><i class="fas fa-pen"></i></button>
-        <button class="btn" onclick="toggleScrollMode()" id="scroll-btn"><i class="fas fa-scroll"></i></button>
+        <button class="btn" onclick="nextPage()" title="পরের পৃষ্ঠা"><i class="fas fa-chevron-right"></i></button>
+        <button class="btn" onclick="goToLastPage()" title="শেষ পৃষ্ঠা"><i class="fas fa-angle-double-right"></i></button>
+        <button class="btn" onclick="togglePen()" id="pen-btn" title="পেন্সিল টুল"><i class="fas fa-pen"></i></button>
+        <button class="btn" onclick="toggleAutoScrollPanel()" id="auto-scroll-btn" title="অটো-স্ক্রল"><i class="fas fa-play"></i></button>
+        <button class="btn" onclick="toggleScrollMode()" id="scroll-btn" title="স্ক্রল মোড"><i class="fas fa-scroll"></i></button>
     </div>
 </div>
 
@@ -112,9 +306,14 @@
 
     let pdfDoc = null, pageNum = 1, scale = 1, isScrollMode = false, currentFileName = "";
     let isPenActive = false, penColor = 'red', isDrawing = false;
+    let isPanning = false, panStartX = 0, panStartY = 0, panX = 0, panY = 0;
+    let isAutoScrolling = false, autoScrollSpeed = 5, autoScrollInterval = null;
+    let lastScrollPosition = 0;
+    
     const viewer = document.getElementById("pdf-viewer");
     const sidebar = document.getElementById("sidebar");
     const readerContainer = document.getElementById('reader-container');
+    const modeIndicator = document.getElementById('mode-indicator');
     let db;
 
     const request = indexedDB.open("RahbarLibraryDB", 1);
@@ -192,16 +391,20 @@
 
     function loadPDFFromDB(name) {
         currentFileName = name; sidebar.classList.remove("active");
+        stopAutoScroll();
         const tx = db.transaction("books", "readonly");
         tx.objectStore("books").get(name).onsuccess = e => initPDF(URL.createObjectURL(e.target.result));
     }
 
     async function initPDF(url) {
         pdfDoc = await pdfjsLib.getDocument(url).promise;
-        pageNum = parseInt(localStorage.getItem(currentFileName)) || 1;
+        pageNum = parseInt(localStorage.getItem(currentFileName + "_page")) || 1;
+        lastScrollPosition = parseInt(localStorage.getItem(currentFileName + "_scroll")) || 0;
         document.getElementById("navigation-bar").style.display = "flex";
         document.getElementById("total-pages").textContent = `/ ${pdfDoc.numPages}`;
         scale = 1;
+        panX = 0;
+        panY = 0;
         renderView();
     }
 
@@ -223,17 +426,20 @@
         viewer.innerHTML = "";
         if(isScrollMode) {
             for(let i=1; i<=pdfDoc.numPages; i++) await renderPage(i);
+            modeIndicator.style.display = 'none';
         } else {
             await renderPage(pageNum);
             document.getElementById("page-num-input").value = pageNum;
+            modeIndicator.textContent = isScrollMode ? 'স্ক্রল মোড' : 'পৃষ্ঠা মোড';
+            modeIndicator.style.display = 'block';
         }
-        localStorage.setItem(currentFileName, pageNum);
+        saveReadingProgress();
         updateZoom();
     }
 
     async function renderPage(num) {
         const page = await pdfDoc.getPage(num);
-        const viewport = page.getViewport({scale: 2}); // Render at higher resolution for better zoom
+        const viewport = page.getViewport({scale: 2});
         
         const container = document.createElement("div");
         container.className = "canvas-container";
@@ -241,13 +447,17 @@
         container.style.height = (viewport.height / 2) + "px";
 
         const canvas = document.createElement("canvas");
-        canvas.height = viewport.height; canvas.width = viewport.width;
-        canvas.style.width = "100%"; canvas.style.height = "100%";
+        canvas.height = viewport.height; 
+        canvas.width = viewport.width;
+        canvas.style.width = "100%"; 
+        canvas.style.height = "100%";
         
         const drawCanvas = document.createElement("canvas");
         drawCanvas.className = "drawing-canvas" + (isPenActive ? " active" : "");
-        drawCanvas.width = viewport.width; drawCanvas.height = viewport.height;
-        drawCanvas.style.width = "100%"; drawCanvas.style.height = "100%";
+        drawCanvas.width = viewport.width; 
+        drawCanvas.height = viewport.height;
+        drawCanvas.style.width = "100%"; 
+        drawCanvas.style.height = "100%";
 
         container.appendChild(canvas);
         container.appendChild(drawCanvas);
@@ -312,16 +522,112 @@
         });
     }
 
-    // উন্নত জুম ফিচার
+    // উন্নত জুম ও প্যানিং ফিচার
     function updateZoom() {
-        viewer.style.transform = `scale(${scale})`;
+        viewer.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
     }
 
-    function zoomIn() { scale += 0.3; if(scale > 5) scale = 5; updateZoom(); }
-    function zoomOut() { scale -= 0.3; if(scale < 0.5) scale = 0.5; updateZoom(); }
-    function resetZoom() { scale = 1; updateZoom(); }
+    function zoomIn() { 
+        scale += 0.3; 
+        if(scale > 5) scale = 5; 
+        panX = 0;
+        panY = 0;
+        updateZoom(); 
+    }
 
-    // Pinch to Zoom (Hammer.js)
+    function zoomOut() { 
+        scale -= 0.3; 
+        if(scale < 0.5) scale = 0.5; 
+        panX = 0;
+        panY = 0;
+        updateZoom(); 
+    }
+
+    function resetZoom() { 
+        scale = 1; 
+        panX = 0;
+        panY = 0;
+        updateZoom(); 
+    }
+
+    // প্যানিং ইভেন্ট হ্যান্ডলিং
+    readerContainer.addEventListener('mousedown', (e) => {
+        if(scale > 1 && !isPenActive) {
+            isPanning = true;
+            panStartX = e.clientX - panX;
+            panStartY = e.clientY - panY;
+            readerContainer.style.cursor = 'grabbing';
+        }
+    });
+
+    readerContainer.addEventListener('mousemove', (e) => {
+        if(isPanning && scale > 1) {
+            panX = e.clientX - panStartX;
+            panY = e.clientY - panStartY;
+            updateZoom();
+        }
+    });
+
+    readerContainer.addEventListener('mouseup', () => {
+        isPanning = false;
+        readerContainer.style.cursor = 'default';
+    });
+
+    readerContainer.addEventListener('mouseleave', () => {
+        isPanning = false;
+        readerContainer.style.cursor = 'default';
+    });
+
+    // অটো-স্ক্রল ফিচার
+    function toggleAutoScrollPanel() {
+        document.getElementById('auto-scroll-panel').classList.toggle('active');
+    }
+
+    function updateScrollSpeed() {
+        const speed = document.getElementById('scroll-speed').value;
+        const speedTexts = ['খুব ধীর', 'ধীর', 'মধ্যম-ধীর', 'মধ্যম', 'মধ্যম-দ্রুত', 'দ্রুত', 'খুব দ্রুত', 'অত্যন্ত দ্রুত', 'বিদ্যুৎ গতি', 'সুপার দ্রুত'];
+        document.getElementById('speed-display').textContent = speedTexts[speed - 1];
+        autoScrollSpeed = speed;
+    }
+
+    function startAutoScroll() {
+        if(isAutoScrolling) return;
+        isAutoScrolling = true;
+        document.getElementById('auto-scroll-btn').classList.add('active');
+        
+        autoScrollInterval = setInterval(() => {
+            if(isScrollMode) {
+                readerContainer.scrollTop += autoScrollSpeed * 2;
+                if(readerContainer.scrollTop >= readerContainer.scrollHeight - readerContainer.clientHeight) {
+                    stopAutoScroll();
+                }
+            } else {
+                readerContainer.scrollTop += autoScrollSpeed * 2;
+            }
+            lastScrollPosition = readerContainer.scrollTop;
+            saveReadingProgress();
+        }, 100);
+    }
+
+    function stopAutoScroll() {
+        if(!isAutoScrolling) return;
+        isAutoScrolling = false;
+        document.getElementById('auto-scroll-btn').classList.remove('active');
+        if(autoScrollInterval) {
+            clearInterval(autoScrollInterval);
+            autoScrollInterval = null;
+        }
+    }
+
+    // পড়ার অগ্রগতি সংরক্ষণ
+    function saveReadingProgress() {
+        if(currentFileName) {
+            localStorage.setItem(currentFileName + "_page", pageNum);
+            localStorage.setItem(currentFileName + "_scroll", readerContainer.scrollTop);
+        }
+    }
+
+    // Hammer.js - Pinch to Zoom এবং Double Tap
     const hammer = new Hammer(readerContainer);
     hammer.get('pinch').set({ enable: true });
 
@@ -332,12 +638,16 @@
         scale = startScale * e.scale;
         if(scale < 0.5) scale = 0.5;
         if(scale > 5) scale = 5;
+        panX = 0;
+        panY = 0;
         updateZoom();
     });
 
     hammer.on("doubletap", () => { 
         if(isPenActive) return;
         scale = (scale > 1.2) ? 1 : 2; 
+        panX = 0;
+        panY = 0;
         updateZoom(); 
     });
 
@@ -357,6 +667,8 @@
         if(confirm(`"${name}" মুছবেন?`)) {
             const tx = db.transaction("books", "readwrite");
             tx.objectStore("books").delete(name);
+            localStorage.removeItem(name + "_page");
+            localStorage.removeItem(name + "_scroll");
             tx.oncomplete = () => updateBookList();
         }
     }
@@ -373,6 +685,9 @@
         };
         reader.readAsArrayBuffer(file);
     });
+
+    // পৃষ্ঠা ছেড়ে যাওয়ার সময় অগ্রগতি সংরক্ষণ
+    window.addEventListener('beforeunload', saveReadingProgress);
 </script>
 </body>
 </html>
