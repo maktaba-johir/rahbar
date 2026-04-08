@@ -309,6 +309,7 @@
     let isPanning = false, panStartX = 0, panStartY = 0, panX = 0, panY = 0;
     let isAutoScrolling = false, autoScrollSpeed = 5, autoScrollInterval = null;
     let lastScrollPosition = 0;
+    let isTouchPanning = false, touchStartX = 0, touchStartY = 0;
     
     const viewer = document.getElementById("pdf-viewer");
     const sidebar = document.getElementById("sidebar");
@@ -550,7 +551,7 @@
         updateZoom(); 
     }
 
-    // প্যানিং ইভেন্ট হ্যান্ডলিং
+    // ডেস্কটপ প্যানিং (মাউস)
     readerContainer.addEventListener('mousedown', (e) => {
         if(scale > 1 && !isPenActive) {
             isPanning = true;
@@ -577,6 +578,34 @@
         isPanning = false;
         readerContainer.style.cursor = 'default';
     });
+
+    // মোবাইল টাচ প্যানিং
+    readerContainer.addEventListener('touchstart', (e) => {
+        if(scale > 1 && !isPenActive && e.touches.length === 1) {
+            isTouchPanning = true;
+            touchStartX = e.touches[0].clientX - panX;
+            touchStartY = e.touches[0].clientY - panY;
+        }
+    }, { passive: false });
+
+    readerContainer.addEventListener('touchmove', (e) => {
+        if(isTouchPanning && scale > 1 && e.touches.length === 1) {
+            e.preventDefault();
+            panX = e.touches[0].clientX - touchStartX;
+            panY = e.touches[0].clientY - touchStartY;
+            updateZoom();
+        }
+    }, { passive: false });
+
+    readerContainer.addEventListener('touchend', (e) => {
+        if(e.touches.length === 0) {
+            isTouchPanning = false;
+        }
+    }, { passive: false });
+
+    readerContainer.addEventListener('touchcancel', () => {
+        isTouchPanning = false;
+    }, { passive: false });
 
     // অটো-স্ক্রল ফিচার
     function toggleAutoScrollPanel() {
