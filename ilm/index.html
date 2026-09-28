@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ইলম সার্ভিস সমূহ - রাহবার</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1a472a;
+            --accent: #27ae60;
+            --bg: #eaeff2;
+            --card: #ffffff;
+            --text: #1a1a1a;
+            --header-grad: linear-gradient(180deg, #2d6a4f, #1a472a);
+            --verified: #1DA1F2; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: var(--bg); color: var(--text); padding-bottom: 90px; }
+
+        .app-header {
+            background: var(--primary); color: white; padding: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .brand-area { display: flex; align-items: center; gap: 12px; }
+        .back-btn { color: white; font-size: 1.2rem; text-decoration: none; display: flex; align-items: center; }
+        .brand-name { font-size: 1.1rem; font-weight: 700; }
+        .brand-slogan { font-size: 0.65rem; opacity: 0.85; }
+
+        .hero-banner {
+            background: var(--header-grad); color: white; padding: 25px 15px;
+            text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;
+            margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .hero-banner h2 { font-size: 1.4rem; margin-bottom: 5px; }
+        .hero-banner p { font-size: 0.8rem; opacity: 0.9; }
+
+        .category-label { 
+            display: flex; align-items: center; gap: 8px; padding: 0 15px; 
+            margin: 15px 0 12px; font-size: 1rem; font-weight: 800; color: #2c3e50;
+        }
+        .label-bar { width: 5px; height: 18px; border-radius: 10px; background: var(--accent); }
+
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 15px; }
+        
+        .grid-item {
+            position: relative; background: #ffffff; padding: 15px 4px;
+            border-radius: 12px; text-align: center; text-decoration: none; color: #333;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; height: 115px; transition: 0.2s; border: 1px solid #eee;
+        }
+        .grid-item:active { transform: scale(0.92); background: #f0f0f0; }
+
+        .grid-item i { font-size: 1.8rem; margin-bottom: 8px; filter: drop-shadow(2px 4px 3px rgba(0,0,0,0.15)); }
+        .grid-item span { font-size: 0.65rem; font-weight: 700; line-height: 1.2; display: block; }
+        
+        .line-ilm { border-bottom: 3px solid #27ae60; }
+
+        .verified-badge {
+            position: absolute; top: 5px; right: 5px; background: var(--verified);
+            color: white; border-radius: 50%; font-size: 0.45rem; width: 13px; height: 13px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; z-index: 2000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+        .nav-item { text-align: center; text-decoration: none; color: #777; font-size: 0.65rem; font-weight: 700; }
+        .nav-item i { font-size: 1.1rem; display: block; margin-bottom: 2px; }
+        .nav-item.active { color: var(--primary); }
+
+        footer { text-align: center; padding: 20px 15px; font-size: 0.75rem; font-weight: 700; opacity: 0.5; }
+    </style>
+</head>
+<body>
+
+    <div class="app-header">
+        <div class="brand-area">
+            <a href="../index.html" class="back-btn" title="ফিরে যান"><i class="fas fa-arrow-left"></i></a>
+            <div>
+                <div class="brand-name">ইলমী সমাহার</div>
+                <div class="brand-slogan">রাহবার - দ্বীন ও দুনিয়াবী পথপ্রদর্শক</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-banner">
+        <h2><i class="fas fa-graduation-cap"></i> ইলম ভাণ্ডার</h2>
+        <p>দ্বীনী শিক্ষা, কিতাব ও তালীমী সকল সার্ভিস একসাথে</p>
+    </div>
+
+    <div class="category-label"><div class="label-bar"></div> শিক্ষামূলক অ্যাপস ও সার্ভিস</div>
+    <div class="grid">
+        <!-- সাথী অ্যাপ (নতুন লিংক যুক্ত করা হয়েছে) -->
+        <a href="https://maktaba-johir.github.io/dars-sathi-app/" class="grid-item line-ilm">
+            <div class="verified-badge"><i class="fas fa-check"></i></div>
+            <i class="fas fa-user-graduate" style="color:#0f766e"></i>
+            <span>দরস সাথী</span>
+        </a>
+
+        <a href="#" class="grid-item line-ilm">
+            <i class="fas fa-chalkboard-teacher" style="color:#e67e22"></i>
+            <span>অনলাইন দরস</span>
+        </a>
+
+        <a href="#" class="grid-item line-ilm">
+            <i class="fas fa-balance-scale" style="color:#8e44ad"></i>
+            <span>ফতোয়া</span>
+        </a>
+
+        <a href="#" class="grid-item line-ilm">
+            <i class="fas fa-book-reader" style="color:#27ae60"></i>
+            <span>কিতাবালয়</span>
+        </a>
+
+        <a href="#" class="grid-item line-ilm">
+            <i class="fas fa-language" style="color:#2980b9"></i>
+            <span>আরবি ভাষা</span>
+        </a>
+
+        <a href="#" class="grid-item line-ilm">
+            <i class="fas fa-quran" style="color:#16a085"></i>
+            <span>তাজবীদ</span>
+        </a>
+
+        <a href="#" class="grid-item line-ilm">
+            <i class="fas fa-monument" style="color:#d35400"></i>
+            <span>ইতিহাস</span>
+        </a>
+
+        <a href="#" class="grid-item line-ilm">
+            <i class="fas fa-microscope" style="color:#c0392b"></i>
+            <span>গবেষণা</span>
+        </a>
+    </div>
+
+    <footer>সর্বস্বত্ব সংরক্ষিত © ২০২৬ | রাহবার</footer>
+
+    <div class="bottom-nav">
+        <a href="../index.html" class="nav-item"><i class="fas fa-home"></i><span>হোম</span></a>
+        <a href="#" class="nav-item active"><i class="fas fa-book"></i><span>ইলম</span></a>
+        <a href="../index.html#amal-sec" class="nav-item"><i class="fas fa-pray"></i><span>আমল</span></a>
+        <a href="../index.html#seba-sec" class="nav-item"><i class="fas fa-hands-helping"></i><span>সেবা</span></a>
+    </div>
+
+</body>
+</html>
